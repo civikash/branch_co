@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% comment %} <td>  
+        <input type="text" name="{{ row.crt }}_{{ forloop.parentloop.counter }}_n_beforeLunar">
+    </td>
+    <td>
+        <input type="text" name="{{ row.crt }}_{{ forloop.parentloop.counter }}_n_total">
+    </td>
+    <td>
+        <input type="text" name="{{ row.crt }}_{{ forloop.parentloop.counter }}_n_nular">
+    </td> {% endcomment %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+    section {
+        width: 50%;
+    }
+    .header-table {
+        display: flex;
+        padding: 1rem;
+        font-size: 17px;
+        flex-direction: column;
+    }
+
+    .header-table span:first-child {
+        margin-left: auto;
+        font-weight: 800;
+    }
+
+    .header-table span:nth-child(2) {
+        text-align: center;
+        font-weight: 800;
+    }
+
+    .header-table span:nth-child(3) {
+        text-align: center;
+    }
+
+    table {
+        table-layout: auto;
+        font-size: 13px;
+        width: 100%;
+    }
+
+    table thead:last-child th {
+        padding: 0px;
+    }
+
+    thead {
+        height: 80px;
+        text-align: center;
+    }
+
+    thead th {
+        padding: 15px;
+    }
+
+    thead th:nth-child(2) {
+        width: 100%;
+    }
+
+    thead th:nth-child(1) {
+        width: 3%;
+    }
+
+    thead th:nth-child(3) {
+        width: 10%;
+    }
+
+    thead th:nth-child(4) {
+        width: 30%;
+    }
+
+    thead th:nth-child(5) {
+        width: 30%;
+    }
+
+
+    tbody tr:first-child, :nth-child(4), :nth-child(8) td:nth-child(1) {
+        text-align: center;
+    }
+
+    tbody tr:not(:first-child, :nth-child(4), :nth-child(8)) td:nth-child(2) {
+        text-align: center;
+    }
+
+    .txt-c {
+        text-align: center;
+    }
+
+    .fw-600 {
+        font-weight: 600;
+    }
+</style>
+
+<body>
+    <section>
+        <div class="header-table">
+            <span>Pentru uz intern
+            </span>
+            <span>
+                Informația economică operativă pe domenii de activități
+            </span>
+            <span>
+                pentru luna _________a.2023 a _____________________________________________
+            </span>
+        </div>
+        <table cellspacing="0" cellpadding="4" border="1">
+            <thead>
+                <tr>
+                    <th rowspan="2">crt</th>
+                    <th rowspan="2">Descrierea</th>
+                    <th rowspan="2">Unitatea de măsură</th>
+                    <th colspan="2">2022</th>
+                    <th colspan="4">2023</th>
+                </tr>
+                <tr>
+                    <th rowspan="3">total</th>
+                    <th rowspan="3">lunar</th>
+                    <th colspan="2">total</th>
+                    <th colspan="2">lunar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td rowspan="3">1</td>
+                    <td ="3">Volumul de vînzări prin intermediul unităților de
+                        comerț, total </td>
+                    <td>mii lei</td>
+                    <td>344.6</td>
+                    <td>344.6</td>
+                    <td colspan="2">344.6</td>
+                    <td colspan="2">344.6</td>
+                </tr>
+                <tr>
+                    <td>inclusiv vînzări de produse alimentare</td>
+                    <td>-//-</td>
+                    <td>344.6</td>
+                    <td>344.6</td>
+                    <td colspan="2">344.6</td>
+                    <td colspan="2">344.6</td>
+                </tr>
+                <tr>
+                    <td>Stocuri de mărfuri</td>
+                    <td>-//-</td>
+                    <td>344.6</td>
+                    <td>344.6</td>
+                    <td colspan="2">344.6</td>
+                    <td colspan="2">344.6</td>
+                </tr>
+                <tr>
+                    <td rowspan="4">2</td>
+                    <td>Volumul de vînzări cu ridicata, prin intermediul bazelor
+                        angro</td>
+                    <td>mii lei</td>
+                    <td>344.6</td>
+                    <td>344.6</td>
+                    <td colspan="2">344.6</td>
+                    <td colspan="2">344.6</td>
+                </tr>
+                <tr>
+                    <td>Stocuri de mărfuri</td>
+                    <td>-//-</td>
+                    <td>344.6</td>
+                    <td>344.6</td>
+                    <td colspan="2">344.6</td>
+                    <td colspan="2">344.6</td>
+                </tr>
+                <tr>
+                    <td>Volumul exportului </td>
+                    <td>mii lei</td>
+                    <td>344.6</td>
+                    <td>344.6</td>
+                    <td colspan="2">344.6</td>
+                    <td colspan="2">344.6</td>
+                </tr>
+                <tr>
+                    <td>Volumul importului </td>
+                    <td>mii lei</td>
+                    <td>344.6</td>
+                    <td>344.6</td>
+                    <td colspan="2">344.6</td>
+                    <td colspan="2">344.6</td>
+                </tr>
+                <tr>
+                    <td rowspan="6">3</td>
+                    <td>Volumul de prestări servicii, total, dintre care:</td>
+                    <td>mii lei</td>
+                    <td>344.6</td>
+                    <td>344.6</td>
+                    <td colspan="2">344.6</td>
+                    <td colspan="2">344.6</td>
+                </tr>
+                <tr>
+                    <td>în alimentația publică, total</td>
+                    <td>-//-</td>
+                    <td>344.6</td>
+                    <td>344.6</td>
+                    <td colspan="2">344.6</td>
+                    <td colspan="2">344.6</td>
+                </tr>
+                <tr>
+                    <td>inclusiv producția proprie</td>
+                    <td>-//-</td>
+                    <td>344.6</td>
+                    <td>344.6</td>
+                    <td colspan="2">344.6</td>
+                    <td colspan="2">344.6</td>
+                </tr>
+                <tr>
+                    <td>servicii de piață</td>
+                    <td>-//-</td>
+                    <td>344.6</td>
+                    <td>344.6</td>
+                    <td colspan="2">344.6</td>
+                    <td colspan="2">344.6</td>
+                </tr>
+                <tr>
+                    <td>servicii de locațiune și păstrare</td>
+                    <td>-//-</td>
+                    <td>344.6</td>
+                    <td>344.6</td>
+                    <td colspan="2">344.6</td>
+                    <td colspan="2">344.6</td>
+                </tr>
+                <tr>
+                    <td>alte servicii</td>
+                    <td>-//-</td>
+                    <td>344.6</td>
+                    <td>344.6</td>
+                    <td colspan="2">344.6</td>
+                    <td colspan="2">344.6</td>
+                </tr>
+                <tr>
+                    <td rowspan="5" class="txt-c">4</td>
+                    <td>Volumul de prestări servicii, total, dintre care:</td>
+                    <td>mii lei</td>
+                    <td>344.6</td>
+                    <td>344.6</td>
+                    <td colspan="2">344.6</td>
+                    <td colspan="2">344.6</td>
+                </tr>
+                <tr>
+                    <td>în alimentația publică, total</td>
+                    <td>-//-</td>
+                    <td>344.6</td>
+                    <td>344.6</td>
+                    <td colspan="2">344.6</td>
+                    <td colspan="2">344.6</td>
+                </tr>
+                <tr>
+                    <td>inclusiv producția proprie</td>
+                    <td>-//-</td>
+                    <td>344.6</td>
+                    <td>344.6</td>
+                    <td colspan="2">344.6</td>
+                    <td colspan="2">344.6</td>
+                </tr>
+                <tr>
+                    <td>servicii de locațiune și păstrare</td>
+                    <td>-//-</td>
+                    <td>344.6</td>
+                    <td>344.6</td>
+                    <td colspan="2">344.6</td>
+                    <td colspan="2">344.6</td>
+                </tr>
+                <tr>
+                    <td>alte servicii</td>
+                    <td>-//-</td>
+                    <td>344.6</td>
+                    <td>344.6</td>
+                    <td colspan="2">344.6</td>
+                    <td colspan="2">344.6</td>
+                </tr>
+                <tr>
+                    <td rowspan="2" class="txt-c">5</td>
+                    <td>Volumul de prestări servicii, total, dintre care:</td>
+                    <td>mii lei</td>
+                    <td>344.6</td>
+                    <td>344.6</td>
+                    <td colspan="2">344.6</td>
+                    <td colspan="2">344.6</td>
+                </tr>
+                <tr>
+                    <td>în alimentația publică, total</td>
+                    <td>-//-</td>
+                    <td>344.6</td>
+                    <td>344.6</td>
+                    <td colspan="2">344.6</td>
+                    <td colspan="2">344.6</td>
+                </tr>
+                <tr>
+                    <td colspan="9" class="txt-c fw-600">Magazine "" pe nartie si 3 luni a. 2023 (mii lei)</td>
+                </tr>
+                <thead>
+                    <tr>
+                        <th rowspan="2">Nr.</th>
+                        <th rowspan="2">Denumirea magazinului</th>
+                        <th colspan="2">2022</th>
+                        <th colspan="2">2023</th>
+                        <th colspan="4">Sold Marfa</th>
+                    </tr>
+                    <tr>
+                        <th rowspan="2">total</th>
+                        <th>lunar</th>
+                        <th>total</th>
+                        <th>lunar</th>
+                        <th colspan="2">2022</th>
+                        <th colspan="2">2023</th>
+                    </tr>
+                </thead>
+            </tbody>
+        </table>
+    </section>
+</body>
+
+</html>

@@ -1,0 +1,27 @@
+{% load static %}
+<aside class="h-full fixed top-0 left-0 w-aside">
+    <div class="items h-full flex items-center column justify-around">
+    <ul class="flex column justify-center">
+        <li>
+            <a class="flex" href="{% url 'reports:reports' %}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="1" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+                    <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
+                    <line x1="9" y1="9" x2="10" y2="9" />
+                    <line x1="9" y1="13" x2="15" y2="13" />
+                    <line x1="9" y1="17" x2="15" y2="17" />
+                  </svg>
+            </a>
+
+        </li>
+    </ul>
+    <a class="flex items-center justify-center " href="{% url 'account:logout' %}">
+        <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7.78711 6.61496C8.05836 3.46496 9.67711 2.17871 13.2209 2.17871H13.3346C17.2459 2.17871 18.8121 3.74496 18.8121 7.65621V13.3612C18.8121 17.2725 17.2459 18.8387 13.3346 18.8387H13.2209C9.70336 18.8387 8.08461 17.57 7.79586 14.4725" stroke="#FF0037" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M13.1255 10.5H3.16797" stroke="#FF0037" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M5.11875 7.56885L2.1875 10.5001L5.11875 13.4313" stroke="#FF0037" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>     
+    </a>
+</div>
+</aside>

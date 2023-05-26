@@ -1,0 +1,315 @@
+{% extends 'app.html' %}
+{% load custom_filters %}
+{% block informatie_client %}
+
+<style>
+    section {
+        width: 63%;
+
+    }
+    .header-table {
+        display: flex;
+        padding: 1rem;
+        font-size: 17px;
+        flex-direction: column;
+    }
+
+    .header-table span:first-child {
+        margin-left: auto;
+        font-weight: 800;
+    }
+
+    .header-table span:nth-child(2) {
+        text-align: center;
+        font-weight: 800;
+    }
+
+    .header-table span:nth-child(3) {
+        text-align: center;
+    }
+
+    table {
+        table-layout: auto;
+        font-size: 13px;
+        width: 100%;
+    }
+
+    table thead:last-child th {
+        padding: 0px;
+    }
+
+    thead {
+        height: 80px;
+        text-align: center;
+    }
+
+    thead th {
+        padding: 15px;
+    }
+
+
+
+    tbody tr:first-child, :nth-child(4), :nth-child(8) td:nth-child(1) {
+        text-align: center;
+    }
+
+    tbody tr:not(:first-child, :nth-child(4), :nth-child(8)) td:nth-child(2) {
+        text-align: center;
+    }
+
+    .txt-c {
+        text-align: center;
+    }
+
+    .fw-600 {
+        font-weight: 600;
+    }
+</style>
+
+<body>
+    <section class="bg-white br-2 pg-2">
+        <div class="header-table">
+            <span>Pentru uz intern
+            </span>
+            <form method="POST" class="flex column gap-1">
+                {% csrf_token %}
+            <span>
+                Informația economică operativă pe domenii de activități
+            </span>
+            <span>
+                pentru luna ____<input class="tb-input d-21" type="text" step="any" name="n_month" value="{{ years.n_month }}" id="n_month">____a.<input class="tb-input" type="text" step="any" name="n_year" value="{{ years.n_year }}" id="n_year"> a _____________________________________________
+            </span>
+        </div>
+        <table cellspacing="0" cellpadding="5" border="1">
+            <thead>
+                <tr>
+                    <th rowspan="0">crt</th>
+                    <th rowspan="0">Descrierea</th>
+                    <th rowspan="2">Unitatea de măsură</th>
+                    <th colspan="2">{{ years.before_year }}</th>
+                    <th colspan="2">{{ years.n_year }}</th>
+                </tr>
+                <tr>
+                    <th>total</th>
+                    <th>lunar</th>
+                    <th>total</th>
+                    <th>lunar</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in rows %}
+                <tr>
+                    {% if row.crt %}
+                    <td class="txt-c" rowspan="{{ row.rowspan }}">{{ row.crt }}</td>
+                    {% endif %}
+                    <td class="txt-l">{{ row.description }}</td>
+                    <td class="txt-c">{{ row.unit_of_measure }}</td>
+                    <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="before_total_{{ row.code }}" value="{{ row.before_total|floatformat:"1"|stringreplace }}" id="before_total_{{ row.code }}"></td>
+                    <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="before_lunar_{{ row.code }}" value="{{ row.before_lunar|floatformat:"1"|stringreplace }}" id="before_lunar_{{ row.code }}"></td>
+                    <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="n_total_{{ row.code }}" value="{{ row.n_total|floatformat:"1"|stringreplace }}" id="n_total_{{ row.code }}"></td>
+                    <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="n_lunar_{{ row.code }}" value="{{ row.n_lunar|floatformat:"1"|stringreplace }}" id="n_lunar_{{ row.code }}"></td>
+                </tr>
+            {% endfor %}
+            <button type="submit">Сохранить</button>
+
+            </tbody>
+        </table>
+        <table cellspacing="0" cellpadding="8" border="1" id="tableReports">
+            <thead>
+                <tr><td class="fw-600" colspan="8">Magazine "Coop Prim - Coop Plus" pe martie si <input class="tb-input d-21" type="text" step="any" name="n_month_econ" value="{{ econ_years.n_month }}" id="n_month_econ"> luni a. <input class="tb-input" type="text" step="any" name="n_year_econ" value="{{ econ_years.n_year }}" id="n_year"> (mii lei)</td></tr>
+                <tr>
+                    <th rowspan="0">Nr.</th>
+                    <th rowspan="0">Denumireamagazinului</th>
+                    <th colspan="2">{{ econ_years.before_year }}</th>
+                    <th colspan="2">{{ econ_years.n_year }}</th>
+                    <th colspan="2">Sold marfă</th>
+                </tr>
+                <tr>
+                    <th>total</th>
+                    <th>lunar</th>
+                    <th>total</th>
+                    <th>lunar</th>
+                    <th>{{ econ_years.before_year }}</th>
+                    <th>{{ econ_years.n_year }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for marfa in marfas %}
+                <tr>
+                    <td class="txt-c">{{ marfa.crt }}</td>
+                    <td class="txt-c"><input class="tb-input w-full" type="text" name="name_{{ marfa.code }}" value="{{ marfa.name }}" id="name_{{ marfa.code }}"></td>
+                    <td class="txt-c"><input class="tb-input w-full" type="text" step="any" name="sec_before_total_{{ marfa.code }}" value="{{ marfa.before_total|floatformat:"1"|stringreplace }}" id="sec_before_total_{{ marfa.code }}"></td>
+                    <td class="txt-c"><input class="tb-input w-full" type="text" step="any" name="sec_before_lunar_{{ marfa.code }}" value="{{ marfa.before_lunar|floatformat:"1"|stringreplace }}" id="sec_before_lunar_{{ marfa.code }}"></td>
+                    <td class="txt-c"><input class="tb-input w-full" type="text" step="any" name="sec_n_total_{{ marfa.code }}" value="{{ marfa.n_total|floatformat:"1"|stringreplace }}" id="sec_n_total_{{ marfa.code }}"></td>
+                    <td class="txt-c"><input class="tb-input w-full" type="text" step="any" name="sec_n_lunar_{{ marfa.code }}" value="{{ marfa.n_lunar|floatformat:"1"|stringreplace }}" id="sec_n_lunar_{{ marfa.code }}"></td>
+                    <td class="txt-c"><input class="tb-input w-full" type="text" step="any" name="sec_n_beforeMarfa_{{ marfa.code }}" value="{{ marfa.n_beforeMarfa|floatformat:"1"|stringreplace }}" id="sec_n_beforeMarfa_{{ marfa.code }}"></td>
+                    <td class="txt-c"><input class="tb-input w-full" type="text" step="any" name="sec_n_Marfa_{{ marfa.code }}" value="{{ marfa.n_marfa|floatformat:"1"|stringreplace }}" id="sec_n_Marfa_{{ marfa.code }}"></td>
+                </tr>
+                
+            {% endfor %}
+            <tr id="new-row-template" style="display: none;">
+                <td class="txt-c">{{ marfa.crt }}</td>
+                <td class="txt-c"><input class="tb-input w-full" type="text" name="new_name_"></td>
+                <td class="txt-c"><input class="tb-input w-full" type="text" step="any" name="new_sec_before_total_"></td>
+                <td class="txt-c"><input class="tb-input w-full" type="text" step="any" name="new_sec_before_lunar_"></td>
+                <td class="txt-c"><input class="tb-input w-full" type="text" step="any" name="new_sec_n_total_"></td>
+                <td class="txt-c"><input class="tb-input w-full" type="text" step="any" name="new_sec_n_lunar_"></td>
+                <td class="txt-c"><input class="tb-input w-full" type="text" step="any" name="new_sec_n_beforeMarfa_"></td>
+                <td class="txt-c"><input class="tb-input w-full" type="text" step="any" name="new_sec_n_Marfa_"></td>
+            </tr>
+            </tbody>
+            <button type="button" onclick="addRow()">Добавить строку</button>
+        </table>
+    </form>
+    </section>
+</body>
+
+</html>
+{% endblock informatie_client %}
+
+{% block check_branch %}
+    
+<style>
+    section {
+        width: 63%;
+
+    }
+    .header-table {
+        display: flex;
+        padding: 1rem;
+        font-size: 17px;
+        flex-direction: column;
+    }
+
+    .header-table span:first-child {
+        margin-left: auto;
+        font-weight: 800;
+    }
+
+    .header-table span:nth-child(2) {
+        text-align: center;
+        font-weight: 800;
+    }
+
+    .header-table span:nth-child(3) {
+        text-align: center;
+    }
+
+    table {
+        table-layout: auto;
+        font-size: 13px;
+        width: 100%;
+    }
+
+    table thead:last-child th {
+        padding: 0px;
+    }
+
+    thead {
+        height: 80px;
+        text-align: center;
+    }
+
+    thead th {
+        padding: 15px;
+    }
+
+
+    .txt-c {
+        text-align: center;
+    }
+
+    .fw-600 {
+        font-weight: 600;
+    }
+
+    .w-3 {
+        width: 30% !important;
+    }
+</style>
+
+<body>
+    <section class="bg-white br-2 pg-2">
+        <div class="header-table">
+            <span>Pentru uz intern
+            </span>
+            <span>
+                Informația economică operativă pe domenii de activități
+            </span>
+            <span>
+                pentru luna ____<input class="tb-input d-21" type="text" step="any" name="n_month" value="{{ years.n_month }}" id="n_month">____a.<input class="tb-input" type="text" step="any" name="n_year" value="{{ years.n_year }}" id="n_year"> a _____________________________________________
+            </span>
+        </div>
+        <table cellspacing="0" cellpadding="4" border="1">
+            <thead>
+                <tr>
+                    <th rowspan="0">crt</th>
+                    <th rowspan="0">Descrierea</th>
+                    <th rowspan="0">Unitatea de măsură</th>
+                    <th colspan="2">2022</th>
+                    <th colspan="2">2023</th>
+                </tr>
+                <tr>
+                    <th>total</th>
+                    <th>lunar</th>
+                    <th>total</th>
+                    <th>lunar</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in rows %}
+                <tr>
+                    {% if row.crt %}
+                    <td class="txt-c" rowspan="{{ row.rowspan }}">{{ row.crt }}</td>
+                    {% endif %}
+                    <td class="txt-l">{{ row.description }}</td>
+                    <td class="txt-c">{{ row.unit_of_measure }}</td>
+                    <td class="txt-c">{{ row.before_total|floatformat }}</td>
+                    <td class="txt-c">{{ row.before_lunar|floatformat }}</td>
+                    <td class="txt-c">{{ row.n_total|floatformat }}</td>
+                    <td class="txt-c">{{ row.n_lunar|floatformat }}</td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+        <table cellspacing="0" cellpadding="4" border="1">
+            <thead>
+                <tr><td class="fw-600" colspan="8">Magazine "Coop Prim - Coop Plus" pe martie si 3 luni a. 2023 (mii lei)</td></tr>
+                <tr>
+                    <th rowspan="0">Nr.</th>
+                    <th rowspan="0">Denumireamagazinului</th>
+                    <th colspan="2">2022</th>
+                    <th colspan="2">2023</th>
+                    <th colspan="2">Sold marfă</th>
+                </tr>
+                <tr>
+                    <th>total</th>
+                    <th>lunar</th>
+                    <th>total</th>
+                    <th>lunar</th>
+                    <th>2022</th>
+                    <th>2023</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for marfa in marfas %}
+                <tr>
+                    <td class="txt-c">{{ marfa.crt }}</td>
+                    <td class="txt-c">{{ marfa.name }}</td>
+                    <td class="txt-c">{{ marfa.before_total|floatformat }}</td>
+                    <td class="txt-c">{{ marfa.before_lunar|floatformat }}</td>
+                    <td class="txt-c">{{ marfa.n_total|floatformat }}</td>
+                    <td class="txt-c">{{ marfa.n_lunar|floatformat }}</td>
+                    <td class="txt-c">{{ marfa.n_beforeMarfa|floatformat }}</td>
+                    <td class="txt-c">{{ marfa.n_marfa|floatformat }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </section>
+</body>
+
+</html>
+{% endblock check_branch %}
+

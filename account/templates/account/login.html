@@ -1,0 +1,37 @@
+{% extends 'account/base_login.html' %}
+{% block login %}
+{% block messages %}
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% endfor %}
+{% endif %}
+{% endblock messages %}
+<head>
+    <title>Авторизация</title>
+</head>
+<form method="POST" class="space-y mx-auto py-8 px-8 ck-box w-full text-base max-w-md">
+{% csrf_token %}
+<h1 class="text-center font-medium text-[1.25rem]">Авторизация</h1>
+<div class="w-full">
+    <label class="block text-gray mb-1">Логин</label>
+    <input required autofocus class="w-full ck-field" type="username" name="username">
+</div>
+<div class="w-full">
+    <label class="block text-gray mb-1">Пароль</label>
+    <input required class="w-full ck-field" type="password" name="password" placeholder="••••••••••••">
+</div>
+<div class="flex items-center gap-1 text-center flex-row">
+    <a class="w-full ck-button ck-button--simple--blue cursor-pointer mt-3 mt-0" href="{% url 'account:signup' %}">
+        <span>Регистрация</span>
+    </a>
+    <button type="submit" class="w-full text-center ck-button ck-button--bold--blue cursor-pointer">Войти</button>
+</div>
+</form>
+{% endblock login %}
+

@@ -1,0 +1,76 @@
+{% extends 'account/base_login.html' %}
+{% block add_company %}
+{% block messages %}
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% endfor %}
+{% endif %}
+{% endblock messages %}
+<head>
+    <title>Данные о филиале</title>
+</head>
+<form method="POST" class="space-y mx-auto py-8 px-8 ck-box w-full text-base max-w-md">
+{% csrf_token %}
+<h1 class="text-center font-medium text-[1.25rem]">Данные о филиале</h1>
+<div class="w-full">
+    <label class="block text-gray mb-1">Филиал:</label>
+    <input required autofocus class="w-full ck-field" type="text" name="name">
+</div>
+<div class="w-full">
+    <label class="block text-gray mb-1">Адрес:</label>
+    <input required class="w-full ck-field" type="text" name="address">
+</div>
+<div class="w-full">
+    <label class="block text-gray mb-1">Район:</label>
+    <input required class="w-full ck-field" type="text" name="district">
+</div>
+<div class="w-full">
+    <label class="block text-gray mb-1">Населенный пункт:</label>
+    <input required class="w-full ck-field" type="text" name="village">
+</div>
+<div class="w-full">
+    <label class="block text-gray mb-1">Улица:</label>
+    <input required class="w-full ck-field" type="text" name="street">
+</div>
+<div class="flex items-center gap-1">
+    <div class="w-full">
+        <label class="block text-gray mb-1">Код CUIIO:</label>
+        <input required class="w-full ck-field" type="text" name="code_cuiio">
+    </div>
+    <div class="w-full">
+        <label class="block text-gray mb-1">Код IDNO:</label>
+        <input required class="w-full ck-field" type="text" name="code_idno">
+    </div>
+</div>
+<div class="w-full">
+    <label class="block text-gray mb-1">Руководитель:</label>
+    <input required class="w-full ck-field" type="text" name="ruler">
+</div>
+<div class="w-full">
+    <label class="block text-gray mb-1">Бухгалтер:</label>
+    <input required class="w-full ck-field" type="text" name="accountant">
+</div>
+<div class="w-full">
+    <label class="block text-gray mb-1">Исполнитель:</label>
+    <input required class="w-full ck-field" type="text" name="executor">
+</div>
+<div class="w-full">
+    <label class="block text-gray mb-1">Телефон:</label>
+    <input required class="w-full ck-field" type="text" name="tel">
+</div>
+<div class="w-full">
+    <label class="block text-gray mb-1">Год основния компании:</label>
+    <input required class="w-full ck-field" type="text" name="anul">
+</div>
+<div class="flex items-center gap-1 text-center flex-row">
+    <button type="submit" class="w-full text-center ck-button ck-button--bold--blue cursor-pointer">Добавить</button>
+</div>
+</form>
+{% endblock add_company %}
+

@@ -1,0 +1,23 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+</head>
+<body class="w-full bg-gray">
+    <main>
+        <div class="min-h flex column items-center justify-center max-w-md mx-auto px-4 py-4">
+        {% block login %}
+
+        {% endblock login %}
+        {% block signout %}
+        
+        {% endblock signout %}
+        {% block add_company %} {% endblock add_company %}
+        </div>
+    </main>
+</body>
+</html>

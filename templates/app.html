@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <title>Управление филиалами</title>
+</head>
+<body class="w-full bg-gray">
+    {% include './sidebar.html' %}
+    <div class="extends-container min-h relative">
+        <div class="flex items-center column pad-module">
+    {% if request.user.is_superuser %}
+    {% block reports_branch %}
+    {% block check_branch %}
+    {% endblock check_branch %}
+    {% endblock reports_branch %}
+    {% else %}
+    {% block reports %}
+    {% endblock reports %}
+    {% block informatie_client %}
+    {% endblock informatie_client %}
+    {% endif %}
+        </div>
+    </div>
+</body>
+<script src="{% static 'js/rows.js' %}"></script>
+</html>
