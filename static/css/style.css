@@ -493,3 +493,13 @@ aside a img {
 aside ul li a svg {
     stroke: var(--gray-800);
 }
+
+.marfa-row .delete-icon {
+    display: none;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.marfa-row:hover .delete-icon {
+    display: inline;
+}
