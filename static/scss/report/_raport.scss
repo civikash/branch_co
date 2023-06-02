@@ -1,0 +1,35 @@
+// Стиль для thead
+thead {
+    background-color: #f5f5f5;
+    font-weight: bold;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  // Стиль для th внутри thead
+  thead th {
+    padding: 10px;
+    border-right: 1px solid #ccc;
+  }
+  
+  // Стиль для tbody
+  tbody {
+    // Полосы на фоне для улучшения читаемости
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+  
+    // Стиль для каждой строки (tr) внутри tbody
+    tr {
+      td {
+        padding: 10px;
+        border-right: 1px solid #ccc;
+      }
+  
+      &:last-child {
+        td {
+          border-right: none;
+        }
+      }
+    }
+  }
+  

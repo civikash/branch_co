@@ -2,70 +2,6 @@
 {% load custom_filters %}
 {% block informatie_client %}
 
-<style>
-    section {
-        width: 63%;
-
-    }
-    .header-table {
-        display: flex;
-        padding: 1rem;
-        font-size: 17px;
-        flex-direction: column;
-    }
-
-    .header-table span:first-child {
-        margin-left: auto;
-        font-weight: 800;
-    }
-
-    .header-table span:nth-child(2) {
-        text-align: center;
-        font-weight: 800;
-    }
-
-    .header-table span:nth-child(3) {
-        text-align: center;
-    }
-
-    table {
-        table-layout: auto;
-        font-size: 13px;
-        width: 100%;
-    }
-
-    table thead:last-child th {
-        padding: 0px;
-    }
-
-    thead {
-        height: 80px;
-        text-align: center;
-    }
-
-    thead th {
-        padding: 15px;
-    }
-
-
-
-    tbody tr:first-child, :nth-child(4), :nth-child(8) td:nth-child(1) {
-        text-align: center;
-    }
-
-    tbody tr:not(:first-child, :nth-child(4), :nth-child(8)) td:nth-child(2) {
-        text-align: center;
-    }
-
-    .txt-c {
-        text-align: center;
-    }
-
-    .fw-600 {
-        font-weight: 600;
-    }
-</style>
-
 <body>
     <section class="bg-white br-2 pg-2">
         <div class="header-table">
@@ -110,7 +46,7 @@
                     <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="n_lunar_{{ row.code }}" value="{{ row.n_lunar|floatformat:"1"|stringreplace }}" id="n_lunar_{{ row.code }}"></td>
                 </tr>
             {% endfor %}
-            <button type="submit">Сохранить</button>
+            <button class="button blue" type="submit">Сохранить</button>
 
             </tbody>
         </table>
@@ -161,7 +97,7 @@
                 <td class="txt-c"><input class="tb-input w-full" type="text" step="any" name="new_sec_n_Marfa_"></td>
             </tr>
             </tbody>
-            <button type="button" onclick="addRow()">Добавить строку</button>
+            <button class="button blue" type="button" onclick="addRow()">Добавить строку</button>
         </table>
     </form>
     </section>

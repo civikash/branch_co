@@ -62,6 +62,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'branch_co.wsgi.application'
 
 LOGIN_REDIRECT_URL = '/login/'
+AUTH_USER_MODEL = 'account.User'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases

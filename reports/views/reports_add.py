@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.views import View
 from django.db.models import Max
-from reports.models import InfEconOp, SecondInfEconOp
+from reports.models import InfEconOp, SecondInfEconOp, ManagerInfEconOp
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
@@ -26,44 +26,33 @@ class ReportsAdds(View):
     template_name = 'reports/reports/informatie_client.html'
     user = None
 
-    def dispatch(self, request, *args, **kwargs):
-        # получить все объекты InfEconOp для текущего пользователя
-        rows = InfEconOp.objects.filter(user=request.user).order_by('code')
 
-        # получить максимальный код, если такие объекты уже существуют
-        max_code = rows.last().code if rows.exists() else 0
-        max_counter = InfEconOp.objects.aggregate(Max('counter'))['counter__max'] or 0
-    
-        # создать новые объекты с увеличивающимся кодом, начиная с max_code + 1
-
-        if max_counter == 0:
-            counter = 1
-        else:
-            counter = max_counter + 1
-        num_new_objs = 19 - len(rows)
-        for i in range(num_new_objs):
-            InfEconOp.objects.create(user=request.user, counter=max_counter+1)
+    def get(self, request, uid, *args, **kwargs):
+        manager_inf_econ_op = ManagerInfEconOp.objects.filter(uid=uid).first()
+        if not manager_inf_econ_op:
+            return request("Отчет не найден")
         
+        counter = manager_inf_econ_op.reports.counter
+        sales = ManagerInfEconOp.objects.filter(reports__uid=manager_inf_econ_op.uid).order_by('reports__code')
+
+        s_marfas = SecondInfEconOp.objects.filter(company__users__username=request.user).order_by('code')
+
+        raport_detail = InfEconOp.objects.filter(counter=counter).order_by('code')
+        raport_second_part = SecondInfEconOp.objects.filter(counter=counter).order_by('code')
         
-        return super().dispatch(request, *args, **kwargs)
+        years = InfEconOp.objects.filter(counter=counter)
+        print('YEARS: ', years)
+        econ_years = SecondInfEconOp.objects.filter(company__users__username=request.user).first()
 
-
-    def get(self, request, *args, **kwargs):
-        sales = InfEconOp.objects.filter(user=request.user).order_by('code')
-        s_marfas = SecondInfEconOp.objects.filter(user=request.user).order_by('code')
-        
-        years = InfEconOp.objects.filter(user=request.user).first()
-        econ_years = SecondInfEconOp.objects.filter(user=request.user).first()
-
-        n_year = [sale.n_year for sale in sales]
-        before_total_list = [sale.n_beforeTotal for sale in sales]
-        before_lunar_list = [sale.n_beforeLunar for sale in sales]
-        n_total_list = [sale.n_total for sale in sales]
-        n_lunar_list = [sale.n_lunar for sale in sales]
-        codes = [sale.code for sale in sales]
+        n_year = [sale.n_year for sale in raport_detail]
+        before_total_list = [sale.n_beforeTotal for sale in raport_detail]
+        before_lunar_list = [sale.n_beforeLunar for sale in raport_detail]
+        n_total_list = [sale.n_total for sale in raport_detail]
+        n_lunar_list = [sale.n_lunar for sale in raport_detail]
+        codes = [sale.code for sale in raport_detail]
         marfas = []     
 
-        for i, marfa in enumerate(s_marfas):
+        for i, marfa in enumerate(raport_second_part):
             crt = i + 1
             name = marfa.name
             before_total = marfa.n_beforeTotal
@@ -164,7 +153,7 @@ class ReportsAdds(View):
                 'n_lunar': n_lunar_list if n_lunar_list else ''
         },
             {  
-                'year': n_year,
+                'year': years,
             'rowspan': 1,      
             'crt': 3,
             'description': 'Volumul de prestări servicii, total, dintre care:',
@@ -273,26 +262,27 @@ class ReportsAdds(View):
     ]     
           
        
-        sales_list = InfEconOp.objects.filter(user=request.user).order_by('code')
-        marfa_list = SecondInfEconOp.objects.filter(user=request.user).order_by('code')
+        sales_list = ManagerInfEconOp.objects.filter(reports__uid=manager_inf_econ_op.reports.uid).order_by('reports__counter')
+
+        marfa_list = SecondInfEconOp.objects.filter(company__users__username=request.user).order_by('code')
         current_row = 0
         current_marfa = 0
 
-        for s_marfas in marfa_list:
-            marfas[current_row]['n_month'] = s_marfas.n_month
-            marfas[current_row]['n_year'] = s_marfas.n_year
-            marfas[current_marfa]['name'] = s_marfas.name
-            marfas[current_marfa]['before_total'] = s_marfas.n_beforeTotal
-            marfas[current_marfa]['before_lunar'] = s_marfas.n_beforeLunar
-            marfas[current_marfa]['n_total'] = s_marfas.n_total
-            marfas[current_marfa]['n_lunar'] = s_marfas.n_lunar
-            marfas[current_marfa]['n_beforeMarfa'] = s_marfas.n_beforeMarfa
-            marfas[current_marfa]['n_marfa'] = s_marfas.n_Marfa
-            marfas[current_marfa]['code'] = s_marfas.code
+        for marfas_i in raport_second_part:
+            marfas[current_row]['n_month'] = marfas_i.n_month
+            marfas[current_row]['n_year'] = marfas_i.n_year
+            marfas[current_marfa]['name'] = marfas_i.name
+            marfas[current_marfa]['before_total'] = marfas_i.n_beforeTotal
+            marfas[current_marfa]['before_lunar'] = marfas_i.n_beforeLunar
+            marfas[current_marfa]['n_total'] = marfas_i.n_total
+            marfas[current_marfa]['n_lunar'] = marfas_i.n_lunar
+            marfas[current_marfa]['n_beforeMarfa'] = marfas_i.n_beforeMarfa
+            marfas[current_marfa]['n_marfa'] = marfas_i.n_Marfa
+            marfas[current_marfa]['code'] = marfas_i.code
             current_marfa += 1  # увеличиваем текущий номер ячейки на 1
 
 
-        for sales in sales_list:
+        for sales in raport_detail: 
             rows[current_row]['n_year'] = sales.n_year
             rows[current_row]['n_month'] = sales.n_month
             rows[current_row]['before_total'] = sales.n_beforeTotal
@@ -300,13 +290,20 @@ class ReportsAdds(View):
             rows[current_row]['n_total'] = sales.n_total
             rows[current_row]['n_lunar'] = sales.n_lunar
             rows[current_row]['code'] = sales.code
-            current_row += 1  # увеличиваем текущий номер ячейки на 1
-        context = {'sales': sales, 'econ_years':econ_years, 'years':years, 's_marfas':s_marfas, 'rows': rows, 'marfas': marfas}
+            current_row += 1  # увеличиваем текущий номер
+        context = {'sales': sales, 'econ_years':econ_years, 'manager_inf_econ_op': manager_inf_econ_op, 'years':years, 's_marfas':s_marfas, 'rows': rows, 'marfas': marfas}
         return render(request, self.template_name, context)
     
-    def post(self, request, *args, **kwargs):
-        rows = InfEconOp.objects.filter(user=request.user).order_by('code')
-        marfas = SecondInfEconOp.objects.filter(user=request.user).order_by('code')
+    def post(self, request, uid, *args, **kwargs):
+        manager_inf_econ_op = ManagerInfEconOp.objects.get(uid=uid)
+
+        counter_uid = manager_inf_econ_op.reports.counter
+
+        sales = ManagerInfEconOp.objects.filter(reports__uid=manager_inf_econ_op.uid)
+        raport_detail = InfEconOp.objects.filter(counter=counter_uid)
+
+        rows = InfEconOp.objects.filter(counter=counter_uid).order_by('code')
+        marfas = SecondInfEconOp.objects.filter(company__users__username=request.user).order_by('code')
 
         n_month = request.POST.get('n_month')
         n_year = request.POST.get('n_year')
@@ -314,6 +311,8 @@ class ReportsAdds(View):
         before_lunar = [request.POST.get(f'before_lunar_{row.code}', None) for row in rows]
         n_total = [request.POST.get(f'n_total_{row.code}', None) for row in rows]
         n_lunar = [request.POST.get(f'n_lunar_{row.code}', None) for row in rows]
+
+        # print('POST METHOD ---- -- --- - N_M, N_Y, B_T. B_L, N_T, N_L', n_month, before_lunar, before_totals, n_total, n_lunar)
 
 
         n_month_econ = request.POST.get('n_month_econ')
@@ -338,7 +337,7 @@ class ReportsAdds(View):
         counter = 0  # добавляем и инициализируем счетчик
         for i, row, in enumerate(rows):
             try:
-                inf_econ_op = InfEconOp.objects.filter(user=request.user, code=row.code).first()
+                inf_econ_op = InfEconOp.objects.filter(counter=counter_uid, code=row.code).first()
                 if inf_econ_op is not None:
                     inf_econ_op.n_month = float(n_month) if n_month else None
                     inf_econ_op.n_year = float(n_year) if n_year else None
@@ -350,7 +349,7 @@ class ReportsAdds(View):
                      # увеличиваем счетчик на 1 при успешном сохранении объекта
             except InfEconOp.MultipleObjectsReturned as e:
                 # если объектов несколько, нужно выбрать один для изменения
-                inf_econ_op = InfEconOp.objects.filter(user=request.user, code=row.code).first()
+                inf_econ_op = InfEconOp.objects.filter(counter=counter_uid, code=row.code).first()
                 if inf_econ_op is not None:
                     inf_econ_op.n_month = float(n_month) if n_month else None
                     inf_econ_op.n_year = float(n_year) if n_year else None
@@ -367,7 +366,7 @@ class ReportsAdds(View):
 
         for i, marfa, in enumerate(marfas):
             try:
-                sec_inf_econ_op = SecondInfEconOp.objects.filter(user=request.user, code=marfa.code).first()
+                sec_inf_econ_op = SecondInfEconOp.objects.filter(company__users__username=request.user, code=marfa.code).first()
                 if sec_inf_econ_op is not None:
                     sec_inf_econ_op.n_month = float(n_month_econ) if n_month_econ else None
                     sec_inf_econ_op.n_year = float(n_year_econ) if n_year_econ else None
@@ -378,11 +377,12 @@ class ReportsAdds(View):
                     sec_inf_econ_op.n_lunar = float(sec_n_lunar[i]) if sec_n_lunar[i] else None
                     sec_inf_econ_op.n_beforeMarfa = float(sec_n_beforeMarfa[i]) if sec_n_beforeMarfa[i] else None
                     sec_inf_econ_op.n_Marfa = float(sec_n_Marfa[i]) if sec_n_Marfa[i] else None
+                    sec_inf_econ_op.counter = counter_uid
                     sec_inf_econ_op.save()
                      # увеличиваем счетчик на 1 при успешном сохранении объекта
             except SecondInfEconOp.MultipleObjectsReturned as e:
                 # если объектов несколько, нужно выбрать один для изменения
-                sec_inf_econ_op = SecondInfEconOp.objects.filter(user=request.user, code=marfa.code).first()
+                sec_inf_econ_op = SecondInfEconOp.objects.filter(company__users__username=request.user, code=marfa.code).first()
                 if sec_inf_econ_op is not None:
                     sec_inf_econ_op.n_month = float(n_month_econ) if n_month_econ else None
                     sec_inf_econ_op.name = str(sec_name[i]) if sec_name[i] else None
@@ -393,20 +393,13 @@ class ReportsAdds(View):
                     sec_inf_econ_op.n_beforeMarfa = float(sec_n_beforeMarfa[i]) if sec_n_beforeMarfa[i] else None
                     sec_inf_econ_op.n_Marfa = float(sec_n_Marfa[i]) if sec_n_Marfa[i] else None
                     sec_inf_econ_op.save()
-                    sec_inf_econ_op.counter = counter
+                    sec_inf_econ_op.counter = counter_uid
                     sec_inf_econ_op.save() 
             except Exception as e:
                 print(f"Error while saving InfEconOp object with id {i+1}: {e}")
-        print('NEW SEC', new_sec_names)
-        print('NEW SEC Before Totals', new_sec_before_totals)
-        print('NEW SEC Before Lunars', new_sec_before_lunars)
-        print('NEW SEC N Totals', new_sec_n_totals)
-        print('NEW SEC N Lunars', new_sec_n_lunars)
-        print('NEW SEC N BeforeMarfas', new_sec_n_beforeMarfas)
-        print('NEW SEC N Marfas', new_sec_n_Marfas)
         try:
             for i in range(len(new_sec_names)):
-                    new_sec_inf_econ_op = SecondInfEconOp.objects.create(user=request.user)
+                    new_sec_inf_econ_op = SecondInfEconOp.objects.create(company=request.user.company)
                     new_sec_inf_econ_op.n_year = float(n_year_econ) if n_year_econ else None
                     new_sec_inf_econ_op.name = str(new_sec_names[i]) if new_sec_names[i] else None
                     new_sec_inf_econ_op.n_beforeTotal = float(new_sec_before_totals[i]) if new_sec_before_totals[i] else None
@@ -416,14 +409,13 @@ class ReportsAdds(View):
                     new_sec_inf_econ_op.n_beforeMarfa = float(new_sec_n_beforeMarfas[i]) if new_sec_n_beforeMarfas[i] else None
                     new_sec_inf_econ_op.n_Marfa = float(new_sec_n_Marfas[i]) if new_sec_n_Marfas[i] else None
                     new_sec_inf_econ_op.save()
-                    new_sec_inf_econ_op.counter = counter
+                    new_sec_inf_econ_op.counter = counter_uid
                     new_sec_inf_econ_op.save()
                     print(new_sec_inf_econ_op)
         except Exception as e:
             print(f"Error while creating new SecondInfEconOp object: {e}")
             raise
         # print('POST Запрос',request.POST)
-        print('NEW SEC', new_sec_names)
         # print(f"Number of InfEconOp objects saved: {counter}")  # выводим число сохраненных объектов
         return HttpResponseRedirect(request.path_info)
 

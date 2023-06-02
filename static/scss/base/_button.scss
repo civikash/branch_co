@@ -1,0 +1,13 @@
+.button {
+    display: flex;
+    padding: 9px;
+    align-items: center;
+    width: fit-content;
+    gap: 7px;
+    border-radius: 9px;
+
+    &.blue {
+        color: $white;
+        background-color: $blue;
+    }
+}

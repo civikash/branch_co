@@ -5,6 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from reports.models import CompanyData
+from account.models import User
 
 
 class CompanyDataView(LoginRequiredMixin, View):
@@ -34,6 +35,11 @@ class CompanyDataView(LoginRequiredMixin, View):
         try:
             company_data.full_clean()
             company_data.save()
+
+            user = request.user
+            user.company = company_data
+            user.save()
+            
             return redirect(self.success_url)
         except ValidationError as e:
             return render(request, self.template_name, {'form': company_data, 'errors': e.message_dict})

@@ -52,6 +52,7 @@
     <div class="mt-1 flex justify-between items-center">
         <h1 class="font-medium text-[1.25rem]">Отчетность</h1>
     </div>
+    <div class="reports__list">
     <div class="w-full flex justify-between">
         <div class="flex column pg-2 border br-2">
             <div class="flex items-center gap-1">
@@ -63,7 +64,7 @@
                     <line x1="9" y1="13" x2="15" y2="13" />
                     <line x1="13" y1="17" x2="15" y2="17" />
                   </svg>
-                <div class="lh-0">
+                <div>
                     <h2 class="font-medium text-[0.80rem] py-1">Informația economică operativă pe domenii de activități</h2>
                     <p class="color-gray-400 text-[0.80rem]">Сформированный отчет для внесения данных</p>
                 </div>
@@ -71,13 +72,41 @@
             <p class="color-gray-400 text-[0.80rem] w-doc">Volumul de vînzări prin intermediul unităților de comerț, total, 
                 inclusiv vînzări de produse alimentare, Stocuri de mărfuri, în alimentația publică, total
             </p>
-            <a class="button flex gap-625 border-button btn-doc" href="{% url 'reports:reports-add' %}">
+            <a class="button flex gap-625 border-button btn-doc" href="{% url 'reports:economica-views' %}">
                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-import" width="20" height="20" viewBox="0 0 24 24" stroke-width="1" stroke="#00abfb" fill="none" stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                     <path d="M14 3v4a1 1 0 0 0 1 1h4" />
                     <path d="M5 13v-8a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2h-5.5m-9.5 -2h7m-3 -3l3 3l-3 3" />
-                  </svg>Заполнить</a>
+                  </svg>Подробнее</a>
         </div>
+    </div>
+    <div class="w-full flex justify-between">
+        <div class="flex column pg-2 border br-2">
+            <div class="flex items-center gap-1">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-invoice" width="24" height="24" viewBox="0 0 24 24" stroke-width="1" stroke="#00abfb" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+                    <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
+                    <line x1="9" y1="7" x2="10" y2="7" />
+                    <line x1="9" y1="13" x2="15" y2="13" />
+                    <line x1="13" y1="17" x2="15" y2="17" />
+                  </svg>
+                <div>
+                    <h2 class="font-medium text-[0.80rem] py-1">Raport statistic trimestrial
+                        </h2>
+                    <p class="color-gray-400 text-[0.80rem]">Сформированный отчет для внесения данных</p>
+                </div>
+            </div>
+            <p class="color-gray-400 text-[0.80rem] w-doc">Cu privire la investiţii
+            </p>
+            <a class="button flex gap-625 border-button btn-doc" href="#!">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-import" width="20" height="20" viewBox="0 0 24 24" stroke-width="1" stroke="#00abfb" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+                    <path d="M5 13v-8a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2h-5.5m-9.5 -2h7m-3 -3l3 3l-3 3" />
+                  </svg>Подробнее</a>
+        </div>
+    </div>
     </div>
 </div>
 {% endblock reports %}

@@ -1,0 +1,38 @@
+.report__space {
+    display: flex;
+    flex-direction: column;
+    gap: 21px;
+
+    h1 {
+        font-size: 19px;
+    }
+
+    &-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .create__report {
+        display: flex;
+        border: 1px solid $gray-100;
+        padding: 15px;
+        width: 300px;
+        align-items: center;
+        border-radius: 11px;
+        flex-direction: column;
+        margin-top: 45px;
+    }
+
+    .report__element {
+        display: flex;
+        padding: 15px;
+        gap: 25px;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: fit-content;
+        border-radius: 11px;
+        border: 1px solid $gray-100;
+    }
+}

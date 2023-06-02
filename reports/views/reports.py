@@ -10,7 +10,7 @@ class ReportsList(View):
 
     # @require_company_data
     def get(self, request, *args, **kwargs):
-        reports = InfEconOp.objects.select_related('user').values('counter', 'user__username').distinct()
+        reports = InfEconOp.objects.select_related('company__users').values('counter', 'company__users__username').distinct()
         context = {'reports': reports}
         return render(request, self.template_name, context)
     

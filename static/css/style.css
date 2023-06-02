@@ -190,6 +190,12 @@ a {
     justify-content: space-between;
 }
 
+.reports__list {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
 .header {
     margin-top: 1rem;
 }
