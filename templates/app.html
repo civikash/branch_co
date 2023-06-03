@@ -12,13 +12,14 @@
 <body class="w-full bg-gray">
     {% include './sidebar.html' %}
     <div class="extends-container min-h relative">
-        <div class="flex items-center column pad-module">
+        <div class="pad-module">
             <div class="container">
     {% if request.user.is_superuser %}
     {% block reports_branch %}
     {% block check_branch %}
     {% endblock check_branch %}
     {% endblock reports_branch %}
+    {% block users %}{% endblock users %}
     {% else %}
     {% block reports %}
     {% endblock reports %}

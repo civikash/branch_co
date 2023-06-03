@@ -1,0 +1,30 @@
+{% extends 'app.html' %}
+{% load custom_filters %}
+{% block users %}
+<div class="users__header">
+<h1>Пользователи системы</h1>
+<a href="{% url 'account:users-create' %}" class="button blue">Создать пользователя</a>
+</div>
+<div class="users__table">
+    <table border="1" cellspacing="0" cellpadding="0" width="98%">
+        <thead>
+            <tr>
+                <th>№</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.firstname }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock users %}

@@ -40,7 +40,7 @@ class ReportsAdds(View):
         raport_detail = InfEconOp.objects.filter(counter=counter).order_by('code')
         raport_second_part = SecondInfEconOp.objects.filter(counter=counter).order_by('code')
         
-        years = InfEconOp.objects.filter(counter=counter)
+        years = InfEconOp.objects.filter(counter=counter).first()
         print('YEARS: ', years)
         econ_years = SecondInfEconOp.objects.filter(company__users__username=request.user).first()
 
@@ -339,8 +339,9 @@ class ReportsAdds(View):
             try:
                 inf_econ_op = InfEconOp.objects.filter(counter=counter_uid, code=row.code).first()
                 if inf_econ_op is not None:
-                    inf_econ_op.n_month = float(n_month) if n_month else None
-                    inf_econ_op.n_year = float(n_year) if n_year else None
+                    inf_econ_op.n_month = int(n_month) if n_month else None
+                    inf_econ_op.n_year = int(n_year) if n_year else None
+                    print('N MONTH, N_YEAR', inf_econ_op.n_month, inf_econ_op.n_year)
                     inf_econ_op.n_beforeTotal = float(before_totals[i]) if before_totals[i] else None
                     inf_econ_op.n_beforeLunar = float(before_lunar[i]) if before_lunar[i] else None
                     inf_econ_op.n_total = float(n_total[i]) if n_total[i] else None
@@ -351,8 +352,8 @@ class ReportsAdds(View):
                 # если объектов несколько, нужно выбрать один для изменения
                 inf_econ_op = InfEconOp.objects.filter(counter=counter_uid, code=row.code).first()
                 if inf_econ_op is not None:
-                    inf_econ_op.n_month = float(n_month) if n_month else None
-                    inf_econ_op.n_year = float(n_year) if n_year else None
+                    inf_econ_op.n_month = int(n_month) if n_month else None
+                    inf_econ_op.n_year = int(n_year) if n_year else None
                     inf_econ_op.n_beforeTotal = float(before_totals[i]) if before_totals[i] else None
                     inf_econ_op.n_beforeLunar = float(before_lunar[i]) if before_lunar[i] else None
                     inf_econ_op.n_total = float(n_total[i]) if n_total[i] else None

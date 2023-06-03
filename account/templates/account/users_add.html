@@ -1,0 +1,33 @@
+{% extends 'app.html' %}
+{% load custom_filters %}
+{% block users %}
+<div class="create__user-body">
+    <div class="user__form">
+        <h1>Создать пользователя</h1>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="input__zone">
+            <label for="firstName">Имя сотрудника</label>
+            <input id="firstName" type="text" name="firstname">
+        </div>
+        <div class="input__zone">
+            <label for="lastName">Фамилия сотрудника</label>
+            <input id="lastName" type="text" name="lastname">
+        </div>
+        <div class="input__zone">
+            <label for="username">Имя пользователя</label>
+            <input id="username" type="text" name="username">
+        </div>
+        <div class="input__zone">
+            <label for="email">Email</label>
+            <input id="email" type="email" name="email">
+        </div>
+        <div class="input__zone">
+            <label for="password">Пароль</label>
+            <input id="password" type="password" name="password">
+        </div>
+        <button class="button blue" type="submit">Создать</button>
+        </form>
+    </div>
+</div>
+{% endblock users %}

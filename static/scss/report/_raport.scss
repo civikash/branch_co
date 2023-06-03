@@ -3,7 +3,12 @@ thead {
     background-color: #f5f5f5;
     font-weight: bold;
     border-bottom: 1px solid #ccc;
-  }
+}
+
+.raport__body {
+    width: 900px;
+    padding: 13px;
+}
   
   // Стиль для th внутри thead
   thead th {
