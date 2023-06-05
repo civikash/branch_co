@@ -8,6 +8,49 @@ thead {
 .raport__body {
     width: 900px;
     padding: 13px;
+
+    table {
+        input[type="checkbox"] {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            outline: none;
+            transition: border-color 0.3s;
+            position: relative;
+            cursor: pointer;
+        }
+
+        input[type="checkbox"]::before {
+            content: "\2573";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 21px;
+            height: 21px;
+            border: 2px solid #fff;
+            border-top: none;
+            border-right: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        input[type="checkbox"]:checked::before {
+            opacity: 1;
+        }
+
+        .checked {
+            background-image: url('../img/close-circle.svg');
+            background-repeat: no-repeat; 
+            background-size:cover;
+            background-position: center; 
+        }
+          
+    }
 }
   
   // Стиль для th внутри thead
@@ -27,13 +70,8 @@ thead {
     tr {
       td {
         padding: 10px;
-        border-right: 1px solid #ccc;
-      }
-  
-      &:last-child {
-        td {
-          border-right: none;
-        }
+        text-align: center;
+        border: 1px solid $gray-100;
       }
     }
   }

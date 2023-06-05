@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @import url("https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;700;800;900&display=swap");
 * {
   padding: 0px;
@@ -161,6 +162,42 @@ thead {
   width: 900px;
   padding: 13px;
 }
+.raport__body table input[type=checkbox] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+  transition: border-color 0.3s;
+  position: relative;
+  cursor: pointer;
+}
+.raport__body table input[type=checkbox]::before {
+  content: "╳";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 21px;
+  height: 21px;
+  border: 2px solid #fff;
+  border-top: none;
+  border-right: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.raport__body table input[type=checkbox]:checked::before {
+  opacity: 1;
+}
+.raport__body table .checked {
+  background-image: url("../img/close-circle.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
 
 thead th {
   padding: 10px;
@@ -172,10 +209,8 @@ tbody tr:nth-child(even) {
 }
 tbody tr td {
   padding: 10px;
-  border-right: 1px solid #ccc;
-}
-tbody tr:last-child td {
-  border-right: none;
+  text-align: center;
+  border: 1px solid #c9c9c9;
 }
 
 .users__header {

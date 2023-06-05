@@ -44,9 +44,6 @@ class InfEconOpCreateView(View):
         return super().dispatch(request, *args, **kwargs)
 
 
-
-
-
     def get(self, request, *args, **kwargs):
         reports_user = ManagerInfEconOp.objects.filter(reports__company=request.user.company)
         context = {'reports': reports_user}

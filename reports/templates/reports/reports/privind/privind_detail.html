@@ -1,0 +1,167 @@
+{% extends 'app.html' %}
+{% load custom_filters %}
+{% block privind_detail %}
+<section class="raport__body">
+    <div class="header-table">
+        <span>Pentru uz intern
+        </span>
+        <form method="POST" class="flex column gap-1">
+            {% csrf_token %}
+            </div>
+    <span>		Anexă nr. 3
+
+        APROBAT:
+prin hotărîrea Biroului Executiv Moldcoop
+    din 26.12.1994, pr.-v. nr. 11
+    Formularul 6-coop
+
+RAPORT
+privind mișcarea numărului de membri cooperatori și a părților sociale la situațiea de la 31.12.2023
+a ________________________________
+ОТЧЕТ
+о движение численности пайщиков и паевого фонда по состоянию на 31.12.2023
+по Потревительскому кооперативу__________________________________________________
+</span>
+    <table cellspacing="0" cellpadding="5" border="1">
+        <thead>
+            <tr>
+                <th rowspan="0">Nr. d/o № п/п</th>
+                <th rowspan="0">Descrierea<br>Наименование показателей</th>
+                <th rowspan="2">Asociați
+                    Пайщики</th>
+                <th colspan="2">Fondul social
+                    Паeвой фонд
+                    </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in header %}
+            <tr>
+                {% if row.crt %}
+                <td class="txt-c" rowspan="{{ row.rowspan }}">{{ row.crt }}</td>
+                {% endif %}
+                {% if row.descrierea != 'Null' %}
+                <td class="txt-l" {% if row.crt == 8 %}rowspan="{{ row.rowspan }}"{% endif %}>{{ row.descrierea }}</td>
+                {% endif %}
+                <td class="txt-c">
+                    <input class="w-full tb-input {% if row.associat %}checked{% endif %}" type="checkbox" step="any" name="associat_{{ row.code }}" id="associat_{{ row.code }}" {% if row.associat %}checked{% endif %}>
+                    <input type="hidden" name="prev_associat_{{ row.code }}" value="{% if row.associat %}on{% else %}off{% endif %}">
+                </td>
+                <td class="txt-c"><input class="w-full tb-input {% if row.fondul %}checked{% endif %}" type="checkbox" step="any" name="fondul_{{ row.code }}" id="fondul_{{ row.code }}" {% if row.fondul %}checked{% endif %}></td>
+                <input type="hidden" name="prev_fondul_{{ row.code }}" value="{% if row.fondul %}on{% else %}off{% endif %}"></td>
+            </tr>
+        {% endfor %}
+        <button class="button blue" type="submit">Сохранить</button>
+
+        </tbody>
+    </table>
+    <h1>				Anexă nr. 4
+        Formularul nr. 11-integritate
+
+RAPORT
+despre integritatea patrimoniului cooperatist
+</h1>
+<table cellspacing="0" cellpadding="5" border="1">
+    <thead>
+        <tr>
+            <th>Nr. d/o № п/п</th>
+            <th>Descrierea<br>Наименование показателей</th>
+            <th>Prejudiciul material
+                Материальный ущерб
+                </th>
+            <th>Inclusiv mai mari de 10,0 mii lei
+                (в.т.ч. выше 10,0 тыс лей)
+                
+                </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in item_1 %}
+        <tr>
+            {% if row.crt %}
+            <td class="txt-c" rowspan="{{ row.rowspan }}">{{ row.crt }}</td>
+            {% endif %} 
+            <td class="{% if not row.rowcolumn %}txt-l{% endif %}" colspan="{% if row.rowcolumn %}{{ row.rowcolumn }}{% endif %}">{{ row.descrierea }}</td>
+            {% if not row.rowcolumn %}
+            <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="prejud_{{ row.code }}" value="{{ row.prejud|floatformat:"1"|stringreplace }}" id="prejud_{{ row.code }}"></td>
+            <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="sup_10_{{ row.code }}" value="{{ row.sup_10|floatformat:"1"|stringreplace }}" id="sup_10_{{ row.code }}"></td>
+            {% endif %}
+        </tr>
+    {% endfor %}
+    <button class="button blue" type="submit">Сохранить</button>
+
+    </tbody>
+</table>    Anexă nr. 2
+
+Nota informativa
+ privind decontările cu bugetul public national
+
+</h1>
+<table cellspacing="0" cellpadding="5" border="1">
+<thead>
+    <tr>
+        <th rowspan="0">Taxele și impozitele</th>
+        <th colspan="2">Sold la 01.01.2023</th>
+        <th rowspan="0">Calculat</th>
+        <th rowspan="0">Transferat</th>
+        <th colspan="2">Sold la 31.12.2023</th>
+    </tr>
+    <tr>
+        <th>D-t</th>
+        <th>C-t</th>
+        <th>D-t</th>
+        <th>C-t</th>
+    </tr>
+</thead>
+<tbody>
+    {% for row in item_2 %}
+    <tr>
+        <td class="txt-l" rowspan="{{ row.rowspan }}">{{ row.taxele }}</td>
+        {% if not row.rowcolumn %}
+        <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="d_t_ini_{{ row.code }}" value="{{ row.d_t_ini|floatformat:"1"|stringreplace }}" id="d_t_ini_{{ row.code }}"></td>
+        <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="c_t_ini_{{ row.code }}" value="{{ row.c_t_ini|floatformat:"1"|stringreplace }}" id="c_t_ini_{{ row.code }}"></td>
+        <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="calculat_{{ row.code }}" value="{{ row.calculat|floatformat:"1"|stringreplace }}" id="calculat_{{ row.code }}"></td>
+        <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="transferat_{{ row.code }}" value="{{ row.transferat|floatformat:"1"|stringreplace }}" id="transferat_{{ row.code }}"></td>
+        <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="d_t_fin_{{ row.code }}" value="{{ row.d_t_fin|floatformat:"1"|stringreplace }}" id="d_t_fin_{{ row.code }}"></td>
+        <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="c_t_fin_{{ row.code }}" value="{{ row.c_t_fin|floatformat:"1"|stringreplace }}" id="c_t_fin_{{ row.code }}"></td>
+        {% endif %}
+    </tr>
+{% endfor %}
+<button class="button blue" type="submit">Сохранить</button>
+
+</tbody>
+</table>
+<span>ANALIZA
+</span>
+<span>situatiei economico-financiare a ____________________  pentru  anul 2023</span>
+<table cellspacing="0" cellpadding="5" border="1">
+    <thead>
+        <tr>
+            <th rowspan="0">Nr. crt.</th>
+            <th rowspan="0">Denumirea  articolelor</th>
+            <th rowspan="2">U.M.</th>
+            <th>a.	2022</th>
+            <th>a.	2023</th>
+            <th>In %</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in item_3 %}
+        <tr>
+            {% if row.crt %}
+            <td class="txt-c" rowspan="{{ row.rowspan }}">{{ row.crt }}</td>
+            {% endif %}
+            <td class="txt-l">{{ row.denumirea }}</td>
+            <td class="txt-c">{{ row.um }}</td>
+            <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="n_year_{{ row.code }}" value="{{ row.n_year|floatformat:"1"|stringreplace }}" id="n_year_{{ row.code }}"></td>
+            <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="n_1_year_{{ row.code }}" value="{{ row.n_1_year|floatformat:"1"|stringreplace }}" id="n_1_year_{{ row.code }}"></td>
+            <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="perc_{{ row.code }}" value="{{ row.perc|floatformat:"1"|stringreplace }}" id="perc_{{ row.code }}"></td>
+        </tr>
+    {% endfor %}
+    <button class="button blue" type="submit">Сохранить</button>
+
+    </tbody>
+</table>
+</form>
+</section>
+{% endblock privind_detail %}

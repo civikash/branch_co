@@ -86,12 +86,14 @@ class VolVanzAmauntul(models.Model):
 class ReportHeader(models.Model):
     uid = models.UUIDField(unique=True, editable=False, default=uuid.uuid4)
     company = models.ForeignKey(CompanyData, verbose_name=_("Company"), on_delete=models.CASCADE, related_name='company_report_header')
+    counter = models.IntegerField(_("Counter"), default=0)
     code = models.AutoField(_("Code"), primary_key=True)
-    associat = models.BooleanField(_("Associat"))
-    fondul = models.BooleanField(_("Associat"))
+    associat = models.BooleanField(_("Associat"), default=False, null=True)
+    fondul = models.BooleanField(_("Fondul"), default=False, null=True)
 
 class ReportItems1(models.Model):
     uid = models.UUIDField(unique=True, editable=False, default=uuid.uuid4)
+    counter = models.IntegerField(_("Counter"), default=0)
     company = models.ForeignKey(CompanyData, verbose_name=_("Company"), on_delete=models.CASCADE, related_name='company_report_items_1')
     code = models.AutoField(_("Code"), primary_key=True)
     prejud = models.DecimalField(max_digits=10, decimal_places=1, null=True)
@@ -99,6 +101,7 @@ class ReportItems1(models.Model):
 
 class ReportItems2(models.Model):
     uid = models.UUIDField(unique=True, editable=False, default=uuid.uuid4)
+    counter = models.IntegerField(_("Counter"), default=0)
     company = models.ForeignKey(CompanyData, verbose_name=_("Company"), on_delete=models.CASCADE, related_name='company_report_items_2')
     code = models.AutoField(_("Code"), primary_key=True)
     d_t_ini = models.DecimalField(max_digits=10, decimal_places=1, null=True)
@@ -110,11 +113,20 @@ class ReportItems2(models.Model):
 
 class ReportItems3(models.Model):
     uid = models.UUIDField(unique=True, editable=False, default=uuid.uuid4)
+    counter = models.IntegerField(_("Counter"), default=0)
     company = models.ForeignKey(CompanyData, verbose_name=_("Company"), on_delete=models.CASCADE, related_name='company_report_items_3')
     code = models.AutoField(_("Code"), primary_key=True)
     n_year = models.DecimalField(max_digits=10, decimal_places=1, null=True)
     n_1_year = models.DecimalField(max_digits=10, decimal_places=1, null=True)
-    perc = models.IntegerField(_("Perc"))
+    perc = models.IntegerField(_("Perc"), null=True)
+
+class ManagerReportDescriereaAsociati(models.Model):
+    uid = models.UUIDField(unique=True, editable=False, default=uuid.uuid4)
+    reports = models.ForeignKey(ReportHeader, verbose_name=_("Головная часть"), on_delete=models.CASCADE, to_field='code')
+    report_item_1 = models.ForeignKey(ReportItems1, verbose_name=_("Вторая часть"), on_delete=models.CASCADE, null=True, to_field='code')
+    report_item_2 = models.ForeignKey(ReportItems2, verbose_name=_("Вторая часть"), on_delete=models.CASCADE, null=True, to_field='code')
+    report_item_3 = models.ForeignKey(ReportItems3, verbose_name=_("Вторая часть"), on_delete=models.CASCADE, null=True, to_field='code')
+    date = models.DateField(_("Дата"), auto_now=True)
 
 
 @receiver(pre_save, sender=InfEconOp)
