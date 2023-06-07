@@ -912,59 +912,33 @@ class PrivindDetail(View):
         associat = []
         fondul = []
 
-        for row in rows:
-            associat_value = request.POST.get(f'associat_{row.code}', 'off') == 'on'
-            fondul_value = request.POST.get(f'fondul_{row.code}', 'off') == 'on'
-            
-            associat.append(associat_value)
-            fondul.append(fondul_value)
+
+
+        associat = [request.POST.get(f'associat_{row.code}', None) for row in rows]
+        fondul = [request.POST.get(f'fondul_{row.code}', None) for row in rows]
 
         
-        for i, row in enumerate(rows):
+        #HEADER -- POST
+        for i, row, in enumerate(rows):
             try:
-                inf_econ_op = ReportHeader.objects.filter(counter=counter_uid, code=row.code).first()
-
-                if inf_econ_op is not None:
-                    if associat[i] and fondul[i]:
-                        inf_econ_op.associat = True
-                        inf_econ_op.fondul = False
-                    elif associat[i]:
-                        inf_econ_op.associat = True
-                        inf_econ_op.fondul = False
-                    elif fondul[i]:
-                        inf_econ_op.associat = False
-                        inf_econ_op.fondul = True
-                    else:
-                        inf_econ_op.associat = False
-                        inf_econ_op.fondul = False
-
-                    inf_econ_op.save()
-                    counter += 1
-
+                report_item_1 = ReportHeader.objects.filter(counter=counter_uid, code=row.code).first()
+                if report_item_1 is not None:
+                    report_item_1.associat = float(associat[i]) if associat[i] else None
+                    report_item_1.fondul = float(fondul[i]) if fondul[i] else None
+                    report_item_1.save()
+                    # увеличиваем счетчик на 1 при успешном сохранении объекта
             except ReportHeader.MultipleObjectsReturned as e:
-                inf_econ_op = ReportHeader.objects.filter(counter=counter_uid, code=row.code).first()
-
-                if inf_econ_op is not None:
-                    if associat[i] and fondul[i]:
-                        inf_econ_op.associat = True
-                        inf_econ_op.fondul = False
-                    elif associat[i]:
-                        inf_econ_op.associat = True
-                        inf_econ_op.fondul = False
-                    elif fondul[i]:
-                        inf_econ_op.associat = False
-                        inf_econ_op.fondul = True
-                    else:
-                        inf_econ_op.associat = False
-                        inf_econ_op.fondul = False
-
-                    inf_econ_op.save()
+                # если объектов несколько, нужно выбрать один для изменения
+                report_item_1 = ReportHeader.objects.filter(counter=counter_uid, code=row.code).first()
+                if report_item_1 is not None:
+                    report_item_1.associat = float(associat[i]) if associat[i] else None
+                    report_item_1.fondul = float(fondul[i]) if fondul[i] else None
+                    report_item_1.save()
                     counter += 1
-                    inf_econ_op.counter = counter
-                    inf_econ_op.save()
-
+                    report_item_1.counter = counter
+                    report_item_1.save() 
             except Exception as e:
-                print(f"Error while saving ReportHeader object with id {i+1}: {e}")
+                print(f"Error while saving InfEconOp object with id {i+1}: {e}")
 
 
 

@@ -1,0 +1,83 @@
+{% extends 'app.html' %}
+{% load custom_filters %}
+{% block cadrelor_detail %}
+<section class="raport__body">
+    <div class="header-table">
+        <form method="POST" class="flex column gap-1">
+            {% csrf_token %}
+            <button class="button blue" type="submit">Сохранить</button>
+            </div>
+    <h1>
+        RAPORT  PRIVIND  STRUCTURA  ŞI  MIŞCAREA  CADRELOR
+    </h1>
+<table cellspacing="0" cellpadding="5" border="1">
+    <thead class="cadrelor">
+        <tr>
+            <th rowspan="3">Nr. crt.</th>
+            <th rowspan="3">Categorii de salariaţi</th>
+            <th class="left_vert" rowspan="3">Numărul funcţiilor  conform statelor de personal</th>
+            <th class="left_vert" rowspan="3">Numărul scriptic total al personalului la 31.12.2023___</th>
+            <th class="left_vert" rowspan="3">Numarul locurilor vacante</th>
+            <th rowspan="1" colspan="7">din coloana  2</th>
+            <th class="left_vert" rowspan="3">Necesarul de perfecţionare a cadrelor</th>
+        </tr>
+        <tr>
+            <th class="left_vert" rowspan="2">Salariaţi până la 30 ani inclusiv</th>
+            <th colspan="3">Având studii</th>
+            <th class="left_vert" rowspan="2">Absolvenți ai instituţiilor de învăţămînt cooperatiste</th>
+            <th colspan="2">Vechimea în muncă mai mare de 5 ani</th>
+        </tr>
+        <tr>
+            <th>Superioare</th>
+            <th>Medii speciale</th>
+            <th>Studii medii</th>
+            <th>generală</th>
+            <th>în cooperaţia de consum</th>
+        </tr>
+        <tr>
+            <th>A</th>
+            <th>B</th>
+            <th>1</th>
+            <th>2</th>
+            <th>3</th>
+            <th>4</th>
+            <th>5</th>
+            <th>6</th>
+            <th>7</th>
+            <th>8</th>
+            <th>9</th>
+            <th>10</th>
+            <th>11</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in header %}
+        <tr>
+            {% if row.crt %}
+            <td class="txt-c" rowspan="{{ row.rowspan }}">{{ row.crt }}</td>
+            {% endif %}
+            {% if row.crt == None and row.descrierea != 'inclusiv:' %}
+            <td class="td-description {% if not row.rowcolumn %}txt-c{% endif %}" colspan="2">{{ row.descrierea }}</td>
+            {% else %}
+            <td class="td-description {% if not row.rowcolumn %}txt-l{% endif %}" colspan="{% if row.rowcolumn %}{{ row.rowcolumn }}{% endif %}">{{ row.descrierea }}</td>
+            {% endif %}
+            {% if not row.rowcolumn %}
+            <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="codul_rind_{{ row.code }}" value="{{ row.codul_rind|floatformat:"1"|stringreplace }}" id="codul_rind_{{ row.code }}"></td>
+            <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="category_{{ row.code }}" value="{{ row.category|floatformat:"1"|stringreplace }}" id="category_{{ row.code }}"></td>
+            <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="num_func_{{ row.code }}" value="{{ row.num_func|floatformat:"1"|stringreplace }}" id="num_func_{{ row.code }}"></td>
+            <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="num_script_{{ row.code }}" value="{{ row.num_script|floatformat:"1"|stringreplace }}" id="num_script_{{ row.code }}"></td>
+            <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="num_locuri_{{ row.code }}" value="{{ row.num_locuri|floatformat:"1"|stringreplace }}" id="num_locuri_{{ row.code }}"></td>
+            <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="sal_pana_{{ row.code }}" value="{{ row.sal_pana|floatformat:"1"|stringreplace }}" id="sal_pana_{{ row.code }}"></td>
+            <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="studii_medii_speciale_{{ row.code }}" value="{{ row.studii_medii_speciale|floatformat:"1"|stringreplace }}" id="studii_medii_speciale_{{ row.code }}"></td>
+            <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="absolventi_{{ row.code }}" value="{{ row.absolventi|floatformat:"1"|stringreplace }}" id="absolventi_{{ row.code }}"></td>
+            <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="mai_ani_{{ row.code }}" value="{{ row.mai_ani|floatformat:"1"|stringreplace }}" id="mai_ani_{{ row.code }}"></td>
+            <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="mai_ani_consum_{{ row.code }}" value="{{ row.mai_ani_consum|floatformat:"1"|stringreplace }}" id="mai_ani_consum_{{ row.code }}"></td>
+            <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="perfectionare_{{ row.code }}" value="{{ row.perfectionare|floatformat:"1"|stringreplace }}" id="perfectionare_{{ row.code }}"></td>
+            {% endif %}
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>  
+</form>
+</section>
+{% endblock cadrelor_detail %}

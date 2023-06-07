@@ -5,9 +5,19 @@ thead {
     border-bottom: 1px solid #ccc;
 }
 
+.header-table {
+    display: flex;
+}
+
 .raport__body {
-    width: 900px;
-    padding: 13px;
+    padding: 34px;
+    width: 100%;
+    background-color: $white;
+    display: flex;
+    border-radius: 14px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 
     table {
         input[type="checkbox"] {
@@ -43,20 +53,26 @@ thead {
             opacity: 1;
         }
 
-        .checked {
-            background-image: url('../img/close-circle.svg');
-            background-repeat: no-repeat; 
-            background-size:cover;
-            background-position: center; 
+        .sm-td {
+            width: min-content;
         }
-          
+
+        .td-description {
+            font-weight: 600;
+            font-size: 15px;
+        }
+    }
+
+    h1 {
+        font-size: 19px;
+        font-weight: 600;
     }
 }
   
   // Стиль для th внутри thead
   thead th {
     padding: 10px;
-    border-right: 1px solid #ccc;
+    border: 1px solid $dark;
   }
   
   // Стиль для tbody
@@ -70,9 +86,14 @@ thead {
     tr {
       td {
         padding: 10px;
+        font-size: 15px;
         text-align: center;
-        border: 1px solid $gray-100;
+        border: 1px solid $dark;
       }
     }
   }
+
+.left_vert {
+    text-align: center;
+}
   

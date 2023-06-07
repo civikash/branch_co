@@ -72,6 +72,36 @@
                 width: 100%;
                 justify-content: center;
             }
+
+            &.info-user {
+                display: flex;
+                align-items: flex-start;
+                width: fit-content;
+                flex-direction: column;
+                padding: 11px;
+
+                ul {
+                    padding: 7px;
+                    border-radius: 13px;
+                    border: 1px solid $dark;
+                }
+            }
+        }
+
+        &.detail {
+            width: 100%;
+            align-items: flex-start;
+            display: flex;
+            gap: 25px;
+            flex-direction: row;
+        }
+
+        .user__info {
+            &-full {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+            }
         }
     }
 

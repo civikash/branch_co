@@ -44,11 +44,10 @@ a ________________________________
                 <td class="txt-l" {% if row.crt == 8 %}rowspan="{{ row.rowspan }}"{% endif %}>{{ row.descrierea }}</td>
                 {% endif %}
                 <td class="txt-c">
-                    <input class="w-full tb-input {% if row.associat %}checked{% endif %}" type="checkbox" step="any" name="associat_{{ row.code }}" id="associat_{{ row.code }}" {% if row.associat %}checked{% endif %}>
-                    <input type="hidden" name="prev_associat_{{ row.code }}" value="{% if row.associat %}on{% else %}off{% endif %}">
+                    <input class="w-full tb-input {% if row.associat %}checked{% endif %}" type="text" step="any" value="{{ row.associat|floatformat:"1"|stringreplace }}" name="associat_{{ row.code }}" id="associat_{{ row.code }}">
+            
                 </td>
-                <td class="txt-c"><input class="w-full tb-input {% if row.fondul %}checked{% endif %}" type="checkbox" step="any" name="fondul_{{ row.code }}" id="fondul_{{ row.code }}" {% if row.fondul %}checked{% endif %}></td>
-                <input type="hidden" name="prev_fondul_{{ row.code }}" value="{% if row.fondul %}on{% else %}off{% endif %}"></td>
+                <td class="txt-c"><input class="w-full tb-input {% if row.fondul %}checked{% endif %}" type="text" value="{{ row.fondul|floatformat:"1"|stringreplace }}" step="any" name="fondul_{{ row.code }}" id="fondul_{{ row.code }}"></td>
             </tr>
         {% endfor %}
         <button class="button blue" type="submit">Сохранить</button>

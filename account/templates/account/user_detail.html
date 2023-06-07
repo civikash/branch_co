@@ -1,0 +1,53 @@
+{% extends 'app.html' %}
+{% block users_detail %}
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+        {% endfor %}
+</ul>
+{% endif %}
+<div class="create__user-body detail">
+    <div class="user__info-full">
+    <div class="user__form">
+        <h1>Данные пользователя</h1>
+        <div class="user__form info-user">
+            <ul>
+                <li>Имя пользователя: {{ user.username }}</li>
+                <li>Email: {{ user.email }}</li>
+                <li>ФИО: {{ users.first_name }} {{ user.last_name }}</li>
+            </ul>
+    </div>
+    </div>
+    <div class="user__form">
+        <h1>Данные о филиале</h1>
+        <div class="user__form info-user">
+            <ul>
+                <li>Denumirea: {{ user.company.name }}</li>
+                <li>address: {{ user.address }}</li>
+                <li>district: {{ user.company.district }}</li>
+                <li>village: {{ user.company.village }}</li>
+                <li>street: {{ user.company.street }}</li>
+                <li>code_cuiio: {{ user.company.code_cuiio }}</li>
+                <li>code_idno: {{ user.company.code_idno }}</li>
+                <li>accountant: {{ user.company.accountant }}</li>
+                <li>executor: {{ user.company.executor }}</li>
+                <li>tel: {{ user.company.tel }}</li>
+                <li>anul: {{ user.company.anul }}</li>
+            </ul>
+    </div>
+    </div>
+</div>
+    <div class="user__form">
+        <h1>Изменить данные</h1>
+        <form method="POST" action="{% url 'account:users-detail' user.id %}">
+            {% csrf_token %}
+        <div class="input__zone">
+            <label for="password">Новый пароль</label>
+            <input id="password" type="password" name="password">
+        </div>
+        <button class="button blue" type="submit">Создать</button>
+        </form>
+    </div>
+</div>
+{% endblock users_detail %}

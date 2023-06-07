@@ -88,8 +88,8 @@ class ReportHeader(models.Model):
     company = models.ForeignKey(CompanyData, verbose_name=_("Company"), on_delete=models.CASCADE, related_name='company_report_header')
     counter = models.IntegerField(_("Counter"), default=0)
     code = models.AutoField(_("Code"), primary_key=True)
-    associat = models.BooleanField(_("Associat"), default=False, null=True)
-    fondul = models.BooleanField(_("Fondul"), default=False, null=True)
+    associat = models.DecimalField(max_digits=10, decimal_places=1, null=True)
+    fondul = models.DecimalField(max_digits=10, decimal_places=1, null=True)
 
 class ReportItems1(models.Model):
     uid = models.UUIDField(unique=True, editable=False, default=uuid.uuid4)
@@ -126,6 +126,31 @@ class ManagerReportDescriereaAsociati(models.Model):
     report_item_1 = models.ForeignKey(ReportItems1, verbose_name=_("Вторая часть"), on_delete=models.CASCADE, null=True, to_field='code')
     report_item_2 = models.ForeignKey(ReportItems2, verbose_name=_("Вторая часть"), on_delete=models.CASCADE, null=True, to_field='code')
     report_item_3 = models.ForeignKey(ReportItems3, verbose_name=_("Вторая часть"), on_delete=models.CASCADE, null=True, to_field='code')
+    date = models.DateField(_("Дата"), auto_now=True)
+
+class MiscCadrelor(models.Model):
+    uid = models.UUIDField(unique=True, editable=False, default=uuid.uuid4)
+    counter = models.IntegerField(_("Counter"), default=0)
+    company = models.ForeignKey(CompanyData, verbose_name=_("Company"), on_delete=models.CASCADE, related_name='misc_cadrelor')
+    code = models.AutoField(_("Code"), primary_key=True)
+    codul_rind = models.IntegerField(_("Codul rînd"), null=True, blank=True)
+    category = models.IntegerField(_("Categorii"), null=True, blank=True)
+    num_func = models.IntegerField(_("Num func"), null=True, blank=True)
+    num_script = models.IntegerField(_("Num scriptic"), null=True, blank=True)
+    num_locuri = models.IntegerField(_("Num locuri"), null=True, blank=True)
+    sal_pana = models.IntegerField(_("Sal pana la 30 ani"), null=True, blank=True)
+    studii_super = models.IntegerField(_("Studii Superioare"), null=True, blank=True)
+    studii_medii_speciale = models.IntegerField(_("Studii medii speciale"), null=True, blank=True)
+    studii_medii = models.IntegerField(_("Studii medii"), null=True, blank=True)
+    absolventi = models.IntegerField(_("Absolventi"), null=True, blank=True)
+    mai_ani = models.IntegerField(_("mai mare 5 ani"), null=True, blank=True)
+    mai_ani_consum = models.IntegerField(_("mai mare 5 ani consum"), null=True, blank=True)
+    perfectionare = models.IntegerField(_("Perfectionare a cadrelor"), null=True, blank=True)
+
+
+class ManagerMiscCadrelor(models.Model):
+    uid = models.UUIDField(unique=True, editable=False, default=uuid.uuid4)
+    reports = models.ForeignKey(MiscCadrelor, verbose_name=_("MiscCadrelor"), on_delete=models.CASCADE, to_field='code')
     date = models.DateField(_("Дата"), auto_now=True)
 
 

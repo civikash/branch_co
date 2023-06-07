@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.views import View
-from reports.models import InfEconOp, SecondInfEconOp
+from django.db.models import Q
+from itertools import chain
+from reports.models import InfEconOp, SecondInfEconOp, ManagerInfEconOp, ManagerMiscCadrelor, ManagerReportDescriereaAsociati
 
 
 
@@ -10,7 +12,14 @@ class ReportsList(View):
 
     # @require_company_data
     def get(self, request, *args, **kwargs):
-        reports = InfEconOp.objects.select_related('company__users').values('counter', 'company__users__username').distinct()
+        # Запросы к каждой модели
+        reports_inf_econ_op = ManagerInfEconOp.objects.all()
+        reports_misc_cadrelor = ManagerMiscCadrelor.objects.all()
+        reports_report_descrierea_asociati = ManagerReportDescriereaAsociati.objects.all()
+
+        # Объединение результатов запросов
+        reports = list(chain(reports_inf_econ_op, reports_misc_cadrelor, reports_report_descrierea_asociati))
+
         context = {'reports': reports}
         return render(request, self.template_name, context)
     
