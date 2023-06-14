@@ -58,6 +58,9 @@ class InvestitiDetail(View):
 
     def get(self, request, uid, *args, **kwargs):
         manager_inf_econ_op = ManagerRaportStatisticTrimestrial.objects.filter(uid=uid).first()
+        check_user = ManagerRaportStatisticTrimestrial.objects.filter(reports__company=request.user.company)
+        if not check_user:
+            return redirect('reports:reports')
         print(manager_inf_econ_op)
         if not manager_inf_econ_op:
             return request("Отчет не найден")
@@ -81,7 +84,6 @@ class InvestitiDetail(View):
         for i, invest_s_2 in enumerate(invest_item_2):
             crt = i + 1
             codul_rind = invest_s_2.codul_rind
-            indicatori = invest_s_2.indicatori
             code_cuatm = invest_s_2.code_cuatm
             numa_oras = invest_s_2.numa_oras
             cladiri = invest_s_2.cladiri
@@ -91,7 +93,6 @@ class InvestitiDetail(View):
             invest_s_2_rows.append({
                 'crt': crt,
                 'codul_rind': codul_rind,
-                'indicatori': indicatori,
                 'code_cuatm': code_cuatm,
                 'numa_oras': numa_oras,
                 'cladiri': cladiri,
@@ -319,7 +320,17 @@ class InvestitiDetail(View):
         invest_2_list = InvestitiiActive2.objects.filter(company__users__username=request.user).order_by('code')
         
         current_inves = 0
+        current_marfa = 0
 
+        for marfas_i in invest_item_2:
+            invest_s_2_rows[current_marfa]['codul_rind'] = marfas_i.codul_rind
+            invest_s_2_rows[current_marfa]['code_cuatm'] = marfas_i.code_cuatm
+            invest_s_2_rows[current_marfa]['numa_oras'] = marfas_i.numa_oras
+            invest_s_2_rows[current_marfa]['cladiri'] = marfas_i.cladiri
+            invest_s_2_rows[current_marfa]['apart'] = marfas_i.apart
+            invest_s_2_rows[current_marfa]['sup_total'] = marfas_i.sup_total
+            invest_s_2_rows[current_marfa]['code'] = marfas_i.code
+            current_marfa += 1  # увеличиваем текущий номер ячейки на 1
 
         for sales in raport_detail: 
             invest_rows_1[current_inves]['codul_rind'] = sales.codul_rind
@@ -340,23 +351,32 @@ class InvestitiDetail(View):
 
 
         rows = InvestitiiActive1.objects.filter(counter=counter_uid).order_by('code')
-        rows_2 = InvestitiiActive2.objects.filter(company__users__username=request.user).order_by('code')
+        invest_s_2_rows = InvestitiiActive2.objects.filter(company__users__username=request.user).order_by('code')
         
 
         #ITEMS - 1 -- POST
-        codul_rind = [request.POST.get(f'codul_rind_{row.code}', None) for row in rows]
+        s_codul_rind = [request.POST.get(f's_codul_rind_{row.code}', None) for row in rows]
         indicatori = [request.POST.get(f'indicatori_{row.code}', None) for row in rows]
         intrari = [request.POST.get(f'intrari_{row.code}', None) for row in rows]
         investitii = [request.POST.get(f'investitii_{row.code}', None) for row in rows]
 
         #ITEMS - 2 -- POST
-        d_t_ini = [request.POST.get(f'd_t_ini_{row.code}', None) for row in items_2]
-        c_t_ini = [request.POST.get(f'c_t_ini_{row.code}', None) for row in items_2]
-        calculat = [request.POST.get(f'calculat_{row.code}', None) for row in items_2]
-        transferat = [request.POST.get(f'transferat_{row.code}', None) for row in items_2]
-        d_t_fin = [request.POST.get(f'd_t_fin_{row.code}', None) for row in items_2]
-        c_t_fin = [request.POST.get(f'c_t_fin_{row.code}', None) for row in items_2]
+        codul_rind = [request.POST.get(f'codul_rind_{row.code}', None) for row in invest_s_2_rows]
+        code_cuatm = [request.POST.get(f'code_cuatm_{row.code}', None) for row in invest_s_2_rows]
+        numa_oras = [request.POST.get(f'numa_oras_{row.code}', None) for row in invest_s_2_rows]
+        cladiri = [request.POST.get(f'cladiri_{row.code}', None) for row in invest_s_2_rows]
+        apart = [request.POST.get(f'apart_{row.code}', None) for row in invest_s_2_rows]
+        sup_total = [request.POST.get(f'sup_total_{row.code}', None) for row in invest_s_2_rows]
 
+
+        new_codul_rind = request.POST.getlist('new_codul_rind_') 
+        new_code_cuatm = request.POST.getlist('new_code_cuatm_')
+        new_numa_oras = request.POST.getlist('new_numa_oras_')
+        new_cladiri = request.POST.getlist('new_cladiri_')
+        new_apart = request.POST.getlist('new_apart_')
+        new_sup_total = request.POST.getlist('new_sup_total_')
+
+        print('NECO', new_codul_rind)
         counter = 0
 
         #HEADER -- POST
@@ -364,7 +384,7 @@ class InvestitiDetail(View):
             try:
                 report_item_1 = InvestitiiActive1.objects.filter(counter=counter_uid, code=row.code).first()
                 if report_item_1 is not None:
-                    report_item_1.codul_rind = float(codul_rind[i]) if codul_rind[i] else None
+                    report_item_1.codul_rind = float(s_codul_rind[i]) if s_codul_rind[i] else None
                     report_item_1.indicatori = str(indicatori[i]) if indicatori[i] else None
                     report_item_1.intrari = float(intrari[i]) if intrari[i] else None
                     report_item_1.investitii = float(investitii[i]) if investitii[i] else None
@@ -374,7 +394,7 @@ class InvestitiDetail(View):
                 # если объектов несколько, нужно выбрать один для изменения
                 report_item_1 = InvestitiiActive1.objects.filter(counter=counter_uid, code=row.code).first()
                 if report_item_1 is not None:
-                    report_item_1.codul_rind = float(codul_rind[i]) if codul_rind[i] else None
+                    report_item_1.codul_rind = float(s_codul_rind[i]) if s_codul_rind[i] else None
                     report_item_1.indicatori = str(indicatori[i]) if indicatori[i] else None
                     report_item_1.intrari = float(intrari[i]) if intrari[i] else None
                     report_item_1.investitii = float(investitii[i]) if investitii[i] else None
@@ -384,6 +404,53 @@ class InvestitiDetail(View):
                     report_item_1.save() 
             except Exception as e:
                 print(f"Error while saving InfEconOp object with id {i+1}: {e}")
-        # print('POST Запрос',request.POST)
+
+        for i, marfa, in enumerate(invest_s_2_rows):
+            try:
+                sec_inf_econ_op = InvestitiiActive2.objects.filter(company__users__username=request.user, code=marfa.code).first()
+                if sec_inf_econ_op is not None:
+                    sec_inf_econ_op.codul_rind = float(codul_rind[i]) if codul_rind[i] else None
+                    sec_inf_econ_op.code_cuatm = float(code_cuatm[i]) if code_cuatm[i] else None
+                    sec_inf_econ_op.numa_oras = str(numa_oras[i]) if numa_oras[i] else None
+                    sec_inf_econ_op.cladiri = float(cladiri[i]) if cladiri[i] else None
+                    sec_inf_econ_op.apart = float(apart[i]) if apart[i] else None
+                    sec_inf_econ_op.sup_total = float(sup_total[i]) if sup_total[i] else None
+                    sec_inf_econ_op.counter = counter_uid
+                    sec_inf_econ_op.save()
+                     # увеличиваем счетчик на 1 при успешном сохранении объекта
+            except InvestitiiActive2.MultipleObjectsReturned as e:
+                # если объектов несколько, нужно выбрать один для изменения
+                sec_inf_econ_op = InvestitiiActive2.objects.filter(company__users__username=request.user, code=marfa.code).first()
+                if sec_inf_econ_op is not None:
+                    sec_inf_econ_op.codul_rind = float(codul_rind[i]) if codul_rind[i] else None
+                    sec_inf_econ_op.code_cuatm = float(code_cuatm[i]) if code_cuatm[i] else None
+                    sec_inf_econ_op.numa_oras = str(numa_oras[i]) if numa_oras[i] else None
+                    sec_inf_econ_op.cladiri = float(cladiri[i]) if cladiri[i] else None
+                    sec_inf_econ_op.apart = float(apart[i]) if apart[i] else None
+                    sec_inf_econ_op.sup_total = float(sup_total[i]) if sup_total[i] else None
+                    sec_inf_econ_op.counter = counter_uid
+                    sec_inf_econ_op.save()
+                    sec_inf_econ_op.counter = counter_uid
+                    sec_inf_econ_op.save() 
+            except Exception as e:
+                print(f"Error while saving InfEconOp object with id {i+1}: {e}")
+        try:
+            for i in range(len(new_codul_rind)):
+                    new_sec_inf_econ_op = InvestitiiActive2.objects.create(company=request.user.company)
+                    new_sec_inf_econ_op.codul_rind = float(new_codul_rind[i]) if new_codul_rind[i] else None
+                    new_sec_inf_econ_op.code_cuatm = float(new_code_cuatm[i]) if new_code_cuatm[i] else None
+                    new_sec_inf_econ_op.numa_oras = str(new_numa_oras[i]) if new_numa_oras[i] else None
+                    new_sec_inf_econ_op.cladiri = float(new_cladiri[i]) if new_cladiri[i] else None
+                    new_sec_inf_econ_op.apart = float(new_apart[i]) if new_apart[i] else None
+                    new_sec_inf_econ_op.sup_total = float(new_sup_total[i]) if new_sup_total[i] else None
+                    print(new_sec_inf_econ_op.codul_rind)
+                    new_sec_inf_econ_op.save()
+                    new_sec_inf_econ_op.counter = counter_uid
+                    new_sec_inf_econ_op.save()
+                    print(new_sec_inf_econ_op)
+        except Exception as e:
+            print(f"Error while creating new InvestitiiActive2 object: {e}")
+            raise
+        print('POST Запрос',request.POST)
         # print(f"Number of InfEconOp objects saved: {counter}")  # выводим число сохраненных объектов
         return HttpResponseRedirect(request.path_info)

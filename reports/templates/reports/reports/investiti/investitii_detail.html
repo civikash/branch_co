@@ -1,0 +1,98 @@
+{% extends 'app.html' %}
+{% load custom_filters %}
+{% block privind_detail %}
+<section class="raport__body">
+        <form method="POST" class="flex column gap-1">
+            {% csrf_token %}
+    <h1>				2-INV
+        Raport statistic trimestrial
+        Cu privire la investiţii
+    </h1>
+    <h1>Cap. INV: Investiţii în active imobilizate</h1>
+<table cellspacing="0" cellpadding="5" border="1">
+    <thead>
+        <tr>
+            <th rowspan="2">Nr. rd.</th>
+            <th rowspan="2">Indicatorii</th>
+            <th colspan="2">Trimestrul de raportare</th>
+        </tr>
+        <tr>
+            <th>U.M.</th>
+            <th>Trimestrul de raportare</th>
+        </tr>
+        <tr>
+            <th>A</th>
+            <th>B</th>
+            <th>1</th>
+            <th>2</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in invest_rows_1 %}
+        <tr>
+            <td class="txt-c" rowspan="{{ row.rowspan }}"><input class="w-full tb-input" type="text" step="any" name="s_codul_rind_{{ row.code }}" value="{{ row.codul_rind|floatformat:"1"|stringreplace }}" id="s_codul_rind_{{ row.code }}"></td>
+            <td class="txt-c" rowspan="{{ row.rowspan }}"><input class="w-full tb-input" type="text" step="any" name="indicatori_{{ row.code }}" value="{{ row.indicatori|default:''|stringreplace }}" id="indicatori_{{ row.code }}"></td>
+            <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="intrari_{{ row.code }}" value="{{ row.intrari|floatformat:"1"|stringreplace }}" id="intrari_{{ row.code }}"></td>
+            <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="investitii_{{ row.code }}" value="{{ row.investitii|floatformat:"1"|stringreplace }}" id="investitii_{{ row.code }}"></td>
+        </tr>
+    {% endfor %}
+    <button class="button blue" type="submit">Сохранить</button>
+
+    </tbody>
+</table>
+
+<h1>Cap. LOC: Clădiri rezidenţiale (de locuit)</h1>
+<table cellspacing="0" cellpadding="5" border="1" id="tableReports">
+    <thead>
+        <tr>
+            <th rowspan="2">№d</th>
+            <th rowspan="2">Cod CUATM oraşe (municipii), sate (comune)</th>
+            <th rowspan="2">Denumirea oraşelor (municipiilor), satelor (comunelor)</th>
+            <th colspan="3">Date în exploatare</th>
+            <th></th>
+        </tr>
+        <tr>
+            <th>clădiri rezidenţiale/case de locuit individuale, unităţi</th>
+            <th>în care: apartamente/case de locuit individuale, unităţi</th>
+            <th>suprafaţa totală a apartamentelor/caselor de locuit individuale, m2</th>
+            <th></th>
+        </tr>
+        <tr>
+            <th>A</th>
+            <th>B</th>
+            <th>C</th>
+            <th>1</th>
+            <th>2</th>
+            <th>3</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in invest_s_2_rows %}
+        <tr>
+            <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="codul_rind_{{ row.code }}" value="{{ row.codul_rind|floatformat:"1"|stringreplace }}" id="codul_rind_{{ row.code }}"></td>
+            <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="code_cuatm_{{ row.code }}" value="{{ row.code_cuatm|floatformat:"1"|stringreplace }}" id="code_cuatm_{{ row.code }}"></td>
+            <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="numa_oras_{{ row.code }}" value="{{ row.numa_oras|default:''|stringreplace }}" id="numa_oras_{{ row.code }}"></td>
+            <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="cladiri_{{ row.code }}" value="{{ row.cladiri|floatformat:"1"|stringreplace }}" id="cladiri_{{ row.code }}"></td>
+            <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="apart_{{ row.code }}" value="{{ row.apart|floatformat:"1"|stringreplace }}" id="apart_{{ row.code }}"></td>
+            <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="sup_total_{{ row.code }}" value="{{ row.sup_total|floatformat:"1"|stringreplace }}" id="sup_total_{{ row.code }}"></td>
+            <td class="txt-c delete-icon-invest" data-code="{{ row.code }}">
+                <span class="delete-text">Удалить</span>
+            </td>
+        </tr>
+    {% endfor %}
+    <tr id="new-row-template" style="display: none;">
+        <td class="txt-c"><input class="tb-input w-full" type="text" step="any" name="new_codul_rind_"></td>
+        <td class="txt-c"><input class="tb-input w-full" type="text" step="any" name="new_code_cuatm_"></td>
+        <td class="txt-c"><input class="tb-input w-full" type="text" step="any" name="new_numa_oras_"></td>
+        <td class="txt-c"><input class="tb-input w-full" type="text" step="any" name="new_cladiri_"></td>
+        <td class="txt-c"><input class="tb-input w-full" type="text" step="any" name="new_apart_"></td>
+        <td class="txt-c"><input class="tb-input w-full" type="text" step="any" name="new_sup_total_"></td>
+    </tr>
+    <button class="button blue" type="submit">Сохранить</button>
+    </tbody>
+    <button class="button blue" type="button" onclick="addRow()">Добавить строку</button>
+</table>
+</form>
+</section>
+{% endblock privind_detail %}

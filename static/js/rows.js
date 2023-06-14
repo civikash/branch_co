@@ -8,6 +8,7 @@ function addRow() {
 }
 
 const deleteIcons = document.querySelectorAll('.delete-icon');
+const deleteIconsInvests = document.querySelectorAll('.delete-icon-invest');
 
 // Обойти каждый элемент и назначить обработчик клика
 deleteIcons.forEach(deleteIcon => {
@@ -20,6 +21,38 @@ deleteIcons.forEach(deleteIcon => {
 
         // Выполнить AJAX-запрос для удаления строки с использованием кода `code`
         fetch(`/reports/delete-marfa/${code}/`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // После успешного удаления строки из базы данных, удалить саму строку из таблицы:
+                row.remove();
+            } else {
+                console.error(data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Ошибка при выполнении AJAX-запроса:', error);
+        });
+    });
+});
+
+// Обойти каждый элемент и назначить обработчик клика
+deleteIconsInvests.forEach(deleteIconsInvest => {
+    deleteIconsInvest.addEventListener('click', function() {
+        const row = this.parentNode; // Получить родительскую строку
+        const code = this.getAttribute('data-code');
+
+        // Получить CSRF-токен из cookies
+        const csrftoken = getCookie('csrftoken');
+
+        // Выполнить AJAX-запрос для удаления строки с использованием кода `code`
+        fetch(`/reports/delete-investi/${code}/`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',

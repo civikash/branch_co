@@ -21,7 +21,6 @@ class CompanyData(models.Model):
     anul = models.CharField(_("Anul"), max_length=5, null=False)
 
 
-
 class InfEconOp(models.Model):
     uid = models.UUIDField(unique=True, editable=False, default=uuid.uuid4)
     company = models.ForeignKey(CompanyData, verbose_name=_("Company"), on_delete=models.PROTECT, to_field='uid', related_name='account_company')
@@ -152,6 +151,38 @@ class ManagerMiscCadrelor(models.Model):
     uid = models.UUIDField(unique=True, editable=False, default=uuid.uuid4)
     reports = models.ForeignKey(MiscCadrelor, verbose_name=_("MiscCadrelor"), on_delete=models.CASCADE, to_field='code')
     date = models.DateField(_("Дата"), auto_now=True)
+
+
+class InvestitiiActive1(models.Model):
+    uid = models.UUIDField(unique=True, editable=False, default=uuid.uuid4)
+    company = models.ForeignKey(CompanyData, verbose_name=_("Company"), on_delete=models.PROTECT, to_field='uid', related_name='account_company_investitii')
+    code = models.AutoField(_("Code"), primary_key=True)
+    counter = models.IntegerField(_("Counter"), default=0)
+    codul_rind = models.IntegerField(_("Codul_rînd"), null=True, blank=True)
+    indicatori = models.CharField(_("Indicatorii"), max_length=120, null=True, blank=True)
+    intrari = models.DecimalField(max_digits=10, decimal_places=1, null=True)
+    investitii = models.DecimalField(max_digits=10, decimal_places=1, null=True)
+
+
+class InvestitiiActive2(models.Model):
+    uid = models.UUIDField(unique=True, editable=False, default=uuid.uuid4)
+    company = models.ForeignKey(CompanyData, verbose_name=_("Company"), on_delete=models.PROTECT, to_field='uid', related_name='account_company_investitii_2')
+    code = models.AutoField(_("Code"), primary_key=True)
+    counter = models.IntegerField(_("Counter"), default=0)
+    codul_rind = models.IntegerField(_("Codul_rînd"), null=True, blank=True)
+    code_cuatm = models.IntegerField(_("CodCUATM"), null=True, blank=True)
+    numa_oras = models.CharField(_("Numa_oras"), max_length=120, null=True, blank=True)
+    cladiri = models.DecimalField(max_digits=10, decimal_places=1, null=True)
+    apart = models.DecimalField(max_digits=10, decimal_places=1, null=True)
+    sup_total = models.DecimalField(max_digits=10, decimal_places=1, null=True)
+
+
+class ManagerRaportStatisticTrimestrial(models.Model):
+    uid = models.UUIDField(unique=True, editable=False, default=uuid.uuid4)
+    reports = models.ForeignKey(InvestitiiActive1, verbose_name=_("Investiţii în active imobilizate"), on_delete=models.CASCADE, to_field='code')
+    reports_2 = models.ForeignKey(InvestitiiActive2, verbose_name=_("Clădiri rezidenţiale (de locuit)"), on_delete=models.CASCADE, null=True, to_field='code')
+    date = models.DateField(_("Дата"), auto_now=True)
+
 
 
 @receiver(pre_save, sender=InfEconOp)

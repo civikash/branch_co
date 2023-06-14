@@ -1018,16 +1018,6 @@ class PrivindDetail(View):
                     report_item_3.save() 
             except Exception as e:
                 print(f"Error while saving InfEconOp object with id {i+1}: {e}")
-
-
-
-
-
-
-
-
-
-
         # print('POST Запрос',request.POST)
         # print(f"Number of InfEconOp objects saved: {counter}")  # выводим число сохраненных объектов
         return HttpResponseRedirect(request.path_info)

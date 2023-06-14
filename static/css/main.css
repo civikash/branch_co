@@ -231,6 +231,13 @@ tbody tr td {
   border: 1px solid #000000;
 }
 
+tr td {
+  padding: 10px;
+  font-size: 15px;
+  text-align: center;
+  border: 1px solid #000000;
+}
+
 .left_vert {
   text-align: center;
 }

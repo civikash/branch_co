@@ -93,6 +93,15 @@ thead {
     }
   }
 
+tr {
+    td {
+      padding: 10px;
+      font-size: 15px;
+      text-align: center;
+      border: 1px solid $dark;
+    }
+  }
+
 .left_vert {
     text-align: center;
 }
