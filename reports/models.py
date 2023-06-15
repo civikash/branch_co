@@ -183,6 +183,33 @@ class ManagerRaportStatisticTrimestrial(models.Model):
     reports_2 = models.ForeignKey(InvestitiiActive2, verbose_name=_("Clădiri rezidenţiale (de locuit)"), on_delete=models.CASCADE, null=True, to_field='code')
     date = models.DateField(_("Дата"), auto_now=True)
 
+class Stocuri1(models.Model):
+    uid = models.UUIDField(unique=True, editable=False, default=uuid.uuid4)
+    company = models.ForeignKey(CompanyData, verbose_name=_("Company"), on_delete=models.PROTECT, to_field='uid', related_name='account_company_stocuri')
+    code = models.AutoField(_("Code"), primary_key=True)
+    counter = models.IntegerField(_("Counter"), default=0)
+    code_rind = models.IntegerField(_("cod_rind"), null=True, blank=True)
+    indicatori = models.CharField(_("Indicatorii"), max_length=120, null=True, blank=True)
+    inceputul = models.DecimalField(max_digits=10, decimal_places=1, null=True)
+    finele = models.DecimalField(max_digits=10, decimal_places=1, null=True)
+
+
+class Stocuri2(models.Model):
+    uid = models.UUIDField(unique=True, editable=False, default=uuid.uuid4)
+    company = models.ForeignKey(CompanyData, verbose_name=_("Company"), on_delete=models.PROTECT, to_field='uid', related_name='account_company_stocuri_2')
+    code = models.AutoField(_("Code"), primary_key=True)
+    counter = models.IntegerField(_("Counter"), default=0)
+    code_rind = models.IntegerField(_("cod_rind"), null=True, blank=True)
+    indicatorii = models.IntegerField(_("Indicatorii"), null=True, blank=True)
+    trimestrul = models.DecimalField(_("Trimestrul"), max_digits=10, decimal_places=1, null=True, blank=True)
+
+
+class ManagerRaportStocuri(models.Model):
+    uid = models.UUIDField(unique=True, editable=False, default=uuid.uuid4)
+    reports = models.ForeignKey(Stocuri1, verbose_name=_("Cap.Stoc: Stocuri"), on_delete=models.CASCADE, to_field='code')
+    ci_2 = models.ForeignKey(Stocuri2, verbose_name=_("Venituri, costuri și cheltuieli operaționale în total pe entitate"), on_delete=models.CASCADE, null=True, to_field='code')
+    date = models.DateField(_("Дата"), auto_now=True)
+
 
 
 @receiver(pre_save, sender=InfEconOp)

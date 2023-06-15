@@ -1,6 +1,6 @@
 from django.urls import path
 from django.contrib.auth.decorators import login_required
-from reports.views import reports, reports_add, reports_delete, economica, privind, cadrelor, investiti
+from reports.views import reports, reports_add, reports_delete, economica, privind, cadrelor, investiti, strocuri
 
 app_name = 'reports'
 
@@ -8,6 +8,8 @@ urlpatterns = [
     path('delete-marfa/<int:code>/', reports_delete.delete_marfa, name='delete_marfa'),
     path('delete-investi/<int:code>/', reports_delete.delete_investiti, name='delete_investiti'),
     path('economica/', login_required(economica.InfEconOpCreateView.as_view(), login_url='/login/'), name='economica-views'),
+    path('strocuri/', login_required(strocuri.StrocuriListView.as_view(), login_url='/login/'), name='strocuri'),
+    path('strocuri/<uuid:uid>/', login_required(strocuri.StrocuriDetail.as_view(), login_url='/login/'), name='strocuri-detail'),
     path('privind/', login_required(privind.PrivindListView.as_view(), login_url='/login/'), name='privinds'),
     path('privind/<uuid:uid>/', login_required(privind.PrivindDetail.as_view(), login_url='/login/'), name='privind-detail'),
     path('investi/', login_required(investiti.InvestitiListView.as_view(), login_url='/login/'), name='investis'),

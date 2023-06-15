@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.shortcuts import redirect
 from django.http import HttpResponseRedirect
 from django.views import View
 from django.db.models import Q
@@ -31,8 +32,7 @@ class ReportDetails(View):
     def get(self, request, *args, **kwargs):
         # Получаем значение counter из параметров запроса
         counter = kwargs.get('counter')
-
-        # Получаем все отчеты с заданным значением counter
+        
         reports = InfEconOp.objects.filter(counter=counter)
         s_marfas = SecondInfEconOp.objects.filter(counter=counter)
 

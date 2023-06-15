@@ -109,7 +109,9 @@ class PrivindDetail(View):
 
     def get(self, request, uid, *args, **kwargs):
         manager_inf_econ_op = ManagerReportDescriereaAsociati.objects.filter(uid=uid).first()
-        print(manager_inf_econ_op)
+        check_user = ManagerReportDescriereaAsociati.objects.filter(reports__company=request.user.company)
+        if not check_user:
+            return redirect('reports:reports')
         if not manager_inf_econ_op:
             return request("Отчет не найден")
         

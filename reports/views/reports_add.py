@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
+from django.shortcuts import redirect
 from django.views import View
 from django.db.models import Max
 from reports.models import InfEconOp, SecondInfEconOp, ManagerInfEconOp
@@ -29,6 +30,9 @@ class ReportsAdds(View):
 
     def get(self, request, uid, *args, **kwargs):
         manager_inf_econ_op = ManagerInfEconOp.objects.filter(uid=uid).first()
+        check_user = ManagerInfEconOp.objects.filter(reports__company=request.user.company)
+        if not check_user:
+            return redirect('reports:reports')
         if not manager_inf_econ_op:
             return request("Отчет не найден")
         

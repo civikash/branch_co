@@ -61,7 +61,6 @@ class InvestitiDetail(View):
         check_user = ManagerRaportStatisticTrimestrial.objects.filter(reports__company=request.user.company)
         if not check_user:
             return redirect('reports:reports')
-        print(manager_inf_econ_op)
         if not manager_inf_econ_op:
             return request("Отчет не найден")
         
