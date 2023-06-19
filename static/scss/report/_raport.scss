@@ -20,6 +20,8 @@ thead {
     justify-content: center;
 
     table {
+        font-size: 11px !important;
+        border: 1px solid #9E9A99;
         input[type="checkbox"] {
             -webkit-appearance: none;
             -moz-appearance: none;
@@ -78,15 +80,11 @@ thead {
   // Стиль для tbody
   tbody {
     // Полосы на фоне для улучшения читаемости
-    tr:nth-child(even) {
-      background-color: #f9f9f9;
-    }
   
     // Стиль для каждой строки (tr) внутри tbody
     tr {
       td {
-        padding: 10px;
-        font-size: 15px;
+        padding: 5px;
         text-align: center;
         border: 1px solid $dark;
       }
