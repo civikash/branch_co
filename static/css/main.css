@@ -230,6 +230,10 @@ tbody tr td {
   text-align: center;
   border: 1px solid #000000;
 }
+tbody tr .td_gray {
+  background-color: gray;
+  color: #ffffff;
+}
 
 tr td {
   padding: 10px;

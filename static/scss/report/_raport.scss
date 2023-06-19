@@ -90,6 +90,11 @@ thead {
         text-align: center;
         border: 1px solid $dark;
       }
+
+      .td_gray {
+        background-color: gray;
+        color: $white;
+      }
     }
   }
 

@@ -68,6 +68,17 @@
         </tr>
     </thead>
     <tbody>
+        <tr>
+            <td class="txt-c">1</td>
+            <td class="txt-c">X</td>
+            <td class="txt-c">Total</td>
+            <td id="total_1" class="txt-c td_gray"><input class="w-full tb-input" type="hidden" name="total1" id="total_1"></td>
+            <td id="total_2" class="txt-c td_gray"><input class="w-full tb-input" type="hidden" name="total2" id="total_2"></td>
+            <td id="total_3"class="txt-c td_gray"><input class="w-full tb-input" type="hidden" name="total3" id="total_3"></td>
+            <td class="txt-c delete-icon-invest" data-code="{{ row.code }}">
+                <span class="delete-text">Удалить</span>
+            </td>
+        </tr>
         {% for row in invest_s_2_rows %}
         <tr>
             <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="codul_rind_{{ row.code }}" value="{{ row.codul_rind|floatformat:"1"|stringreplace }}" id="codul_rind_{{ row.code }}"></td>
