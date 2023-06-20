@@ -2,12 +2,14 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
+from django.conf import settings
 from django.contrib.auth.models import User
 import uuid
 
 class CompanyData(models.Model):
     uid = models.UUIDField(primary_key=True, unique=True, editable=False, default=uuid.uuid4)
     name = models.CharField(_("Denumirea"), max_length=150, null=False)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, verbose_name=_("Пользователь"), null=True, on_delete=models.CASCADE)
     address = models.CharField(_("Adresa"), max_length=150, null=False)
     district = models.CharField(_("Raionul"), max_length=74, null=False)
     village = models.CharField(_("Satul"), max_length=55, null=False)

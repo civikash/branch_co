@@ -1,0 +1,142 @@
+{% extends 'app.html' %}
+{% block messages %}
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% endfor %}
+{% endif %}
+
+
+{% endblock messages %}
+{% block reports_branch %}
+<div class="admin_reports_body">
+<h1>Отчеты филиалов</h1>
+<div class="table__space">
+    <div class="table__space-table">
+        <h2>Отчеты филиалов №1</h2>
+    <table cellspacing="0" cellpadding="4" border="1">
+        <thead>
+            <th>
+                Филиал
+            </th>
+            <th>
+                Пользователь
+            </th>
+            <th>
+            </th>
+        </thead>
+        <tbody>
+            {% for report in reports_1 %}
+            <tr>
+                <td>{{ report.reports.company.name }}</td>
+                <td>{{ report.reports.company.user }}</td>
+                <td><a href="{% url 'reports:reports-vision' uid=report.uid %}">Подробнее</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+    <div class="table__space-table">
+    <h2>Отчеты филиалов №2</h2>
+    <table cellspacing="0" cellpadding="4" border="1">
+        <thead>
+            <th>
+                Филиал
+            </th>
+            <th>
+                Пользователь
+            </th>
+            <th>
+            </th>
+        </thead>
+        <tbody>
+            {% for report in reports_2 %}
+            <tr>
+                <td>{{ report.reports.company.name }}</td>
+                <td>{{ report.reports.company.user }}</td>
+                <td><a href="{% url 'reports:cadrelor-detail' uid=report.uid %}">Подробнее</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div class="table__space-table">
+    <h2>Отчеты филиалов №3</h2>
+    <table cellspacing="0" cellpadding="4" border="1">
+        <thead>
+            <th>
+                Филиал
+            </th>
+            <th>
+                Пользователь
+            </th>
+            <th>
+            </th>
+        </thead>
+        <tbody>
+            {% for report in reports_3 %}
+            <tr>
+                <td>{{ report.reports.company.name }}</td>
+                <td>{{ report.reports.company.user }}</td>
+                <td><a href="{% url 'reports:investi-detail' uid=report.uid %}">Подробнее</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div class="table__space-table">
+    <h2>Отчеты филиалов №4</h2>
+    <table cellspacing="0" cellpadding="4" border="1">
+        <thead>
+            <th>
+                Филиал
+            </th>
+            <th>
+                Пользователь
+            </th>
+            <th>
+            </th>
+        </thead>
+        <tbody>
+            {% for report in reports_4 %}
+            <tr>
+                <td>{{ report.reports.company.name }}</td>
+                <td>{{ report.reports.company.user }}</td>
+                <td><a href="{% url 'reports:strocuri-detail' uid=report.uid %}">Подробнее</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div class="table__space-table">
+    <h2>Отчеты филиалов №5</h2>
+    <table cellspacing="0" cellpadding="4" border="1">
+        <thead>
+            <th>
+                Филиал
+            </th>
+            <th>
+                Пользователь
+            </th>
+            <th>
+            </th>
+        </thead>
+        <tbody>
+            {% for report in reports_5 %}
+            <tr>
+                <td>{{ report.reports.company.name }}</td>
+                <td>{{ report.reports.company.user }}</td>
+                <td><a href="{% url 'reports:privind-detail' uid=report.uid %}">Подробнее</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+</div>
+</div>
+{% endblock %}

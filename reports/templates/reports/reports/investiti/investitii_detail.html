@@ -4,11 +4,72 @@
 <section class="raport__body">
         <form method="POST" class="flex column gap-1">
             {% csrf_token %}
-    <h1>				2-INV
-        Raport statistic trimestrial
+            <div class="raport__title">
+    <h1>2-INV<br>
+        Raport statistic trimestrial<br>
         Cu privire la investiţii
     </h1>
-    <h1>Cap. INV: Investiţii în active imobilizate</h1>
+    <span>în trimestrul T/</span>
+</div>
+
+<div class="raport__information">
+    <span>Date de identificare</span>
+    <ul>
+        <li>Denumirea:
+            <div class="lid">EMPLOMARIN S.R.L.</div>
+        </li>
+    </ul>
+    <span>Adresa:</span>
+    <ul>
+        <li>Raionul(municipiul):
+            <div class="lid">EMPLOMARIN S.R.L.</div>
+        </li>
+        <li>Sat(comuna/sector):
+            <div class="lid">EMPLOMARIN S.R.L.</div>
+        </li>
+        <li>Strada:
+            <div class="lid">SEC.RISCANI Ion Pruncul nr.4 bl.1</div>
+        </li>
+        <li>Cod CUIÎO:
+            <div class="lid"></div>
+        </li>
+        <li>Cod IDNO:
+            <div class="lid">1008600045376</div>
+        </li>
+        <li>Forma de proprietate:
+            <select>
+            </select>
+        </li>
+        <li>Forma organizatorico-juridică:
+            <select>
+            </select>
+        </li>
+        <li>Activitatea principală:
+            <select>
+            </select>
+        </li>
+        <li>Codul fiscal:
+            <div class="lid"></div>
+        </li>
+        <li>Conducătorul:
+            <div class="lid"></div>
+        </li>
+        <li>Executantul: 
+            <div class="lid"></div>
+        </li>
+        <li>Telefon:
+            <div class="lid"></div>
+        </li>
+    </ul>
+</div>
+<div class="raport__title">
+    <h1>Cap. INV: Investiţii în active imobilizate
+    </h1>
+</div>
+<div class="raport__title">
+<button class="save button blue" type="submit">Сохранить</button>
+<span class="left__marg">mii lei; datele se înscriu cu zecimale</span>
+</div>
 <table cellspacing="0" cellpadding="5" border="1">
     <thead>
         <tr>
@@ -17,8 +78,9 @@
             <th colspan="2">Trimestrul de raportare</th>
         </tr>
         <tr>
-            <th>U.M.</th>
-            <th>Trimestrul de raportare</th>
+            <th>Intrări obiecte
+                noi, import</th>
+            <th>Investiții ulterioare și reparații capitale</th>
         </tr>
         <tr>
             <th>A</th>
@@ -36,12 +98,19 @@
             <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="investitii_{{ row.code }}" value="{{ row.investitii|floatformat:"1"|stringreplace }}" id="investitii_{{ row.code }}"></td>
         </tr>
     {% endfor %}
-    <button class="button blue" type="submit">Сохранить</button>
+
 
     </tbody>
 </table>
 
-<h1>Cap. LOC: Clădiri rezidenţiale (de locuit)</h1>
+<div class="raport__title">
+    <h1>Cap. LOC: Clădiri rezidenţiale (de locuit)
+    </h1>
+</div>
+<div class="raport__title-row save">
+<button class="button blue" type="submit">Сохранить</button>
+<button class="button blue__outline" type="button" onclick="addRow()">Добавить строку</button>
+</div>
 <table cellspacing="0" cellpadding="5" border="1" id="tableReports">
     <thead>
         <tr>
@@ -76,7 +145,7 @@
             <td id="total_2" class="txt-c td_gray"><input class="w-full tb-input" type="hidden" name="total2" id="total_2"></td>
             <td id="total_3"class="txt-c td_gray"><input class="w-full tb-input" type="hidden" name="total3" id="total_3"></td>
             <td class="txt-c delete-icon-invest" data-code="{{ row.code }}">
-                <span class="delete-text">Удалить</span>
+                <span class="delete-text">Şterge</span>
             </td>
         </tr>
         {% for row in invest_s_2_rows %}
@@ -88,7 +157,7 @@
             <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="apart_{{ row.code }}" value="{{ row.apart|floatformat:"1"|stringreplace }}" id="apart_{{ row.code }}"></td>
             <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="sup_total_{{ row.code }}" value="{{ row.sup_total|floatformat:"1"|stringreplace }}" id="sup_total_{{ row.code }}"></td>
             <td class="txt-c delete-icon-invest" data-code="{{ row.code }}">
-                <span class="delete-text">Удалить</span>
+                <span class="delete-text">Şterge</span>
             </td>
         </tr>
     {% endfor %}
@@ -100,10 +169,26 @@
         <td class="txt-c"><input class="tb-input w-full" type="text" step="any" name="new_apart_"></td>
         <td class="txt-c"><input class="tb-input w-full" type="text" step="any" name="new_sup_total_"></td>
     </tr>
-    <button class="button blue" type="submit">Сохранить</button>
+    
     </tbody>
-    <button class="button blue" type="button" onclick="addRow()">Добавить строку</button>
+    
 </table>
+<div class="raport__information">
+    <span>Se completează conform Clasificatorului unităţilor administrativ-teritoriale al Republicii Moldova (CUATM) după locul amplasării clădirii rezidenţiale (de locuit).</span>
+    <ul>
+        <li>Vândut populaţiei apartamente noi, unităţi
+            <div class="lid">EMPLOMARIN S.R.L.</div>
+            <span>(rd.910)</span>
+        </li>
+    </ul>
+    <ul>
+        <li>Suprafaţa totală, m2
+            <div class="lid">EMPLOMARIN S.R.L.</div>
+            <span>(rd.920)</span>
+        </li>
+    </ul>
+    <span>* Important: Datele se prezintă numai pe trimestrul de raportare (de exemplu: pentru trimestrul II – trimestrul de raportare constituie 1 aprilie – 30 iunie).</span>
+</div>
 </form>
 </section>
 {% endblock privind_detail %}

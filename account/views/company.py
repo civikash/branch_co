@@ -19,6 +19,7 @@ class CompanyDataView(LoginRequiredMixin, View):
         print(request.POST)
         company_data = CompanyData.objects.create(
             name=request.POST.get('name'),
+            user=request.user,
             address=request.POST.get('address'),
             district=request.POST.get('district'),
             village=request.POST.get('village'),

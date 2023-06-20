@@ -110,10 +110,6 @@ class PrivindDetail(View):
     def get(self, request, uid, *args, **kwargs):
         manager_inf_econ_op = ManagerReportDescriereaAsociati.objects.filter(uid=uid).first()
         check_user = ManagerReportDescriereaAsociati.objects.filter(reports__company=request.user.company)
-        if not check_user:
-            return redirect('reports:reports')
-        if not manager_inf_econ_op:
-            return request("Отчет не найден")
         
         counter = manager_inf_econ_op.reports.counter
         sales = ManagerReportDescriereaAsociati.objects.filter(reports__uid=manager_inf_econ_op.uid).order_by('reports__code')
@@ -877,6 +873,12 @@ class PrivindDetail(View):
              items_row_3[current_item_3]['code'] = sales.code
              current_item_3 += 1
         context = {'sales': sales, 'manager_inf_econ_op': manager_inf_econ_op, 'header': header, 'item_1': items_row_1, 'item_2': items_row_2, 'item_3': items_row_3}
+        
+        if request.user.is_superuser or check_user:
+            return render(request, self.template_name, context)
+        elif not check_user:
+            return redirect('reports:reports')
+        
         return render(request, self.template_name, context)
     
     def post(self, request, uid, *args, **kwargs):

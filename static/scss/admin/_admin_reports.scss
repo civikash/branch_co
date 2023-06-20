@@ -1,0 +1,25 @@
+.admin_reports_body {
+    h1 {
+        font-size: 24px;
+        font-weight: 400;
+    }
+
+    .table__space {
+        margin-top: 25px;
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 65px;
+
+        &-table {
+            display: flex;
+            width: 100%;
+            flex-direction: column;
+
+            h2 {
+                font-weight: 500;
+                margin-bottom: 10px;
+            }
+        }
+    }
+}

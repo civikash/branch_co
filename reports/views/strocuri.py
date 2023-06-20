@@ -2,7 +2,8 @@ from django.shortcuts import redirect
 from django.shortcuts import render
 from django.views import View
 from django.db.models import Max
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseForbidden
+from django.http import HttpResponseRedirect, HttpResponse
 from reports.models import Stocuri1, Stocuri2, ManagerRaportStocuri
 
 
@@ -78,10 +79,7 @@ class StrocuriDetail(View):
     def get(self, request, uid, *args, **kwargs):
         manager_inf_econ_op = ManagerRaportStocuri.objects.filter(uid=uid).first()
         check_user = ManagerRaportStocuri.objects.filter(reports__company=request.user.company)
-        if not check_user:
-            return redirect('reports:reports')
-        if not manager_inf_econ_op:
-            return request("Отчет не найден")
+            
         
         counter = manager_inf_econ_op.reports.counter
         sales = ManagerRaportStocuri.objects.filter(reports__uid=manager_inf_econ_op.uid).order_by('reports__code')
@@ -347,6 +345,12 @@ class StrocuriDetail(View):
             current_item_1 += 1
 
         context = {'sales': sales, 'manager_inf_econ_op': manager_inf_econ_op, 'header': header, 'item_1': items_row_1}
+        
+        if request.user.is_superuser or check_user:
+            return render(request, self.template_name, context)
+        elif not check_user:
+            return redirect('reports:reports')
+        
         return render(request, self.template_name, context)
     
     def post(self, request, uid, *args, **kwargs):

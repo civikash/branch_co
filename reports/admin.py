@@ -1,5 +1,10 @@
 from django.contrib import admin
-from reports.models import InfEconOp, ManagerRaportStocuri, Stocuri2, Stocuri1, ManagerRaportStatisticTrimestrial, InvestitiiActive1, InvestitiiActive2, ReportItems1, MiscCadrelor, ManagerMiscCadrelor, ReportItems2, ReportItems3, ReportHeader, ManagerReportDescriereaAsociati, SecondInfEconOp, ManagerInfEconOp
+from reports.models import InfEconOp, CompanyData, ManagerRaportStocuri, Stocuri2, Stocuri1, ManagerRaportStatisticTrimestrial, InvestitiiActive1, InvestitiiActive2, ReportItems1, MiscCadrelor, ManagerMiscCadrelor, ReportItems2, ReportItems3, ReportHeader, ManagerReportDescriereaAsociati, SecondInfEconOp, ManagerInfEconOp
+
+
+@admin.register(CompanyData)
+class AccountAdmin(admin.ModelAdmin):
+    pass
 
 @admin.register(ManagerRaportStocuri)
 class AccountAdmin(admin.ModelAdmin):

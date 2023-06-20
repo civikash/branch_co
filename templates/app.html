@@ -14,14 +14,10 @@
     <div class="extends-container min-h relative">
         <div class="pad-module">
             <div class="container">
-    {% if request.user.is_superuser %}
     {% block reports_branch %}
-    {% block check_branch %}
-    {% endblock check_branch %}
     {% endblock reports_branch %}
     {% block users %}{% endblock users %}
     {% block users_detail %}{% endblock users_detail %}
-    {% else %}
     {% block reports %}
     {% endblock reports %}
     {% block informatie_client %}
@@ -31,7 +27,6 @@
     {% block privind %}{% endblock privind %}
     {% block cadrelor %}{% endblock cadrelor %}
     {% block cadrelor_detail %}{% endblock cadrelor_detail %}
-    {% endif %}
             </div>
         </div>
     </div>

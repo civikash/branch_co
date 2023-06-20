@@ -58,10 +58,6 @@ class CadrelorDetailView(View):
     def get(self, request, uid, *args, **kwargs):
         manager_inf_econ_op = ManagerMiscCadrelor.objects.filter(uid=uid).first()
         check_user = ManagerMiscCadrelor.objects.filter(reports__company=request.user.company)
-        if not check_user:
-            return redirect('reports:reports')
-        if not manager_inf_econ_op:
-            return request("Отчет не найден")
         
         counter = manager_inf_econ_op.reports.counter
         sales = ManagerMiscCadrelor.objects.filter(reports__uid=manager_inf_econ_op.uid).order_by('reports__code')
@@ -634,6 +630,12 @@ class CadrelorDetailView(View):
             current_header += 1
 
         context = {'sales': sales, 'manager_inf_econ_op': manager_inf_econ_op, 'header': header}
+
+        if request.user.is_superuser or check_user:
+            return render(request, self.template_name, context)
+        elif not check_user:
+            return redirect('reports:reports')
+        
         return render(request, self.template_name, context)
     
     def post(self, request, uid, *args, **kwargs):

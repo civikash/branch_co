@@ -8,9 +8,12 @@ from django.contrib.auth.views import LoginView
 class LoginView(LoginView):
     template_name = 'account/login.html'
     success_url = '/reports/'
+    admin_url = '/admin-control/reports/'
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
+            if request.user.is_superuser:
+                return redirect(self.admin_url)
             return redirect(self.success_url)
         return super().dispatch(request, *args, **kwargs)
 
