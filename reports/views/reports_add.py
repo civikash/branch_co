@@ -9,20 +9,6 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 
 
-@method_decorator(csrf_exempt, name='dispatch')
-class RowsAPI(View):
-    def post(self, request, *args, **kwargs):
-        data = request.POST
-        rows = data.getlist('rows[]')
-        
-        # Парсинг и обработка переданных данных
-        for row in rows:
-            # Обработка каждой строки
-            pass
-        
-        return JsonResponse({'status': 'ok'})
-
-
 class ReportsAdds(View):
     template_name = 'reports/reports/informatie_client.html'
     user = None

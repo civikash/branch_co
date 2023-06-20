@@ -11,42 +11,6 @@
     {% endfor %}
 {% endif %}
 {% endblock messages %}
-{% block reports_branch %}
-<div class="header flex column w-full">
-    <div class="mt-1 flex justify-between items-center">
-        <h1 class="font-medium text-[1.25rem]">Отчетность филиалов</h1>
-    </div>
-    <div class="w-full flex justify-between">
-        <table cellspacing="0" cellpadding="4" border="1">
-            <thead>
-                <th>
-                    Филиал
-                </th>
-                <th>
-                    Пользователь
-                </th>
-                <th>
-                    Отчет
-                </th>
-                <th>
-                    Действие
-                </th>
-            </thead>
-            <tbody>
-                {% for report in reports %}
-                <tr>
-                    <td>{{ report.user__company.name }}</td>
-                    <td>{{ report.user__username }}</td>
-                    <td>{{ report.counter }}</td>
-                    <td><a href="">Подробнее</a></td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-
-    </div>
-</div>
-{% endblock reports_branch %}
 {% block reports %}
 <div class="header flex column w-full">
     <div class="mt-1 flex justify-between items-center">

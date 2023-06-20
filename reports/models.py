@@ -202,7 +202,7 @@ class Stocuri2(models.Model):
     code = models.AutoField(_("Code"), primary_key=True)
     counter = models.IntegerField(_("Counter"), default=0)
     code_rind = models.IntegerField(_("cod_rind"), null=True, blank=True)
-    indicatorii = models.IntegerField(_("Indicatorii"), null=True, blank=True)
+    indicatorii = models.CharField(_("Indicatorii"), max_length=520, null=True, blank=True)
     trimestrul = models.DecimalField(_("Trimestrul"), max_digits=10, decimal_places=1, null=True, blank=True)
 
 

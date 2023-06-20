@@ -36,27 +36,49 @@ class StrocuriListView(View):
 
         # Проверка метода запроса
         if request.method == 'POST':
+            nrd = ['2000', '2300', '2400', '2500']
+            indicatori = ['Stocuri - total', 'din care: Producția în curs de execuție (215)', 'Produse (216)', 'Mărfuri (217)']
+            
+            nrd_2 = ['0100', '0101', '0102', '0103', '0110', '0120', '0121', '0122', '0130', '0131', '0132',
+                     '0140', '0141', '0150', '0160', '0170', '0180', '0190', '0200', '0300', '0310', '0320', '0500',
+                     '0510', '0520', '0540', '0700', '0800', '0900', '1000', '1010']
+            indicatori_2 = ['Cifra de afaceri (venituri din vânzări), fără TVA și accize (contul 611; 613) (rd.0101+rd.0102+rd.0103); (rd.0110+rd.0120+rd.0130+rd.0140+rd.0150+0160)', 
+                            'din care: pentru prima lună a trimestrului', 'pentru a doua lună a trimestrului', 'pentru a treia lună a trimestrului',
+                            'din rd.0100 inclusiv din: vânzarea produselor - total (6111)', 'vânzarea mărfurilor - total (6112)', 'inclusiv: cu amănuntul', 'cu ridicata',
+                            'prestarea serviciilor, executarea lucrărilor, alte venituri din vânzări, (6113, 6114, 6117, 6118)',
+                            'din care: prestate întreprinderilor', 'prestate populației', 'contracte de construcție (6115)', 'din care: populației',
+                            'contracte de leasing operațional și financiar (arendă, locațiune), (6116)', 'venituri din dobânzile aferente împrumuturilor acordate (613)', 
+                            'din rd. 0100 - venituri din vânzarea apartamentelor noi și caselor particulare noi populației', 
+                            'Alte venituri din activitatea operațională (contul 612)', 'Valoarea contabilă a mărfurilor vîndute',
+                            'Costuri și cheltuieli operaționale - total (rd.0300+rd.0500+rd. 0700+rd. 0800+rd.0900+rd.1000)',
+                            'Costuri și cheltuieli materiale - total, din care:', 'materii prime, materiale, semifabricate cumpărate, piese de schimb',
+                            'combustibil', 'Costuri și cheltuieli aferente serviciilor (lucrărilor) prestate (executate) de terți în cadrul activității operaționale – total, din care:',
+                            'de transport', 'de comunicații', 'de prelucrare a materiei prime proprii', 'Amortizarea și deprecierea activelor imobilizate', 
+                            'Remunerarea muncii', 'Contribuții de asigurări sociale de stat obligatorii', '	Alte costuri și cheltuieli operaționale - total, din care:', 
+                            'privind leasing operațional (arendă, locațiune )']
+            print(len(indicatori_2))
+
             # Создание первого объекта InfEconOp с заполненными полями company и counter
             inf_econ_op = Stocuri1.objects.create(
-                company=request.user.company, counter=next_counter)
+                company=request.user.company, counter=next_counter, code_rind=nrd[0], indicatori=indicatori[0])
             
             item_post_1 = Stocuri2.objects.create(
-                company=request.user.company, counter=next_counter_item_1)
+                company=request.user.company, counter=next_counter_item_1, code_rind=nrd_2[0], indicatorii=indicatori_2[0])
     
 
             # Создание остальных объектов InfEconOp с увеличенным значением counter
-            for i in range(3):
+            for i, (n, ind) in zip(range(3), zip(nrd[1:], indicatori[1:])):
                 Stocuri1.objects.create(
-                    company=request.user.company, counter=next_counter)
+                    company=request.user.company, counter=next_counter, code_rind=n, indicatori=ind)
             
-            for i in range(30):
+            for i, (rnd, indic) in zip(range(30), zip(nrd_2[1:], indicatori_2[1:])):
                 Stocuri2.objects.create(
-                    company=request.user.company, counter=next_counter_item_1)
+                    company=request.user.company, counter=next_counter_item_1, code_rind=rnd, indicatorii=indic)
                 
 
             # Создание объекта ManagerInfEconOp и связывание с InfEconOp
             manager_inf_econ_op = ManagerRaportStocuri.objects.create(
-                reports=inf_econ_op, ci_2=item_post_1,)
+                reports=inf_econ_op, ci_2=item_post_1)
 
             # Перенаправление на страницу, где будет отображен созданный объект
             return redirect('reports:strocuri-detail', uid=manager_inf_econ_op.uid)
@@ -136,7 +158,7 @@ class StrocuriDetail(View):
             {
                 'crt': 1,
                 'code_rind': code_rind_2 if code_rind_2 else '',
-                'indicatori': indicatorii_2 if indicatorii_2 else '',
+                'indicatorii': indicatorii_2 if indicatorii_2 else '',
                 'trimestrul': trimestrul_2 if trimestrul_2 else '',
             },
             {
@@ -337,11 +359,11 @@ class StrocuriDetail(View):
             header[current_header]['code'] = sales.code
             current_header += 1
 
-        for sales in raport_item_1: 
-            items_row_1[current_item_1]['code_rind'] = sales.code_rind
-            items_row_1[current_item_1]['indicatori'] = sales.indicatorii
-            items_row_1[current_item_1]['trimestrul'] = sales.trimestrul
-            items_row_1[current_item_1]['code'] = sales.code
+        for raport_item_1 in raport_item_1: 
+            items_row_1[current_item_1]['code_rind'] = raport_item_1.code_rind
+            items_row_1[current_item_1]['indicatori'] = raport_item_1.indicatorii
+            items_row_1[current_item_1]['trimestrul'] = raport_item_1.trimestrul
+            items_row_1[current_item_1]['code'] = raport_item_1.code
             current_item_1 += 1
 
         context = {'sales': sales, 'manager_inf_econ_op': manager_inf_econ_op, 'header': header, 'item_1': items_row_1}

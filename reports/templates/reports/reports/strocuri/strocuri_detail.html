@@ -138,7 +138,7 @@
         {% for row in item_1 %}
         <tr>
             <td class="txt-l"><input class="w-full tb-input" type="text" step="any" name="code_rind_1_{{ row.code }}" value="{{ row.code_rind|floatformat:"1"|stringreplace }}" id="code_rind_{{ row.code }}"></td>
-            <td class="txt-l"><input class="w-full tb-input" type="text" step="any" name="indicatorii_2_{{ row.code }}" value="{{ row.indicatori|floatformat:"1"|stringreplace }}" id="indicatorii_2_{{ row.code }}"></td>
+            <td class="txt-l"><input class="w-full tb-input" type="text" step="any" name="indicatorii_2_{{ row.code }}" value="{{ row.indicatori|default:"" }}" id="indicatorii_2_{{ row.code }}"></td>
             <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="trimestrul_{{ row.code }}" value="{{ row.trimestrul|floatformat:"1"|stringreplace }}" id="trimestrul_{{ row.code }}"></td>
         </tr>
     {% endfor %}

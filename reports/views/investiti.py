@@ -25,21 +25,42 @@ class InvestitiListView(View):
 
         # Проверка метода запроса
         if request.method == 'POST':
+            nrd = ['100', '200', '210', '220', '230', '240', '300', '400', '410',
+                   '420', '430', '440', '441', '450', '460', '500', '600', '700',
+                   '710', '720', '0', '810', '820', '830', '840', '850', '860', '870', 
+                   '880', '890']
+            indicatori = ['TOTAL imobilizări necorporale şi corporale (200 + 300)', 
+                          'Imobilizări necorporale, total (210 + 220 + 230 + 240)', 
+                          'drepturi de proprietate intelectuală', 'cheltuieli de cercetare-dezvoltare', 
+                          'programe informatice', 'alte imobilizări necorporale', 
+                          'Imobilizări corporale, total (400 + 500 + 600 + 700)', 
+                          'Mijloace fixe, total (410 + 420 + 430 + 440 + 450 + 460)',
+                          'clădiri rezidenţiale (de locuit)', 'clădiri nerezidențiale', 
+                          'construcții speciale (inginereşti)', 'maşini, utilaje din care:', 
+                          'tehnica de calcul', 'mijloace de transport', 'alte mijloace fixe', 
+                          'Terenuri', 'Resurse minerale', 'Active biologice imobilizate (710 + 720)', 
+                          'active biologice fitotehnie', 'active biologice zootehnie', 
+                          'din rîndul 100 pe surse de finanţare:', 'surse proprii', 
+                          'bugetul de stat', 'bugetele unităţilor administrativ-teritoriale',
+                          'credite şi împrumuturi interne', 'credite şi împrumuturi externe',
+                          'surse din străinătate', 'fondul rutier', 'fondul ecologic', 
+                          'altele']
+
             # Создание первого объекта InfEconOp с заполненными полями company и counter
             inf_econ_op = InvestitiiActive1.objects.create(
-                company=request.user.company, counter=next_counter)
+                company=request.user.company, counter=next_counter, codul_rind=nrd[0], indicatori=indicatori[0])
 
             # Создание остальных объектов InfEconOp с увеличенным значением counter
-            for i in range(29):
+            for i, (n, ind) in zip(range(29), zip(nrd[1:], indicatori[1:])):
                 InvestitiiActive1.objects.create(
-                    company=request.user.company, counter=next_counter)
+                    company=request.user.company, counter=next_counter, codul_rind=n, indicatori=ind)
 
             # Создание объекта ManagerInfEconOp и связывание с InfEconOp
             manager_inf_econ_op = ManagerRaportStatisticTrimestrial.objects.create(
                 reports=inf_econ_op)
 
             # Перенаправление на страницу, где будет отображен созданный объект
-            return redirect('reports:reports-vision', uid=manager_inf_econ_op.uid)
+            return redirect('reports:investi-detail', uid=manager_inf_econ_op.uid)
 
         # Если метод запроса не POST, вызываем метод dispatch родительского класса
         return super().dispatch(request, *args, **kwargs)
