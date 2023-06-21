@@ -103,6 +103,32 @@ body {
   padding: 0 15px;
 }
 
+.messages {
+  width: 100%;
+  z-index: 999;
+  margin-bottom: 10px;
+}
+.messages .error {
+  background-color: #DC4141;
+  color: #ffffff;
+  width: 100%;
+  gap: 8px;
+  display: flex;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+}
+.messages .success {
+  background-color: #b2ff9e;
+  color: #000000;
+  width: 100%;
+  gap: 8px;
+  display: flex;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+}
+
 .button {
   display: flex;
   padding: 9px;

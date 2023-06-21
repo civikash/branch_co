@@ -59,12 +59,14 @@ class StrocuriListView(View):
             print(len(indicatori_2))
 
             # Создание первого объекта InfEconOp с заполненными полями company и counter
-            inf_econ_op = Stocuri1.objects.create(
-                company=request.user.company, counter=next_counter, code_rind=nrd[0], indicatori=indicatori[0])
-            
-            item_post_1 = Stocuri2.objects.create(
-                company=request.user.company, counter=next_counter_item_1, code_rind=nrd_2[0], indicatorii=indicatori_2[0])
-    
+            if request.user.company:
+                inf_econ_op = Stocuri1.objects.create(
+                    company=request.user.company, counter=next_counter, code_rind=nrd[0], indicatori=indicatori[0])
+                
+                item_post_1 = Stocuri2.objects.create(
+                    company=request.user.company, counter=next_counter_item_1, code_rind=nrd_2[0], indicatorii=indicatori_2[0])
+            else:
+                return redirect('account:company-data')
 
             # Создание остальных объектов InfEconOp с увеличенным значением counter
             for i, (n, ind) in zip(range(3), zip(nrd[1:], indicatori[1:])):

@@ -319,13 +319,13 @@ class ReportsAdds(View):
 
 
         new_sec_names = request.POST.getlist('new_name_')
+        print('NEW_ROW', new_sec_names)
         new_sec_before_totals = request.POST.getlist('new_sec_before_total_')
         new_sec_before_lunars = request.POST.getlist('new_sec_before_lunar_')
         new_sec_n_totals = request.POST.getlist('new_sec_n_total_')
         new_sec_n_lunars = request.POST.getlist('new_sec_n_lunar_')
         new_sec_n_beforeMarfas = request.POST.getlist('new_sec_n_beforeMarfa_')
         new_sec_n_Marfas = request.POST.getlist('new_sec_n_Marfa_')
-        print('N_YEAR', n_year)
         counter = 0  # добавляем и инициализируем счетчик
         for i, row, in enumerate(rows):
             try:

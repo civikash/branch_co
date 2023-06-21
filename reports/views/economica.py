@@ -25,8 +25,11 @@ class InfEconOpCreateView(View):
         # Проверка метода запроса
         if request.method == 'POST':
             # Создание первого объекта InfEconOp с заполненными полями company и counter
-            inf_econ_op = InfEconOp.objects.create(
-                company=request.user.company, counter=next_counter)
+            if request.user.company:
+                inf_econ_op = InfEconOp.objects.create(
+                    company=request.user.company, counter=next_counter)
+            else:
+                return redirect('account:company-data')
 
             # Создание остальных объектов InfEconOp с увеличенным значением counter
             for i in range(18):

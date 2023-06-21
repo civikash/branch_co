@@ -21,10 +21,14 @@ class UserDetailView(LoginRequiredMixin, UserPassesTestMixin, View):
 
     def post(self, request, id, *args, **kwargs):
         user = get_object_or_404(User, id=id)
+        old_password = request.POST.get('old_password')
         new_password = request.POST.get('password')
+        if not user.check_password(old_password):
+            messages.error(request, 'Старый пароль неверный!')
+            return redirect('account:users-detail', id=id)
         user.set_password(new_password)
         user.save()
-        messages.success(request, 'Пароль успешно изменен.')
+        messages.success(request, 'Пароль успешно изменен!')
         return redirect('account:users-detail', id=id)
     
 class UsersView(View):
@@ -77,4 +81,4 @@ class AddUserView(View):
         user.email = email
         user.save()
 
-        return HttpResponse('Форма успешно отправлена')
+        return redirect('account:users')

@@ -1,4 +1,4 @@
-{% extends 'account/base_login.html' %}
+{% extends 'app.html' %}
 {% block add_company %}
 {% block messages %}
 {% if messages %}
@@ -20,53 +20,53 @@
 <h1 class="text-center font-medium text-[1.25rem]">Данные о филиале</h1>
 <div class="w-full">
     <label class="block text-gray mb-1">Филиал:</label>
-    <input required autofocus class="w-full ck-field" type="text" name="name">
+    <input required autofocus class="w-full ck-field" type="text" name="name" value="{{ company_data.name }}">
 </div>
 <div class="w-full">
     <label class="block text-gray mb-1">Адрес:</label>
-    <input required class="w-full ck-field" type="text" name="address">
+    <input required class="w-full ck-field" type="text" name="address" value="{{ company_data.address }}">
 </div>
 <div class="w-full">
     <label class="block text-gray mb-1">Район:</label>
-    <input required class="w-full ck-field" type="text" name="district">
+    <input required class="w-full ck-field" type="text" name="district" value="{{ company_data.district }}">
 </div>
 <div class="w-full">
     <label class="block text-gray mb-1">Населенный пункт:</label>
-    <input required class="w-full ck-field" type="text" name="village">
+    <input required class="w-full ck-field" type="text" name="village" value="{{ company_data.village }}">
 </div>
 <div class="w-full">
     <label class="block text-gray mb-1">Улица:</label>
-    <input required class="w-full ck-field" type="text" name="street">
+    <input required class="w-full ck-field" type="text" name="street" value="{{ company_data.street }}">
 </div>
 <div class="flex items-center gap-1">
     <div class="w-full">
         <label class="block text-gray mb-1">Код CUIIO:</label>
-        <input required class="w-full ck-field" type="text" name="code_cuiio">
+        <input required class="w-full ck-field" type="text" name="code_cuiio" value="{{ company_data.code_cuiio }}">
     </div>
     <div class="w-full">
         <label class="block text-gray mb-1">Код IDNO:</label>
-        <input required class="w-full ck-field" type="text" name="code_idno">
+        <input required class="w-full ck-field" type="text" name="code_idno" value="{{ company_data.code_idno }}">
     </div>
 </div>
 <div class="w-full">
     <label class="block text-gray mb-1">Руководитель:</label>
-    <input required class="w-full ck-field" type="text" name="ruler">
+    <input required class="w-full ck-field" type="text" name="ruler" value="{{ company_data.ruler }}">
 </div>
 <div class="w-full">
     <label class="block text-gray mb-1">Бухгалтер:</label>
-    <input required class="w-full ck-field" type="text" name="accountant">
+    <input required class="w-full ck-field" type="text" name="accountant" value="{{ company_data.accountant }}">
 </div>
 <div class="w-full">
     <label class="block text-gray mb-1">Исполнитель:</label>
-    <input required class="w-full ck-field" type="text" name="executor">
+    <input required class="w-full ck-field" type="text" name="executor" value="{{ company_data.executor }}">
 </div>
 <div class="w-full">
     <label class="block text-gray mb-1">Телефон:</label>
-    <input required class="w-full ck-field" type="text" name="tel">
+    <input required class="w-full ck-field" type="text" name="tel" value="{{ company_data.tel }}">
 </div>
 <div class="w-full">
     <label class="block text-gray mb-1">Год основния компании:</label>
-    <input required class="w-full ck-field" type="text" name="anul">
+    <input required class="w-full ck-field" type="text" name="anul" value="{{ company_data.anul }}">
 </div>
 <div class="flex items-center gap-1 text-center flex-row">
     <button type="submit" class="w-full text-center ck-button ck-button--bold--blue cursor-pointer">Добавить</button>

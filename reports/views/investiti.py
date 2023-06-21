@@ -47,8 +47,12 @@ class InvestitiListView(View):
                           'altele']
 
             # Создание первого объекта InfEconOp с заполненными полями company и counter
-            inf_econ_op = InvestitiiActive1.objects.create(
-                company=request.user.company, counter=next_counter, codul_rind=nrd[0], indicatori=indicatori[0])
+            if request.user.company:
+                inf_econ_op = InvestitiiActive1.objects.create(
+                    company=request.user.company, counter=next_counter, codul_rind=nrd[0], indicatori=indicatori[0])
+            else:
+                return redirect('account:company-data')
+
 
             # Создание остальных объектов InfEconOp с увеличенным значением counter
             for i, (n, ind) in zip(range(29), zip(nrd[1:], indicatori[1:])):

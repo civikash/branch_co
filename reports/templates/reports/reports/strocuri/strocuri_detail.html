@@ -99,10 +99,10 @@
         <tbody>
             {% for row in header %}
             <tr>
-                <td class="txt-c"><input class="w-full tb-input" type="text" value="{{ row.code_rind|floatformat:"1"|stringreplace }}" step="any" name="code_rind_{{ row.code }}" id="code_rind_{{ row.code }}"></td>
-                <td class="txt-c"><input class="w-full tb-input" type="text" value="{{ row.indicatori|default:"" }}" step="any" name="indicatori_1_{{ row.code }}" id="indicatori_1_{{ row.code }}"></td>
+                <td class="txt-c">{{ row.code_rind|floatformat:"1"|stringreplace }}</td>
+                <td class="txt-c">{{ row.indicatori|default:"" }}</td>
                 <td class="txt-c">
-                    <input class="w-full tb-input" type="text" step="any" value="{{ row.inceputul|floatformat:"1"|stringreplace }}" name="inceputul_{{ row.code }}" id="inceputul_{{ row.code }}">
+                   {{ row.inceputul|floatformat:"1"|stringreplace }}
                 </td>
                 <td class="txt-c"><input class="w-full tb-input" type="text" value="{{ row.finele|floatformat:"1"|stringreplace }}" step="any" name="finele_{{ row.code }}" id="finele_{{ row.code }}"></td>
             </tr>

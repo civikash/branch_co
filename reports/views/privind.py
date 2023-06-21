@@ -55,17 +55,20 @@ class PrivindListView(View):
         # Проверка метода запроса
         if request.method == 'POST':
             # Создание первого объекта InfEconOp с заполненными полями company и counter
-            inf_econ_op = ReportHeader.objects.create(
-                company=request.user.company, counter=next_counter)
+            if request.user.company:
+                inf_econ_op = ReportHeader.objects.create(
+                    company=request.user.company, counter=next_counter)
             
-            item_post_1 = ReportItems1.objects.create(
-                company=request.user.company, counter=next_counter_item_1)
-            
-            item_post_2 = ReportItems2.objects.create(
-                company=request.user.company, counter=next_counter_item_2)
-            
-            item_post_3 = ReportItems3.objects.create(
-                company=request.user.company, counter=next_counter_item_3)
+                item_post_1 = ReportItems1.objects.create(
+                        company=request.user.company, counter=next_counter_item_1)
+                
+                item_post_2 = ReportItems2.objects.create(
+                    company=request.user.company, counter=next_counter_item_2)
+                
+                item_post_3 = ReportItems3.objects.create(
+                    company=request.user.company, counter=next_counter_item_3)
+            else:
+                return redirect('account:company-data')
 
             # Создание остальных объектов InfEconOp с увеличенным значением counter
             for i in range(16):
