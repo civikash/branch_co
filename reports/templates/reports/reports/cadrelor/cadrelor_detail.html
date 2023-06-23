@@ -5,7 +5,10 @@
     <div class="header-table">
         <form method="POST" class="flex column gap-1">
             {% csrf_token %}
+            {% if request.user.is_superuser %}
+            {% else %}
             <button class="button blue" type="submit">Сохранить</button>
+            {% endif %}
             </div>
     <h1>
         RAPORT  PRIVIND  STRUCTURA  ŞI  MIŞCAREA  CADRELOR
@@ -62,17 +65,83 @@
             <td class="td-description {% if not row.rowcolumn %}txt-l{% endif %}" colspan="{% if row.rowcolumn %}{{ row.rowcolumn }}{% endif %}">{{ row.descrierea }}</td>
             {% endif %}
             {% if not row.rowcolumn %}
-            <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="codul_rind_{{ row.code }}" value="{{ row.codul_rind|floatformat:"1"|stringreplace }}" id="codul_rind_{{ row.code }}"></td>
-            <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="category_{{ row.code }}" value="{{ row.category|floatformat:"1"|stringreplace }}" id="category_{{ row.code }}"></td>
-            <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="num_func_{{ row.code }}" value="{{ row.num_func|floatformat:"1"|stringreplace }}" id="num_func_{{ row.code }}"></td>
-            <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="num_script_{{ row.code }}" value="{{ row.num_script|floatformat:"1"|stringreplace }}" id="num_script_{{ row.code }}"></td>
-            <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="num_locuri_{{ row.code }}" value="{{ row.num_locuri|floatformat:"1"|stringreplace }}" id="num_locuri_{{ row.code }}"></td>
-            <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="sal_pana_{{ row.code }}" value="{{ row.sal_pana|floatformat:"1"|stringreplace }}" id="sal_pana_{{ row.code }}"></td>
-            <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="studii_medii_speciale_{{ row.code }}" value="{{ row.studii_medii_speciale|floatformat:"1"|stringreplace }}" id="studii_medii_speciale_{{ row.code }}"></td>
-            <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="absolventi_{{ row.code }}" value="{{ row.absolventi|floatformat:"1"|stringreplace }}" id="absolventi_{{ row.code }}"></td>
-            <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="mai_ani_{{ row.code }}" value="{{ row.mai_ani|floatformat:"1"|stringreplace }}" id="mai_ani_{{ row.code }}"></td>
-            <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="mai_ani_consum_{{ row.code }}" value="{{ row.mai_ani_consum|floatformat:"1"|stringreplace }}" id="mai_ani_consum_{{ row.code }}"></td>
-            <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="perfectionare_{{ row.code }}" value="{{ row.perfectionare|floatformat:"1"|stringreplace }}" id="perfectionare_{{ row.code }}"></td>
+            <td class="txt-c">
+                {% if request.user.is_superuser %}
+                {{ row.codul_rind|floatformat:"1"|stringreplace }}
+                {% else %}
+                <input class="w-full tb-input" type="text" step="any" name="codul_rind_{{ row.code }}" value="{{ row.codul_rind|floatformat:"1"|stringreplace }}" id="codul_rind_{{ row.code }}">
+                {% endif %}
+            </td>
+            <td class="txt-c">
+                {% if request.user.is_superuser %}
+                {{ row.category|floatformat:"1"|stringreplace }}
+                {% else %}
+                <input class="w-full tb-input" type="text" step="any" name="category_{{ row.code }}" value="{{ row.category|floatformat:"1"|stringreplace }}" id="category_{{ row.code }}">
+                {% endif %}
+            </td>
+            <td class="txt-c">
+                {% if request.user.is_superuser %}
+                {{ row.num_func|floatformat:"1"|stringreplace }}
+                {% else %}
+                <input class="w-full tb-input" type="text" step="any" name="num_func_{{ row.code }}" value="{{ row.num_func|floatformat:"1"|stringreplace }}" id="num_func_{{ row.code }}">
+                {% endif %}
+            </td>
+            <td class="txt-c">
+                {% if request.user.is_superuser %}
+                {{ row.num_script|floatformat:"1"|stringreplace }}
+                {% else %}
+                <input class="w-full tb-input" type="text" step="any" name="num_script_{{ row.code }}" value="{{ row.num_script|floatformat:"1"|stringreplace }}" id="num_script_{{ row.code }}">
+                 {% endif %}
+            </td>
+            <td class="txt-c">
+                {% if request.user.is_superuser %}
+                {{ row.num_locuri|floatformat:"1"|stringreplace }}
+                {% else %}
+                <input class="w-full tb-input" type="text" step="any" name="num_locuri_{{ row.code }}" value="{{ row.num_locuri|floatformat:"1"|stringreplace }}" id="num_locuri_{{ row.code }}">
+                {% endif %}
+            </td>
+            <td class="txt-c">
+                {% if request.user.is_superuser %}
+                {{ row.sal_pana|floatformat:"1"|stringreplace }}
+                {% else %}
+                <input class="w-full tb-input" type="text" step="any" name="sal_pana_{{ row.code }}" value="{{ row.sal_pana|floatformat:"1"|stringreplace }}" id="sal_pana_{{ row.code }}">
+                {% endif %}
+            </td>
+            <td class="txt-c">
+                {% if request.user.is_superuser %}
+                {{ row.studii_medii_speciale|floatformat:"1"|stringreplace }}
+                {% else %}
+                <input class="w-full tb-input" type="text" step="any" name="studii_medii_speciale_{{ row.code }}" value="{{ row.studii_medii_speciale|floatformat:"1"|stringreplace }}" id="studii_medii_speciale_{{ row.code }}">
+                {% endif %}
+            </td>
+            <td class="txt-c">
+                {% if request.user.is_superuser %}
+                {{ row.absolventi|floatformat:"1"|stringreplace }}
+                {% else %}
+                <input class="w-full tb-input" type="text" step="any" name="absolventi_{{ row.code }}" value="{{ row.absolventi|floatformat:"1"|stringreplace }}" id="absolventi_{{ row.code }}">
+                {% endif %}
+            </td>
+            <td class="txt-c">
+                {% if request.user.is_superuser %}
+                {{ row.mai_ani|floatformat:"1"|stringreplace }}
+                {% else %}
+                <input class="w-full tb-input" type="text" step="any" name="mai_ani_{{ row.code }}" value="{{ row.mai_ani|floatformat:"1"|stringreplace }}" id="mai_ani_{{ row.code }}">
+                {% endif %}
+            </td>
+            <td class="txt-c">
+                {% if request.user.is_superuser %}
+                {{ row.mai_ani_consum|floatformat:"1"|stringreplace }}
+                {% else %}
+                <input class="w-full tb-input" type="text" step="any" name="mai_ani_consum_{{ row.code }}" value="{{ row.mai_ani_consum|floatformat:"1"|stringreplace }}" id="mai_ani_consum_{{ row.code }}">
+                {% endif %}
+            </td>
+            <td class="txt-c">
+                {% if request.user.is_superuser %}
+                {{ row.perfectionare|floatformat:"1"|stringreplace }}
+                {% else %}
+                <input class="w-full tb-input" type="text" step="any" name="perfectionare_{{ row.code }}" value="{{ row.perfectionare|floatformat:"1"|stringreplace }}" id="perfectionare_{{ row.code }}">
+                {% endif %}
+            </td>
             {% endif %}
         </tr>
     {% endfor %}

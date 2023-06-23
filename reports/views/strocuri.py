@@ -429,16 +429,13 @@ class StrocuriDetail(View):
             except Exception as e:
                 print(f"123Error while saving InfEconOp object with id {i+1}: {e}")
 
-
-
-
         #ITEMS - 1 -- POST
         for i, row, in enumerate(items_1):
             try:
                 report_item_1 = Stocuri2.objects.filter(counter=counter_uid, code=row.code).first()
                 if report_item_1 is not None:
                     report_item_1.code_rind = float(code_rind_1[i]) if code_rind_1[i] else None
-                    report_item_1.indicatorii = float(indicatorii_2[i]) if indicatorii_2[i] else None
+                    report_item_1.indicatorii = str(indicatorii_2[i]) if indicatorii_2[i] else None
                     print(report_item_1.indicatorii)
                     report_item_1.trimestrul = float(trimestrul[i]) if trimestrul[i] else None
                     report_item_1.save()

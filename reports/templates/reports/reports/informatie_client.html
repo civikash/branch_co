@@ -14,7 +14,7 @@
                 Informația economică operativă pe domenii de activități
             </span>
             <span>
-                pentru luna ____<input class="tb-input d-21" type="text" step="any" name="n_month" value="{{ years.n_month|default:'' }}" id="n_month">____a.<input class="tb-input" type="text" step="any" name="n_year" value="{{ years.n_year|default:'' }}" id="n_year"> a _____________________________________________
+                pentru luna ____{% if request.user.is_superuser %}{{ years.n_month|default:'' }}{% else %}<input class="tb-input d-21" type="text" step="any" name="n_month" value="{{ years.n_month|default:'' }}" id="n_month">{% endif %}____a.{% if request.user.is_superuser %}{{ years.n_year|default:'' }}{% else%}<input class="tb-input" type="text" step="any" name="n_year" value="{{ years.n_year|default:'' }}" id="n_year">{% endif %} a _____________________________________________
             </span>
         </div>
         <table cellspacing="0" cellpadding="5" border="1">
@@ -41,19 +41,46 @@
                     {% endif %}
                     <td class="txt-l">{{ row.description }}</td>
                     <td class="txt-c">{{ row.unit_of_measure }}</td>
-                    <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="before_total_{{ row.code }}" value="{{ row.before_total|floatformat:"1"|stringreplace }}" id="before_total_{{ row.code }}"></td>
-                    <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="before_lunar_{{ row.code }}" value="{{ row.before_lunar|floatformat:"1"|stringreplace }}" id="before_lunar_{{ row.code }}"></td>
-                    <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="n_total_{{ row.code }}" value="{{ row.n_total|floatformat:"1"|stringreplace }}" id="n_total_{{ row.code }}"></td>
-                    <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="n_lunar_{{ row.code }}" value="{{ row.n_lunar|floatformat:"1"|stringreplace }}" id="n_lunar_{{ row.code }}"></td>
+                    <td class="txt-c">
+                        {% if request.user.is_superuser %}
+                        {{ row.before_total|floatformat:"1"|stringreplace }}
+                        {% else %}
+                        <input class="w-full tb-input" type="text" step="any" name="before_total_{{ row.code }}" value="{{ row.before_total|floatformat:"1"|stringreplace }}" id="before_total_{{ row.code }}">
+                        {% endif %}
+                    </td>
+                    <td class="txt-c">
+                        {% if request.user.is_superuser %}
+                        {{ row.before_lunar|floatformat:"1"|stringreplace }}
+                        {% else %}
+                        <input class="w-full tb-input" type="text" step="any" name="before_lunar_{{ row.code }}" value="{{ row.before_lunar|floatformat:"1"|stringreplace }}" id="before_lunar_{{ row.code }}">
+                        {% endif %}
+                    </td>
+                    <td class="txt-c">
+                        {% if request.user.is_superuser %}
+                        {{ row.n_total|floatformat:"1"|stringreplace }}
+                        {% else %}
+                        <input class="w-full tb-input" type="text" step="any" name="n_total_{{ row.code }}" value="{{ row.n_total|floatformat:"1"|stringreplace }}" id="n_total_{{ row.code }}">
+                        {% endif %}
+                    </td>
+                    <td class="txt-c">
+                        {% if request.user.is_superuser %}
+                        {{ row.n_lunar|floatformat:"1"|stringreplace }}
+                        {% else %}
+                        <input class="w-full tb-input" type="text" step="any" name="n_lunar_{{ row.code }}" value="{{ row.n_lunar|floatformat:"1"|stringreplace }}" id="n_lunar_{{ row.code }}">
+                        {% endif %}
+                    </td>
                 </tr>
             {% endfor %}
+            {% if request.user.is_superuser %}
+            {% else %}
             <button class="button blue" type="submit">Сохранить</button>
+            {% endif %}
 
             </tbody>
         </table>
         <table cellspacing="0" cellpadding="9" border="1" id="tableReports">
             <thead>
-                <tr><td class="fw-600" colspan="9">Magazine "Coop Prim - Coop Plus" pe martie si <input class="tb-input d-21" type="text" step="any" name="n_month_econ" value="{{ econ_years.n_month|default:'' }}" id="n_month_econ"> luni a. <input class="tb-input" type="text" step="any" name="n_year_econ" value="{{ econ_years.n_year|default:'' }}" id="n_year"> (mii lei)</td></tr>
+                <tr><td class="fw-600" colspan="9">Magazine "Coop Prim - Coop Plus" pe martie si {% if request.user.is_superuser %}{{ econ_years.n_month|default:'' }}{% else%}<input class="tb-input d-21" type="text" step="any" name="n_month_econ" value="{{ econ_years.n_month|default:'' }}" id="n_month_econ"> {% endif %} luni a. {% if request.user.is_superuser %}{{ econ_years.n_year|default:'' }}{% else %} <input class="tb-input" type="text" step="any" name="n_year_econ" value="{{ econ_years.n_year|default:'' }}" id="n_year">{% endif %} (mii lei)</td></tr>
                 <tr>
                     <th rowspan="0">Nr.</th>
                     <th rowspan="0">Denumireamagazinului</th>
@@ -74,16 +101,61 @@
                 {% for marfa in marfas %}
                 <tr>
                     <td class="txt-c">{{ marfa.crt }}</td>
-                    <td class="txt-c"><input class="tb-input w-full" type="text" name="name_{{ marfa.code }}" value="{{ marfa.name }}" id="name_{{ marfa.code }}"></td>
-                    <td class="txt-c"><input class="tb-input w-full" type="text" step="any" name="sec_before_total_{{ marfa.code }}" value="{{ marfa.before_total|floatformat:"1"|stringreplace }}" id="sec_before_total_{{ marfa.code }}"></td>
-                    <td class="txt-c"><input class="tb-input w-full" type="text" step="any" name="sec_before_lunar_{{ marfa.code }}" value="{{ marfa.before_lunar|floatformat:"1"|stringreplace }}" id="sec_before_lunar_{{ marfa.code }}"></td>
-                    <td class="txt-c"><input class="tb-input w-full" type="text" step="any" name="sec_n_total_{{ marfa.code }}" value="{{ marfa.n_total|floatformat:"1"|stringreplace }}" id="sec_n_total_{{ marfa.code }}"></td>
-                    <td class="txt-c"><input class="tb-input w-full" type="text" step="any" name="sec_n_lunar_{{ marfa.code }}" value="{{ marfa.n_lunar|floatformat:"1"|stringreplace }}" id="sec_n_lunar_{{ marfa.code }}"></td>
-                    <td class="txt-c"><input class="tb-input w-full" type="text" step="any" name="sec_n_beforeMarfa_{{ marfa.code }}" value="{{ marfa.n_beforeMarfa|floatformat:"1"|stringreplace }}" id="sec_n_beforeMarfa_{{ marfa.code }}"></td>
-                    <td class="txt-c"><input class="tb-input w-full" type="text" step="any" name="sec_n_Marfa_{{ marfa.code }}" value="{{ marfa.n_marfa|floatformat:"1"|stringreplace }}" id="sec_n_Marfa_{{ marfa.code }}"></td>
+                    <td class="txt-c">
+                        {% if request.user.is_superuser %}
+                        {{ marfa.name }}
+                        {% else %}
+                        <input class="tb-input w-full" type="text" name="name_{{ marfa.code }}" value="{{ marfa.name }}" id="name_{{ marfa.code }}">
+                        {% endif %}
+                    </td>
+                    <td class="txt-c">
+                        {% if request.user.is_superuser %}
+                        {{ marfa.before_total|floatformat:"1"|stringreplace }}
+                        {% else %}
+                        <input class="tb-input w-full" type="text" step="any" name="sec_before_total_{{ marfa.code }}" value="{{ marfa.before_total|floatformat:"1"|stringreplace }}" id="sec_before_total_{{ marfa.code }}">
+                        {% endif %}
+                    </td>
+                    <td class="txt-c">
+                        {% if request.user.is_superuser %}
+                        {{ marfa.before_lunar|floatformat:"1"|stringreplace }}
+                        {% else %}
+                        <input class="tb-input w-full" type="text" step="any" name="sec_before_lunar_{{ marfa.code }}" value="{{ marfa.before_lunar|floatformat:"1"|stringreplace }}" id="sec_before_lunar_{{ marfa.code }}">
+                        {% endif %}
+                    </td>
+                    <td class="txt-c">
+                        {% if request.user.is_superuser %}
+                        {{ marfa.n_total|floatformat:"1"|stringreplace }}
+                        {% else %}
+                        <input class="tb-input w-full" type="text" step="any" name="sec_n_total_{{ marfa.code }}" value="{{ marfa.n_total|floatformat:"1"|stringreplace }}" id="sec_n_total_{{ marfa.code }}">
+                        {% endif %}
+                    </td>
+                    <td class="txt-c">
+                        {% if request.user.is_superuser %}
+                        {{ marfa.n_lunar|floatformat:"1"|stringreplace }}
+                        {% else %}
+                        <input class="tb-input w-full" type="text" step="any" name="sec_n_lunar_{{ marfa.code }}" value="{{ marfa.n_lunar|floatformat:"1"|stringreplace }}" id="sec_n_lunar_{{ marfa.code }}">
+                        {% endif %}
+                    </td>
+                    <td class="txt-c">
+                        {% if request.user.is_superuser %}
+                        {{ marfa.n_beforeMarfa|floatformat:"1"|stringreplace }}
+                        {% else %}
+                        <input class="tb-input w-full" type="text" step="any" name="sec_n_beforeMarfa_{{ marfa.code }}" value="{{ marfa.n_beforeMarfa|floatformat:"1"|stringreplace }}" id="sec_n_beforeMarfa_{{ marfa.code }}">
+                        {% endif %}
+                    </td>
+                    <td class="txt-c">
+                        {% if request.user.is_superuser %}
+                        {{ marfa.n_marfa|floatformat:"1"|stringreplace }}
+                        {% else %}
+                        <input class="tb-input w-full" type="text" step="any" name="sec_n_Marfa_{{ marfa.code }}" value="{{ marfa.n_marfa|floatformat:"1"|stringreplace }}" id="sec_n_Marfa_{{ marfa.code }}">
+                        {% endif %}
+                    </td>
+                    {% if request.user.is_superuser %}
+                    {% else %}
                     <td class="txt-c delete-icon" data-code="{{ marfa.code }}">
                         <span class="delete-text">Удалить</span>
                     </td>
+                    {% endif  %}
                 </tr>
                 
             {% endfor %}
@@ -98,7 +170,10 @@
                 <td class="txt-c"><input class="tb-input w-full" type="text" step="any" name="new_sec_n_Marfa_"></td>
             </tr>
             </tbody>
+            {% if request.user.is_superuser %}
+            {% else %}
             <button class="button blue" type="button" onclick="addRow()">Добавить строку</button>
+            {% endif %}
         </table>
     </form>
     </section>

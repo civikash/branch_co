@@ -44,14 +44,24 @@ a ________________________________
                 <td class="txt-l" {% if row.crt == 8 %}rowspan="{{ row.rowspan }}"{% endif %}>{{ row.descrierea }}</td>
                 {% endif %}
                 <td class="txt-c">
+                    {% if request.user.is_superuser %}
+                    {{ row.associat|floatformat:"1"|stringreplace }}
+                    {% else %}
                     <input class="w-full tb-input {% if row.associat %}checked{% endif %}" type="text" step="any" value="{{ row.associat|floatformat:"1"|stringreplace }}" name="associat_{{ row.code }}" id="associat_{{ row.code }}">
-            
+                    {% endif %}
                 </td>
-                <td class="txt-c"><input class="w-full tb-input {% if row.fondul %}checked{% endif %}" type="text" value="{{ row.fondul|floatformat:"1"|stringreplace }}" step="any" name="fondul_{{ row.code }}" id="fondul_{{ row.code }}"></td>
-            </tr>
+                <td class="txt-c">
+                    {% if request.user.is_superuser %}
+                    {{ row.fondul|floatformat:"1"|stringreplace }}
+                    {% else %}
+                    <input class="w-full tb-input {% if row.fondul %}checked{% endif %}" type="text" value="{{ row.fondul|floatformat:"1"|stringreplace }}" step="any" name="fondul_{{ row.code }}" id="fondul_{{ row.code }}"></td>
+                    {% endif %}
+                </tr>
         {% endfor %}
+        {% if request.user.is_superuser %}
+        {% else %}
         <button class="button blue" type="submit">Сохранить</button>
-
+                {% endif %}
         </tbody>
     </table>
     <h1>				Anexă nr. 4
@@ -82,13 +92,27 @@ despre integritatea patrimoniului cooperatist
             {% endif %} 
             <td class="{% if not row.rowcolumn %}txt-l{% endif %}" colspan="{% if row.rowcolumn %}{{ row.rowcolumn }}{% endif %}">{{ row.descrierea }}</td>
             {% if not row.rowcolumn %}
-            <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="prejud_{{ row.code }}" value="{{ row.prejud|floatformat:"1"|stringreplace }}" id="prejud_{{ row.code }}"></td>
-            <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="sup_10_{{ row.code }}" value="{{ row.sup_10|floatformat:"1"|stringreplace }}" id="sup_10_{{ row.code }}"></td>
+            <td class="txt-c">
+                {% if request.user.is_superuser %}
+                {{ row.prejud|floatformat:"1"|stringreplace }}
+                {% else %}
+                <input class="w-full tb-input" type="text" step="any" name="prejud_{{ row.code }}" value="{{ row.prejud|floatformat:"1"|stringreplace }}" id="prejud_{{ row.code }}">
+                {% endif %}
+            </td>
+            <td class="txt-c">
+                {% if request.user.is_superuser %}
+                {{ row.sup_10|floatformat:"1"|stringreplace }}
+                {% else %}
+                <input class="w-full tb-input" type="text" step="any" name="sup_10_{{ row.code }}" value="{{ row.sup_10|floatformat:"1"|stringreplace }}" id="sup_10_{{ row.code }}">
+                {% endif %}
+            </td>
             {% endif %}
         </tr>
     {% endfor %}
+    {% if request.user.is_superuser %}
+    {% else %}
     <button class="button blue" type="submit">Сохранить</button>
-
+        {% endif %}
     </tbody>
 </table>    Anexă nr. 2
 
@@ -104,7 +128,7 @@ Nota informativa
         <th rowspan="0">Calculat</th>
         <th rowspan="0">Transferat</th>
         <th colspan="2">Sold la 31.12.2023</th>
-    </tr>
+
     <tr>
         <th>D-t</th>
         <th>C-t</th>
@@ -115,19 +139,57 @@ Nota informativa
 <tbody>
     {% for row in item_2 %}
     <tr>
-        <td class="txt-l" rowspan="{{ row.rowspan }}">{{ row.taxele }}</td>
+        <td class="{% if row.rowcolumn %}txt-c{% else %}txt-l{% endif %}" {% if row.rowspan %}rowspan="{{ row.rowspan }}"{% else %}colspan="{{ row.rowcolumn }}"{% endif %} >{{ row.taxele }}</td>
         {% if not row.rowcolumn %}
-        <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="d_t_ini_{{ row.code }}" value="{{ row.d_t_ini|floatformat:"1"|stringreplace }}" id="d_t_ini_{{ row.code }}"></td>
-        <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="c_t_ini_{{ row.code }}" value="{{ row.c_t_ini|floatformat:"1"|stringreplace }}" id="c_t_ini_{{ row.code }}"></td>
-        <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="calculat_{{ row.code }}" value="{{ row.calculat|floatformat:"1"|stringreplace }}" id="calculat_{{ row.code }}"></td>
-        <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="transferat_{{ row.code }}" value="{{ row.transferat|floatformat:"1"|stringreplace }}" id="transferat_{{ row.code }}"></td>
-        <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="d_t_fin_{{ row.code }}" value="{{ row.d_t_fin|floatformat:"1"|stringreplace }}" id="d_t_fin_{{ row.code }}"></td>
-        <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="c_t_fin_{{ row.code }}" value="{{ row.c_t_fin|floatformat:"1"|stringreplace }}" id="c_t_fin_{{ row.code }}"></td>
+        <td class="txt-c">
+            {% if request.user.is_superuser %}
+            {{ row.d_t_ini|floatformat:"1"|stringreplace }}
+            {% else %}
+            <input class="w-full tb-input" type="text" step="any" name="d_t_ini_{{ row.code }}" value="{{ row.d_t_ini|floatformat:"1"|stringreplace }}" id="d_t_ini_{{ row.code }}">
+            {% endif %}
+        </td>
+        <td class="txt-c">
+            {% if request.user.is_superuser %}
+            {{ row.c_t_ini|floatformat:"1"|stringreplace }}
+            {% else %}
+            <input class="w-full tb-input" type="text" step="any" name="c_t_ini_{{ row.code }}" value="{{ row.c_t_ini|floatformat:"1"|stringreplace }}" id="c_t_ini_{{ row.code }}">
+            {% endif %}
+        </td>
+        <td class="txt-c">
+            {% if request.user.is_superuser %}
+            {{ row.calculat|floatformat:"1"|stringreplace }}
+            {% else %}
+            <input class="w-full tb-input" type="text" step="any" name="calculat_{{ row.code }}" value="{{ row.calculat|floatformat:"1"|stringreplace }}" id="calculat_{{ row.code }}">
+            {% endif %}
+        </td>
+        <td class="txt-c">
+            {% if request.user.is_superuser %}
+            {{ row.transferat|floatformat:"1"|stringreplace }}
+            {% else %}
+            <input class="w-full tb-input" type="text" step="any" name="transferat_{{ row.code }}" value="{{ row.transferat|floatformat:"1"|stringreplace }}" id="transferat_{{ row.code }}">
+            {% endif %}
+        </td>
+        <td class="txt-c">
+            {% if request.user.is_superuser %}
+            {{ row.d_t_fin|floatformat:"1"|stringreplace }}
+            {% else %}
+            <input class="w-full tb-input" type="text" step="any" name="d_t_fin_{{ row.code }}" value="{{ row.d_t_fin|floatformat:"1"|stringreplace }}" id="d_t_fin_{{ row.code }}">
+            {% endif %}
+        </td>
+        <td class="txt-c">
+            {% if request.user.is_superuser %}
+            {{ row.c_t_fin|floatformat:"1"|stringreplace }}
+            {% else %}
+            <input class="w-full tb-input" type="text" step="any" name="c_t_fin_{{ row.code }}" value="{{ row.c_t_fin|floatformat:"1"|stringreplace }}" id="c_t_fin_{{ row.code }}">
+            {% endif %}
+        </td>
         {% endif %}
     </tr>
 {% endfor %}
+{% if request.user.is_superuser %}
+{% else %}
 <button class="button blue" type="submit">Сохранить</button>
-
+{% endif %}
 </tbody>
 </table>
 <span>ANALIZA
@@ -152,13 +214,33 @@ Nota informativa
             {% endif %}
             <td class="txt-l">{{ row.denumirea }}</td>
             <td class="txt-c">{{ row.um }}</td>
-            <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="n_year_{{ row.code }}" value="{{ row.n_year|floatformat:"1"|stringreplace }}" id="n_year_{{ row.code }}"></td>
-            <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="n_1_year_{{ row.code }}" value="{{ row.n_1_year|floatformat:"1"|stringreplace }}" id="n_1_year_{{ row.code }}"></td>
-            <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="perc_{{ row.code }}" value="{{ row.perc|floatformat:"1"|stringreplace }}" id="perc_{{ row.code }}"></td>
+            <td class="txt-c">
+                {% if request.user.is_superuser %}
+                {{ row.n_year|floatformat:"1"|stringreplace }}
+                {% else %}
+                <input class="w-full tb-input" type="text" step="any" name="n_year_{{ row.code }}" value="{{ row.n_year|floatformat:"1"|stringreplace }}" id="n_year_{{ row.code }}">
+                {% endif %}
+            </td>
+            <td class="txt-c">
+                {% if request.user.is_superuser %}
+                {{ row.n_1_year|floatformat:"1"|stringreplace }}
+                {% else %}
+                <input class="w-full tb-input" type="text" step="any" name="n_1_year_{{ row.code }}" value="{{ row.n_1_year|floatformat:"1"|stringreplace }}" id="n_1_year_{{ row.code }}">
+                {% endif %}
+            </td>
+            <td class="txt-c">
+                {% if request.user.is_superuser %}
+                {{ row.perc|floatformat:"1"|stringreplace }}
+                {% else %}
+                <input class="w-full tb-input" type="text" step="any" name="perc_{{ row.code }}" value="{{ row.perc|floatformat:"1"|stringreplace }}" id="perc_{{ row.code }}">
+                {% endif %}
+            </td>
         </tr>
     {% endfor %}
+    {% if request.user.is_superuser %}
+    {% else %}
     <button class="button blue" type="submit">Сохранить</button>
-
+        {% endif %}
     </tbody>
 </table>
 </form>

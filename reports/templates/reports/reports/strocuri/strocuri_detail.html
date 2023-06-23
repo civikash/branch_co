@@ -99,12 +99,26 @@
         <tbody>
             {% for row in header %}
             <tr>
-                <td class="txt-c">{{ row.code_rind|floatformat:"1"|stringreplace }}</td>
-                <td class="txt-c">{{ row.indicatori|default:"" }}</td>
-                <td class="txt-c">
-                   {{ row.inceputul|floatformat:"1"|stringreplace }}
+                <td class="txt-c">{{ row.code_rind|floatformat:"1"|stringreplace }}
+                    <input class="w-full tb-input" type="hidden" value="{{ row.code_rind|floatformat:"1"|stringreplace }}" step="any" name="code_rind_{{ row.code }}" id="code_rind_{{ row.code }}">
                 </td>
-                <td class="txt-c"><input class="w-full tb-input" type="text" value="{{ row.finele|floatformat:"1"|stringreplace }}" step="any" name="finele_{{ row.code }}" id="finele_{{ row.code }}"></td>
+                <td class="txt-c">{{ row.indicatori|default:"" }}
+                    <input class="w-full tb-input" type="hidden" value="{{ row.indicatori|default:"" }}" step="any" name="indicatori_1_{{ row.code }}" id="indicatori_1_{{ row.code }}">
+                </td>
+                <td class="txt-c">
+                    {% if request.user.is_superuser %}
+                    {{ row.inceputul|floatformat:"1"|stringreplace }}
+                    {% else %}
+                   <input class="w-full tb-input" type="text" value="{{ row.inceputul|floatformat:"1"|stringreplace }}" step="any" name="inceputul_{{ row.code }}" id="inceputul_{{ row.code }}">
+                    {% endif %}
+                </td>
+                <td class="txt-c">
+                    {% if request.user.is_superuser %}
+                    {{ row.finele|floatformat:"1"|stringreplace }}
+                    {% else %}
+                    <input class="w-full tb-input" type="text" value="{{ row.finele|floatformat:"1"|stringreplace }}" step="any" name="finele_{{ row.code }}" id="finele_{{ row.code }}">
+                    {% endif %}
+                </td>
             </tr>
         {% endfor %}
 
@@ -137,10 +151,29 @@
     <tbody>
         {% for row in item_1 %}
         <tr>
-            <td class="txt-l"><input class="w-full tb-input" type="text" step="any" name="code_rind_1_{{ row.code }}" value="{{ row.code_rind|floatformat:"1"|stringreplace }}" id="code_rind_{{ row.code }}"></td>
-            <td class="txt-l"><input class="w-full tb-input" type="text" step="any" name="indicatorii_2_{{ row.code }}" value="{{ row.indicatori|default:"" }}" id="indicatorii_2_{{ row.code }}"></td>
-            <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="trimestrul_{{ row.code }}" value="{{ row.trimestrul|floatformat:"1"|stringreplace }}" id="trimestrul_{{ row.code }}"></td>
-        </tr>
+            <td class="txt-c">
+                {% if request.user.is_superuser %}
+                {{ row.code_rind|floatformat:"1"|stringreplace }}
+                {% else %}
+                <input class="w-full tb-input" type="text" step="any" name="code_rind_1_{{ row.code }}" value="{{ row.code_rind|floatformat:"1"|stringreplace }}" id="code_rind_{{ row.code }}">
+                {% endif %}
+            </td>
+                <td class="txt-l">
+                    {% if request.user.is_superuser %}
+                    {{ row.indicatori|default:"" }}
+                    {% else %}
+                <input class="w-full tb-input" type="text" step="any" name="indicatorii_2_{{ row.code }}" value="{{ row.indicatori|default:"" }}" id="indicatorii_2_{{ row.code }}">
+                    {% endif %}
+            </td>
+            <td class="txt-c">
+                {% if request.user.is_superuser %}
+                {{ row.trimestrul|floatformat:"1"|stringreplace }}
+                {% else %}
+                <input class="w-full tb-input" type="text" step="any" name="trimestrul_{{ row.code }}" value="{{ row.trimestrul|floatformat:"1"|stringreplace }}" id="trimestrul_{{ row.code }}">
+                {% endif %}
+            </td>
+        
+            </tr>
     {% endfor %}
 
     </tbody>

@@ -67,7 +67,10 @@
     </h1>
 </div>
 <div class="raport__title">
+    {% if request.user.is_superuser %}
+    {% else %}
 <button class="save button blue" type="submit">Сохранить</button>
+{% endif %}
 <span class="left__marg">mii lei; datele se înscriu cu zecimale</span>
 </div>
 <table cellspacing="0" cellpadding="5" border="1">
@@ -92,10 +95,34 @@
     <tbody>
         {% for row in invest_rows_1 %}
         <tr>
-            <td class="txt-c" rowspan="{{ row.rowspan }}"><input class="w-full tb-input" type="text" step="any" name="s_codul_rind_{{ row.code }}" value="{{ row.codul_rind|floatformat:"1"|stringreplace }}" id="s_codul_rind_{{ row.code }}"></td>
-            <td class="txt-c" rowspan="{{ row.rowspan }}"><input class="w-full tb-input" type="text" step="any" name="indicatori_{{ row.code }}" value="{{ row.indicatori|default:''|stringreplace }}" id="indicatori_{{ row.code }}"></td>
-            <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="intrari_{{ row.code }}" value="{{ row.intrari|floatformat:"1"|stringreplace }}" id="intrari_{{ row.code }}"></td>
-            <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="investitii_{{ row.code }}" value="{{ row.investitii|floatformat:"1"|stringreplace }}" id="investitii_{{ row.code }}"></td>
+            <td class="txt-c" rowspan="{{ row.rowspan }}">
+                {% if request.user.is_superuser %}
+                {{ row.codul_rind|floatformat:"1"|stringreplace }}
+                {% else %}
+                <input class="w-full tb-input" type="text" step="any" name="s_codul_rind_{{ row.code }}" value="{{ row.codul_rind|floatformat:"1"|stringreplace }}" id="s_codul_rind_{{ row.code }}">
+                {% endif %}
+            </td>
+            <td class="txt-c" rowspan="{{ row.rowspan }}">
+                {% if request.user.is_superuser %}
+                {{ row.indicatori|default:''|stringreplace }}
+                {% else %}
+                <input class="w-full tb-input" type="text" step="any" name="indicatori_{{ row.code }}" value="{{ row.indicatori|default:''|stringreplace }}" id="indicatori_{{ row.code }}">
+                {% endif %}
+            </td>
+            <td class="txt-c">
+                {% if request.user.is_superuser %}
+                {{ row.intrari|floatformat:"1"|stringreplace }}
+                {% else %}
+                <input class="w-full tb-input" type="text" step="any" name="intrari_{{ row.code }}" value="{{ row.intrari|floatformat:"1"|stringreplace }}" id="intrari_{{ row.code }}">
+                {% endif %}
+            </td>
+            <td class="txt-c">
+                {% if request.user.is_superuser %}
+                {{ row.investitii|floatformat:"1"|stringreplace }}
+                {% else %}
+                <input class="w-full tb-input" type="text" step="any" name="investitii_{{ row.code }}" value="{{ row.investitii|floatformat:"1"|stringreplace }}" id="investitii_{{ row.code }}">
+                {% endif %}
+            </td>
         </tr>
     {% endfor %}
 
@@ -108,8 +135,11 @@
     </h1>
 </div>
 <div class="raport__title-row save">
+    {% if request.user.is_superuser %}
+    {% else %}
 <button class="button blue" type="submit">Сохранить</button>
 <button class="button blue__outline" type="button" onclick="addRow()">Добавить строку</button>
+{% endif %}
 </div>
 <table cellspacing="0" cellpadding="5" border="1" id="tableReports">
     <thead>
@@ -144,30 +174,102 @@
             <td id="total_1" class="txt-c td_gray"><input class="w-full tb-input" type="hidden" name="total1" id="total_1"></td>
             <td id="total_2" class="txt-c td_gray"><input class="w-full tb-input" type="hidden" name="total2" id="total_2"></td>
             <td id="total_3"class="txt-c td_gray"><input class="w-full tb-input" type="hidden" name="total3" id="total_3"></td>
+            {% if request.user.is_superuser %}
+            {% else %}
             <td class="txt-c delete-icon-invest" data-code="{{ row.code }}">
                 <span class="delete-text">Şterge</span>
             </td>
+            {% endif %}
         </tr>
         {% for row in invest_s_2_rows %}
         <tr>
-            <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="codul_rind_{{ row.code }}" value="{{ row.codul_rind|floatformat:"1"|stringreplace }}" id="codul_rind_{{ row.code }}"></td>
-            <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="code_cuatm_{{ row.code }}" value="{{ row.code_cuatm|floatformat:"1"|stringreplace }}" id="code_cuatm_{{ row.code }}"></td>
-            <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="numa_oras_{{ row.code }}" value="{{ row.numa_oras|default:''|stringreplace }}" id="numa_oras_{{ row.code }}"></td>
-            <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="cladiri_{{ row.code }}" value="{{ row.cladiri|floatformat:"1"|stringreplace }}" id="cladiri_{{ row.code }}"></td>
-            <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="apart_{{ row.code }}" value="{{ row.apart|floatformat:"1"|stringreplace }}" id="apart_{{ row.code }}"></td>
-            <td class="txt-c"><input class="w-full tb-input" type="text" step="any" name="sup_total_{{ row.code }}" value="{{ row.sup_total|floatformat:"1"|stringreplace }}" id="sup_total_{{ row.code }}"></td>
+            <td class="txt-c">
+                {% if request.user.is_superuser %}
+                {{ row.codul_rind|floatformat:"1"|stringreplace }}
+                {% else %}
+                <input class="w-full tb-input" type="text" step="any" name="codul_rind_{{ row.code }}" value="{{ row.codul_rind|floatformat:"1"|stringreplace }}" id="codul_rind_{{ row.code }}">
+            {% endif %}
+            </td>
+            <td class="txt-c">
+                {% if request.user.is_superuser %}
+                {{ row.code_cuatm|floatformat:"1"|stringreplace }}
+                {% else %}
+                <input class="w-full tb-input" type="text" step="any" name="code_cuatm_{{ row.code }}" value="{{ row.code_cuatm|floatformat:"1"|stringreplace }}" id="code_cuatm_{{ row.code }}">
+            {% endif %}
+            </td>
+            <td class="txt-c">
+                {% if request.user.is_superuser %}
+                {{ row.numa_oras|default:''|stringreplace }}
+                {% else %}
+                <input class="w-full tb-input" type="text" step="any" name="numa_oras_{{ row.code }}" value="{{ row.numa_oras|default:''|stringreplace }}" id="numa_oras_{{ row.code }}">
+            {% endif %}
+            </td>
+            <td class="txt-c">
+                {% if request.user.is_superuser %}
+                {{ row.cladiri|floatformat:"1"|stringreplace }}
+                {% else %}
+                <input class="w-full tb-input" type="text" step="any" name="cladiri_{{ row.code }}" value="{{ row.cladiri|floatformat:"1"|stringreplace }}" id="cladiri_{{ row.code }}">
+            {% endif %}
+            </td>
+            <td class="txt-c">
+                {% if request.user.is_superuser %}
+                {{ row.apart|floatformat:"1"|stringreplace }}
+                {% else %}
+                <input class="w-full tb-input" type="text" step="any" name="apart_{{ row.code }}" value="{{ row.apart|floatformat:"1"|stringreplace }}" id="apart_{{ row.code }}">
+            {% endif %}
+            </td>
+            <td class="txt-c">
+                {% if request.user.is_superuser %}
+                {{ row.sup_total|floatformat:"1"|stringreplace }}
+                {% else %}
+                <input class="w-full tb-input" type="text" step="any" name="sup_total_{{ row.code }}" value="{{ row.sup_total|floatformat:"1"|stringreplace }}" id="sup_total_{{ row.code }}">
+            {% endif %}
+            </td>
+            {% if request.user.is_superuser %}
+            {% else %}
             <td class="txt-c delete-icon-invest" data-code="{{ row.code }}">
                 <span class="delete-text">Şterge</span>
             </td>
+            {% endif %}
         </tr>
     {% endfor %}
     <tr id="new-row-template" style="display: none;">
-        <td class="txt-c"><input class="tb-input w-full" type="text" step="any" name="new_codul_rind_"></td>
-        <td class="txt-c"><input class="tb-input w-full" type="text" step="any" name="new_code_cuatm_"></td>
-        <td class="txt-c"><input class="tb-input w-full" type="text" step="any" name="new_numa_oras_"></td>
-        <td class="txt-c"><input class="tb-input w-full" type="text" step="any" name="new_cladiri_"></td>
-        <td class="txt-c"><input class="tb-input w-full" type="text" step="any" name="new_apart_"></td>
-        <td class="txt-c"><input class="tb-input w-full" type="text" step="any" name="new_sup_total_"></td>
+        <td class="txt-c">
+            {% if request.user.is_superuser %}
+            {% else %}
+            <input class="tb-input w-full" type="text" step="any" name="new_codul_rind_">
+            {% endif %}
+        </td>
+        <td class="txt-c">
+            {% if request.user.is_superuser %}
+            {% else %}
+            <input class="tb-input w-full" type="text" step="any" name="new_code_cuatm_">
+            {% endif %}
+        </td>
+        <td class="txt-c">
+            {% if request.user.is_superuser %}
+            {% else %}
+            <input class="tb-input w-full" type="text" step="any" name="new_numa_oras_">
+            {% endif %}
+        </td>
+        <td class="txt-c">
+            {% if request.user.is_superuser %}
+            {% else %}
+            <input class="tb-input w-full" type="text" step="any" name="new_cladiri_">
+            {% endif %}
+        </td>
+        <td class="txt-c">
+            {% if request.user.is_superuser %}
+            {% else %}
+            <input class="tb-input w-full" type="text" step="any" name="new_apart_">
+            {% endif %}
+        </td>
+        <td class="txt-c">
+            {% if request.user.is_superuser %}
+            {% else %}
+            <input class="tb-input w-full" type="text" step="any" name="new_sup_total_">
+            {% endif %}
+        </td>
     </tr>
     
     </tbody>

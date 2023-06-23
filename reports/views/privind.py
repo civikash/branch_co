@@ -336,7 +336,8 @@ class PrivindDetail(View):
             },
             {
                 'descrierea': 'Depistate în a. 2023  (Выявлено в 2023)', 
-                'rowcolumn': 4
+                'rowcolumn': 4,
+
             },
             {
                 'crt': 2,
@@ -382,6 +383,7 @@ class PrivindDetail(View):
             },
                                     {
                 'descrierea': 'Pierderi în urma incendiilor (Потери от пожаров)',
+                'line': 1,
                 'rowcolumn': 4,
             },
             {
@@ -551,11 +553,12 @@ class PrivindDetail(View):
                 'c_t_fin': c_t_fin if c_t_fin else ''
             },
             {
-                'descrierea': 'Contribuțiile de asigurări sociale',
+                'taxele': 'Contribuțiile de asigurări sociale',
                 'rowcolumn': 7,
+                'line': 1
             },
             {
-                'rowspan': 2,
+                'rowspan': 1,
                 'taxele': 'Contribuții sociale 24,0 %',
                 'd_t_ini': d_t_ini if d_t_ini else '',
                 'c_t_ini': c_t_ini if c_t_ini else '',
@@ -582,7 +585,7 @@ class PrivindDetail(View):
                 'c_t_fin': c_t_fin if c_t_fin else ''
             },
             {
-                'descrierea': 'Contribuțiile asigurărilor medicale',
+                'taxele': 'Contribuțiile asigurărilor medicale',
                 'rowcolumn': 7,
             },
             {
