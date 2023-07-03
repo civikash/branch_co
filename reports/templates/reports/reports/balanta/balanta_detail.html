@@ -72,7 +72,7 @@
     <div class="raport__title">
         <h1>BILANŢUL
         </h1>
-        <span>la______{% if request.user.is_superuser %}{{ data_1.la|default:'' }}{% else %}<input class="" type="text" maxlength="10" name="data_1" value="{{ data_1.la|default:''|date:'d.m.Y' }}" id="data_1">{% endif %}_________        </span>
+        <span>la______{% if request.user.is_superuser %}{{ data_1.la|default:'' }}{% else %}<input required class="" type="text" maxlength="10" name="data_1" value="{{ data_1.la|default:''|date:'d.m.Y' }}" id="data_1">{% endif %}_________        </span>
     </div>
     <div class="raport__title">
         {% if request.user.is_superuser %}
@@ -147,8 +147,8 @@
     <h1>
         SITUAŢIA DE PROFIT ŞI PIERDERE
 </h1>
-<span>de la___{% if request.user.is_superuser %}{{ data_2.de_la|default:'' }}{% else %}<input class="" type="text" maxlength="10" name="data_2" value="{{ data_2.de_la|default:''|date:'d.m.Y' }}" id="data_2">{% endif %}_____
-    pînă la__{% if request.user.is_superuser %}{{ data_2.pina_la|default:'' }}{% else %}<input class="" type="text" maxlength="10" name="data_3" value="{{ data_2.pina_la|default:''|date:'d.m.Y' }}" id="data_3">{% endif %}_______
+<span>de la___{% if request.user.is_superuser %}{{ data_2.de_la|default:'' }}{% else %}<input required class="" type="text" maxlength="10" name="data_2" value="{{ data_2.de_la|default:''|date:'d.m.Y' }}" id="data_2">{% endif %}_____
+    pînă la__{% if request.user.is_superuser %}{{ data_2.pina_la|default:'' }}{% else %}<input required class="" type="text" maxlength="10" name="data_3" value="{{ data_2.pina_la|default:''|date:'d.m.Y' }}" id="data_3">{% endif %}_______
    
    </span>
 <div class="raport__title">
@@ -218,8 +218,8 @@
 <h1>
     SITUAŢIA MODIFICĂRILOR CAPITALULUI PROPRIU
 </h1>
-<span>de la___{% if request.user.is_superuser %}{{ data_3.de_la|default:'' }}{% else %}<input class="" type="text" maxlength="10" name="data_4" value="{{ data_3.de_la|default:''|date:'d.m.Y' }}" id="data_4">{% endif %}_____
-    pînă la__{% if request.user.is_superuser %}{{ data_3.pina_la|default:'' }}{% else %}<input class="" type="text" maxlength="10" name="data_5" value="{{ data_3.pina_la|default:''|date:'d.m.Y' }}" id="data_5">{% endif %}_______
+<span>de la___{% if request.user.is_superuser %}{{ data_3.de_la|default:'' }}{% else %}<input required class="" type="text" maxlength="10" name="data_4" value="{{ data_3.de_la|default:''|date:'d.m.Y' }}" id="data_4">{% endif %}_____
+    pînă la__{% if request.user.is_superuser %}{{ data_3.pina_la|default:'' }}{% else %}<input required class="" type="text" maxlength="10" name="data_5" value="{{ data_3.pina_la|default:''|date:'d.m.Y' }}" id="data_5">{% endif %}_______
    
    </span>
 <div class="raport__title">
@@ -274,7 +274,7 @@
                     {% if request.user.is_superuser %}
                     {{ row.inceputul|floatformat:"1"|stringreplace }}
                     {% else %}
-                   <input {% if row.blocked_sfirsitul == True %}readonly="readonly" {% endif %} class="w-full tb-input" type="text" value="{{ row.inceputul|floatformat:"1"|stringreplace }}" step="any" name="inceputul_3_{{ row.code }}" id="inceputul_3_{{ row.code }}">
+                   <input {% if row.blocked_inceputul == True %}readonly="readonly" {% endif %} class="w-full tb-input" type="text" value="{{ row.inceputul|floatformat:"1"|stringreplace }}" step="any" name="inceputul_3_{{ row.code }}" id="inceputul_3_{{ row.code }}">
                     {% endif %}
                 </td>
         
@@ -311,8 +311,8 @@
 <h1>
     SITUAŢIA FLUXURILOR DE NUMERAR
 </h1>
-<span>de la___{% if request.user.is_superuser %}{{ data_4.de_la|default:'' }}{% else %}<input class="" type="text" maxlength="10" name="data_6" value="{{ data_4.de_la|default:''|date:'d.m.Y' }}" id="data_6">{% endif %}_____
-    pînă la__{% if request.user.is_superuser %}{{ data_4.pina_la|default:'' }}{% else %}<input class="" type="text" maxlength="10" name="data_7" value="{{ data_4.pina_la|default:''|date:'d.m.Y' }}" id="data_7">{% endif %}_______
+<span>de la___{% if request.user.is_superuser %}{{ data_4.de_la|default:'' }}{% else %}<input required class="" type="text" maxlength="10" name="data_6" value="{{ data_4.de_la|default:''|date:'d.m.Y' }}" id="data_6">{% endif %}_____
+    pînă la__{% if request.user.is_superuser %}{{ data_4.pina_la|default:'' }}{% else %}<input required class="" type="text" maxlength="10" name="data_7" value="{{ data_4.pina_la|default:''|date:'d.m.Y' }}" id="data_7">{% endif %}_______
    
    </span>
 <div class="raport__title">

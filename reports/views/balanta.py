@@ -2143,7 +2143,7 @@ class BalantaDetail(View):
                     report_item_3.inceputul = float(inceputul_3[i]) if inceputul_3[i] else None
                     report_item_3.majorari = float(majorari_3[i]) if majorari_3[i] else None
                     report_item_3.diminuari = float(diminuari_3[i]) if diminuari_3[i] else None
-                    report_item_3.sfirsitul = float(sfirsitul_3[i]) if sfirsitul_3[i] else None
+                    report_item_3.sfirsitul = float(sfirsitul_3[i]) if sfirsitul_3[i] else None 
                     report_item_3.save()
                     counter += 1
                     report_item_3.counter = counter
@@ -2163,6 +2163,7 @@ class BalantaDetail(View):
                     report_item_4.indicatori = str(indicatori_4[i]) if indicatori_4[i] else None
                     report_item_4.code_rind = float(code_rind_4[i]) if code_rind_4[i] else None
                     report_item_4.precedenta = float(precedenta_4[i]) if precedenta_4[i] else None
+                    report_item_4.curenta = float(curenta_4[i]) if curenta_4[i] else None
                     report_item_4.save()
                     # увеличиваем счетчик на 1 при успешном сохранении объекта
             except Balanta4.MultipleObjectsReturned as e:
@@ -2171,9 +2172,10 @@ class BalantaDetail(View):
                 if report_item_4 is not None:
                     report_item_4.de_la = str(formatted_date_4) if formatted_date_4 else None
                     report_item_4.pina_la = str(formatted_date_4_1) if formatted_date_4_1 else None
-                    report_item_4.indicatori = str(indicatori_4[i]) if indicatori_3[i] else None
+                    report_item_4.indicatori = str(indicatori_4[i]) if indicatori_3[i] else None 
                     report_item_4.code_rind = float(code_rind_4[i]) if code_rind_4[i] else None
                     report_item_4.precedenta = float(precedenta_4[i]) if precedenta_4[i] else None
+                    report_item_4.curenta = float(curenta_4[i]) if curenta_4[i] else None
                     report_item_4.save()
                     counter += 1
                     report_item_4.counter = counter

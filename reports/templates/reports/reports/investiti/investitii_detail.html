@@ -187,42 +187,42 @@
         </tr>
         {% for row in invest_s_2_rows %}
         <tr>
-            <td class="txt-c">
+            <td class="txt-c row">
                 {% if request.user.is_superuser %}
                 {{ row.codul_rind|floatformat:"1"|stringreplace }}
                 {% else %}
                 <input class="w-full tb-input" type="text" step="any" name="codul_rind_{{ row.code }}" value="{{ row.codul_rind|floatformat:"1"|stringreplace }}" id="codul_rind_{{ row.code }}">
             {% endif %}
             </td>
-            <td class="txt-c">
+            <td class="txt-c row">
                 {% if request.user.is_superuser %}
                 {{ row.code_cuatm|floatformat:"1"|stringreplace }}
                 {% else %}
                 <input class="w-full tb-input" type="text" step="any" name="code_cuatm_{{ row.code }}" value="{{ row.code_cuatm|floatformat:"1"|stringreplace }}" id="code_cuatm_{{ row.code }}">
             {% endif %}
             </td>
-            <td class="txt-c">
+            <td class="txt-c row">
                 {% if request.user.is_superuser %}
                 {{ row.numa_oras|default:''|stringreplace }}
                 {% else %}
                 <input class="w-full tb-input" type="text" step="any" name="numa_oras_{{ row.code }}" value="{{ row.numa_oras|default:''|stringreplace }}" id="numa_oras_{{ row.code }}">
             {% endif %}
             </td>
-            <td class="txt-c">
+            <td class="txt-c row">
                 {% if request.user.is_superuser %}
                 {{ row.cladiri|floatformat:"1"|stringreplace }}
                 {% else %}
                 <input class="w-full tb-input" type="text" step="any" name="cladiri_{{ row.code }}" value="{{ row.cladiri|floatformat:"1"|stringreplace }}" id="cladiri_{{ row.code }}">
             {% endif %}
             </td>
-            <td class="txt-c">
+            <td class="txt-c row">
                 {% if request.user.is_superuser %}
                 {{ row.apart|floatformat:"1"|stringreplace }}
                 {% else %}
                 <input class="w-full tb-input" type="text" step="any" name="apart_{{ row.code }}" value="{{ row.apart|floatformat:"1"|stringreplace }}" id="apart_{{ row.code }}">
             {% endif %}
             </td>
-            <td class="txt-c">
+            <td class="txt-c row">
                 {% if request.user.is_superuser %}
                 {{ row.sup_total|floatformat:"1"|stringreplace }}
                 {% else %}
