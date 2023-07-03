@@ -263,6 +263,21 @@ thead {
   font-weight: 600;
   font-size: 15px;
 }
+.raport__body table .w-1 {
+  width: 185px;
+}
+.raport__body table .w-2 {
+  width: 743px;
+}
+.raport__body table .w-3 {
+  width: 185px;
+}
+.raport__body table .w-4 {
+  width: 374px;
+}
+.raport__body table .gray-td {
+  background-color: #DDDDDD;
+}
 .raport__body h1 {
   font-size: 19px;
   font-weight: 600;

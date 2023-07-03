@@ -99,28 +99,32 @@
                 {% if request.user.is_superuser %}
                 {{ row.codul_rind|floatformat:"1"|stringreplace }}
                 {% else %}
-                <input class="w-full tb-input" type="text" step="any" name="s_codul_rind_{{ row.code }}" value="{{ row.codul_rind|floatformat:"1"|stringreplace }}" id="s_codul_rind_{{ row.code }}">
+                {{ row.codul_rind|floatformat:"1"|stringreplace }}
+                <input class="w-full tb-input" type="hidden" step="any" name="s_codul_rind_{{ row.code }}" value="{{ row.codul_rind|floatformat:"1"|stringreplace }}" id="s_codul_rind_{{ row.code }}">
                 {% endif %}
             </td>
             <td class="txt-c" rowspan="{{ row.rowspan }}">
                 {% if request.user.is_superuser %}
                 {{ row.indicatori|default:''|stringreplace }}
                 {% else %}
-                <input class="w-full tb-input" type="text" step="any" name="indicatori_{{ row.code }}" value="{{ row.indicatori|default:''|stringreplace }}" id="indicatori_{{ row.code }}">
+                {{ row.indicatori|default:''|stringreplace }}
+                <input class="w-full tb-input" type="hidden" step="any" name="indicatori_{{ row.code }}" value="{{ row.indicatori|default:''|stringreplace }}" id="indicatori_{{ row.code }}">
                 {% endif %}
             </td>
             <td class="txt-c">
                 {% if request.user.is_superuser %}
                 {{ row.intrari|floatformat:"1"|stringreplace }}
                 {% else %}
-                <input class="w-full tb-input" type="text" step="any" name="intrari_{{ row.code }}" value="{{ row.intrari|floatformat:"1"|stringreplace }}" id="intrari_{{ row.code }}">
+                {{ row.intrari|floatformat:"1"|stringreplace }}
+                <input class="w-full tb-input" type="hidden" step="any" name="intrari_{{ row.code }}" value="{{ row.intrari|floatformat:"1"|stringreplace }}" id="intrari_{{ row.code }}">
                 {% endif %}
             </td>
             <td class="txt-c">
                 {% if request.user.is_superuser %}
                 {{ row.investitii|floatformat:"1"|stringreplace }}
                 {% else %}
-                <input class="w-full tb-input" type="text" step="any" name="investitii_{{ row.code }}" value="{{ row.investitii|floatformat:"1"|stringreplace }}" id="investitii_{{ row.code }}">
+                {{ row.investitii|floatformat:"1"|stringreplace }}
+                <input class="w-full tb-input" type="hidden" step="any" name="investitii_{{ row.code }}" value="{{ row.investitii|floatformat:"1"|stringreplace }}" id="investitii_{{ row.code }}">
                 {% endif %}
             </td>
         </tr>
@@ -228,7 +232,7 @@
             {% if request.user.is_superuser %}
             {% else %}
             <td class="txt-c delete-icon-invest" data-code="{{ row.code }}">
-                <span class="delete-text">Şterge</span>
+                <span class="delete-text" id="delDel">Şterge</span>
             </td>
             {% endif %}
         </tr>
@@ -237,7 +241,7 @@
         <td class="txt-c">
             {% if request.user.is_superuser %}
             {% else %}
-            <input class="tb-input w-full" type="text" step="any" name="new_codul_rind_">
+            <input class="tb-input w-full" type="text" value="" step="any" name="new_codul_rind_">
             {% endif %}
         </td>
         <td class="txt-c">
@@ -255,7 +259,7 @@
         <td class="txt-c">
             {% if request.user.is_superuser %}
             {% else %}
-            <input class="tb-input w-full" type="text" step="any" name="new_cladiri_">
+            <input class="tb-input w-full" type="text" value="" name="new_cladiri_" id="new_cladiri_input">
             {% endif %}
         </td>
         <td class="txt-c">
@@ -293,4 +297,6 @@
 </div>
 </form>
 </section>
+<script>
+</script>
 {% endblock privind_detail %}

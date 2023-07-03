@@ -148,12 +148,10 @@ class MiscCadrelor(models.Model):
     mai_ani_consum = models.IntegerField(_("mai mare 5 ani consum"), null=True, blank=True)
     perfectionare = models.IntegerField(_("Perfectionare a cadrelor"), null=True, blank=True)
 
-
 class ManagerMiscCadrelor(models.Model):
     uid = models.UUIDField(unique=True, editable=False, default=uuid.uuid4)
     reports = models.ForeignKey(MiscCadrelor, verbose_name=_("MiscCadrelor"), on_delete=models.CASCADE, to_field='code')
     date = models.DateField(_("Дата"), auto_now=True)
-
 
 class InvestitiiActive1(models.Model):
     uid = models.UUIDField(unique=True, editable=False, default=uuid.uuid4)
@@ -164,7 +162,6 @@ class InvestitiiActive1(models.Model):
     indicatori = models.CharField(_("Indicatorii"), max_length=120, null=True, blank=True)
     intrari = models.DecimalField(max_digits=10, decimal_places=1, null=True)
     investitii = models.DecimalField(max_digits=10, decimal_places=1, null=True)
-
 
 class InvestitiiActive2(models.Model):
     uid = models.UUIDField(unique=True, editable=False, default=uuid.uuid4)
@@ -177,7 +174,6 @@ class InvestitiiActive2(models.Model):
     cladiri = models.DecimalField(max_digits=10, decimal_places=1, null=True)
     apart = models.DecimalField(max_digits=10, decimal_places=1, null=True)
     sup_total = models.DecimalField(max_digits=10, decimal_places=1, null=True)
-
 
 class ManagerRaportStatisticTrimestrial(models.Model):
     uid = models.UUIDField(unique=True, editable=False, default=uuid.uuid4)
@@ -195,7 +191,6 @@ class Stocuri1(models.Model):
     inceputul = models.DecimalField(max_digits=10, decimal_places=1, null=True)
     finele = models.DecimalField(max_digits=10, decimal_places=1, null=True)
 
-
 class Stocuri2(models.Model):
     uid = models.UUIDField(unique=True, editable=False, default=uuid.uuid4)
     company = models.ForeignKey(CompanyData, verbose_name=_("Company"), on_delete=models.PROTECT, to_field='uid', related_name='account_company_stocuri_2')
@@ -205,13 +200,68 @@ class Stocuri2(models.Model):
     indicatorii = models.CharField(_("Indicatorii"), max_length=520, null=True, blank=True)
     trimestrul = models.DecimalField(_("Trimestrul"), max_digits=10, decimal_places=1, null=True, blank=True)
 
-
 class ManagerRaportStocuri(models.Model):
     uid = models.UUIDField(unique=True, editable=False, default=uuid.uuid4)
     reports = models.ForeignKey(Stocuri1, verbose_name=_("Cap.Stoc: Stocuri"), on_delete=models.CASCADE, to_field='code')
     ci_2 = models.ForeignKey(Stocuri2, verbose_name=_("Venituri, costuri și cheltuieli operaționale în total pe entitate"), on_delete=models.CASCADE, null=True, to_field='code')
     date = models.DateField(_("Дата"), auto_now=True)
 
+class Balanta1(models.Model):
+    uid = models.UUIDField(unique=True, editable=False, default=uuid.uuid4)
+    company = models.ForeignKey(CompanyData, verbose_name=_("Company"), on_delete=models.PROTECT, to_field='uid', related_name='account_company_balanta_1')
+    code = models.AutoField(_("Code"), primary_key=True)
+    counter = models.IntegerField(_("Counter"), default=0)
+    la = models.DateField(_(""), auto_now=False, auto_now_add=False, null=True)
+    indicatorii = models.CharField(_("Indicatorii"), max_length=520, null=True, blank=True)
+    code_rind = models.IntegerField(_("cod_rind"), null=True, blank=True)
+    inceputul = models.DecimalField(_("Începutul"), max_digits=10, decimal_places=1, null=True, blank=True)
+    sfirsitul = models.DecimalField(_("Sfîrșitul"), max_digits=10, decimal_places=1, null=True, blank=True)
+
+class Balanta2(models.Model):
+    uid = models.UUIDField(unique=True, editable=False, default=uuid.uuid4)
+    company = models.ForeignKey(CompanyData, verbose_name=_("Company"), on_delete=models.PROTECT, to_field='uid', related_name='account_company_balanta_2')
+    code = models.AutoField(_("Code"), primary_key=True)
+    counter = models.IntegerField(_("Counter"), default=0)
+    indicatorii = models.CharField(_("Indicatorii"), max_length=520, null=True, blank=True)
+    de_la = models.DateField(_(""), auto_now=False, auto_now_add=False, null=True)
+    pina_la = models.DateField(_(""), auto_now=False, auto_now_add=False, null=True)
+    code_rind = models.IntegerField(_("cod_rind"), null=True, blank=True)
+    precedenta = models.DecimalField(_("precedenta"), max_digits=10, decimal_places=1, null=True, blank=True)
+    curenta = models.DecimalField(_("curenta"), max_digits=10, decimal_places=1, null=True, blank=True)
+
+class Balanta3(models.Model):
+    uid = models.UUIDField(unique=True, editable=False, default=uuid.uuid4)
+    company = models.ForeignKey(CompanyData, verbose_name=_("Company"), on_delete=models.PROTECT, to_field='uid', related_name='account_company_balanta_3')
+    code = models.AutoField(_("Code"), primary_key=True)
+    counter = models.IntegerField(_("Counter"), default=0)
+    indicatorii = models.CharField(_("Indicatorii"), max_length=520, null=True, blank=True)
+    de_la = models.DateField(_(""), auto_now=False, auto_now_add=False, null=True)
+    pina_la = models.DateField(_(""), auto_now=False, auto_now_add=False, null=True)
+    code_rind = models.IntegerField(_("cod_rind"), null=True, blank=True)
+    inceputul = models.DecimalField(_("începutul"), max_digits=10, decimal_places=1, null=True, blank=True)
+    majorari = models.DecimalField(_("Majorări"), max_digits=10, decimal_places=1, null=True, blank=True)
+    diminuari = models.DecimalField(_("Diminuări"), max_digits=10, decimal_places=1, null=True, blank=True)
+    sfirsitul = models.DecimalField(_("Sfîrşitul"), max_digits=10, decimal_places=1, null=True, blank=True)
+
+class Balanta4(models.Model):
+    uid = models.UUIDField(unique=True, editable=False, default=uuid.uuid4)
+    company = models.ForeignKey(CompanyData, verbose_name=_("Company"), on_delete=models.PROTECT, to_field='uid', related_name='account_company_balanta_4')
+    code = models.AutoField(_("Code"), primary_key=True)
+    counter = models.IntegerField(_("Counter"), default=0)
+    indicatorii = models.CharField(_("Indicatorii"), max_length=520, null=True, blank=True)
+    de_la = models.DateField(_(""), auto_now=False, auto_now_add=False, null=True)
+    pina_la = models.DateField(_(""), auto_now=False, auto_now_add=False, null=True)
+    code_rind = models.IntegerField(_("cod_rind"), null=True, blank=True)
+    precedenta = models.DecimalField(_("precedentă"), max_digits=10, decimal_places=1, null=True, blank=True)
+    curenta = models.DecimalField(_("curentă"), max_digits=10, decimal_places=1, null=True, blank=True)
+
+class ManagerRaportBalanta(models.Model):
+    uid = models.UUIDField(unique=True, editable=False, default=uuid.uuid4)
+    reports = models.ForeignKey(Balanta1, verbose_name=_("BILANŢUL"), on_delete=models.CASCADE, to_field='code')
+    reports_2 = models.ForeignKey(Balanta2, verbose_name=_("SITUAŢIA DE PROFIT ŞI PIERDERE"), on_delete=models.CASCADE, null=True, to_field='code')
+    reports_3 = models.ForeignKey(Balanta3, verbose_name=_("SITUAŢIA MODIFICĂRILOR CAPITALULUI PROPRIU"), on_delete=models.CASCADE, null=True, to_field='code')
+    reports_4 = models.ForeignKey(Balanta4, verbose_name=_("SITUAŢIA FLUXURILOR DE NUMERAR"), on_delete=models.CASCADE, null=True, to_field='code')
+    date = models.DateField(_("Дата"), auto_now=True)
 
 
 @receiver(pre_save, sender=InfEconOp)
