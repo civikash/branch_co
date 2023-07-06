@@ -72,7 +72,7 @@
     <div class="raport__title">
         <h1>BILANŢUL
         </h1>
-        <span>la______{% if request.user.is_superuser %}{{ data_1.la|default:'' }}{% else %}<input required class="" type="text" maxlength="10" name="data_1" value="{{ data_1.la|default:''|date:'d.m.Y' }}" id="data_1">{% endif %}_________        </span>
+        <span>la______{% if request.user.is_superuser %}{{ data_1.la|default:'' }}{% else %}<input required class="input-width-2" type="text" maxlength="10" name="data_1" value="{{ data_1.la|default:''|date:'d.m.Y' }}" id="data_1">{% endif %}_________        </span>
     </div>
     <div class="raport__title">
         {% if request.user.is_superuser %}
@@ -83,7 +83,7 @@
             </div>
             <div class="raport__title">
                 <button class="save button blue" type="submit">Сохранить</button>
-                <span class="left__marg">Unitatea de măsură: leu
+                <span class="left__marg">Anexa 1
                 </span>
                 </div>
     <table cellspacing="0" cellpadding="5" border="1">
@@ -144,20 +144,18 @@
 
         </tbody>
     </table>
+    <div class="raport__title">
     <h1>
         SITUAŢIA DE PROFIT ŞI PIERDERE
 </h1>
-<span>de la___{% if request.user.is_superuser %}{{ data_2.de_la|default:'' }}{% else %}<input required class="" type="text" maxlength="10" name="data_2" value="{{ data_2.de_la|default:''|date:'d.m.Y' }}" id="data_2">{% endif %}_____
-    pînă la__{% if request.user.is_superuser %}{{ data_2.pina_la|default:'' }}{% else %}<input required class="" type="text" maxlength="10" name="data_3" value="{{ data_2.pina_la|default:''|date:'d.m.Y' }}" id="data_3">{% endif %}_______
+<span>de la___{% if request.user.is_superuser %}{{ data_2.de_la|default:'' }}{% else %}<input required class="input-width-2" type="text" maxlength="10" name="data_2" value="{{ data_2.de_la|default:''|date:'d.m.Y' }}" id="data_2">{% endif %}_____
+    pînă la__{% if request.user.is_superuser %}{{ data_2.pina_la|default:'' }}{% else %}<input required class="input-width-2" type="text" maxlength="10" name="data_3" value="{{ data_2.pina_la|default:''|date:'d.m.Y' }}" id="data_3">{% endif %}_______
    
    </span>
-<div class="raport__title">
-    <span class="right__marg">Important: Datele se prezintă numai pe trimestrul de raportare (de exemplu: pentru trimestrul II - trimestrul de raportare constituie 1 aprilie - 30 iunie)
-    </span>
-    </div>
+</div>
     <div class="raport__title">
         <button class="save button blue" type="submit">Сохранить</button>
-        <span class="left__marg">mii lei; datele se înscriu cu zecimale</span>
+        <span class="left__marg">Anexa 2</span>
         </div>
 <table cellspacing="0" cellpadding="5" border="1">
     <thead>
@@ -215,20 +213,18 @@
 
     </tbody>
 </table>   
+<div class="raport__title">
 <h1>
     SITUAŢIA MODIFICĂRILOR CAPITALULUI PROPRIU
 </h1>
-<span>de la___{% if request.user.is_superuser %}{{ data_3.de_la|default:'' }}{% else %}<input required class="" type="text" maxlength="10" name="data_4" value="{{ data_3.de_la|default:''|date:'d.m.Y' }}" id="data_4">{% endif %}_____
-    pînă la__{% if request.user.is_superuser %}{{ data_3.pina_la|default:'' }}{% else %}<input required class="" type="text" maxlength="10" name="data_5" value="{{ data_3.pina_la|default:''|date:'d.m.Y' }}" id="data_5">{% endif %}_______
+<span>de la___{% if request.user.is_superuser %}{{ data_3.de_la|default:'' }}{% else %}<input required class="input-width-2" type="text" maxlength="10" name="data_4" value="{{ data_3.de_la|default:''|date:'d.m.Y' }}" id="data_4">{% endif %}_____
+    pînă la__{% if request.user.is_superuser %}{{ data_3.pina_la|default:'' }}{% else %}<input required class="input-width-2" type="text" maxlength="10" name="data_5" value="{{ data_3.pina_la|default:''|date:'d.m.Y' }}" id="data_5">{% endif %}_______
    
    </span>
-<div class="raport__title">
-<span class="right__marg">Important: Datele se prezintă numai pe trimestrul de raportare (de exemplu: pentru trimestrul II - trimestrul de raportare constituie 1 aprilie - 30 iunie)
-</span>
 </div>
 <div class="raport__title">
     <button class="save button blue" type="submit">Сохранить</button>
-    <span class="left__marg">mii lei; datele se înscriu cu zecimale</span>
+    <span class="left__marg">Anexa 3</span>
     </div>
     <table cellspacing="0" cellpadding="5" border="1">
         <thead>
@@ -308,20 +304,18 @@
         
         </tbody>
 </table> 
+<div class="raport__title">
 <h1>
     SITUAŢIA FLUXURILOR DE NUMERAR
 </h1>
-<span>de la___{% if request.user.is_superuser %}{{ data_4.de_la|default:'' }}{% else %}<input required class="" type="text" maxlength="10" name="data_6" value="{{ data_4.de_la|default:''|date:'d.m.Y' }}" id="data_6">{% endif %}_____
-    pînă la__{% if request.user.is_superuser %}{{ data_4.pina_la|default:'' }}{% else %}<input required class="" type="text" maxlength="10" name="data_7" value="{{ data_4.pina_la|default:''|date:'d.m.Y' }}" id="data_7">{% endif %}_______
+<span>de la___{% if request.user.is_superuser %}{{ data_4.de_la|default:'' }}{% else %}<input required class="input-width-2" type="text" maxlength="10" name="data_6" value="{{ data_4.de_la|default:''|date:'d.m.Y' }}" id="data_6">{% endif %}_____
+    pînă la__{% if request.user.is_superuser %}{{ data_4.pina_la|default:'' }}{% else %}<input required class="input-width-2" type="text" maxlength="10" name="data_7" value="{{ data_4.pina_la|default:''|date:'d.m.Y' }}" id="data_7">{% endif %}_______
    
    </span>
-<div class="raport__title">
-<span class="right__marg">Important: Datele se prezintă numai pe trimestrul de raportare (de exemplu: pentru trimestrul II - trimestrul de raportare constituie 1 aprilie - 30 iunie)
-</span>
 </div>
 <div class="raport__title">
     <button class="save button blue" type="submit">Сохранить</button>
-    <span class="left__marg">mii lei; datele se înscriu cu zecimale</span>
+    <span class="left__marg">Anexa 4</span>
     </div>
 <table cellspacing="0" cellpadding="5" border="1">
 <thead>

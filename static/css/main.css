@@ -1,5 +1,4 @@
 @charset "UTF-8";
-@import url("https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;700;800;900&display=swap");
 * {
   padding: 0px;
   margin: 0px;
@@ -94,13 +93,12 @@ html {
 }
 
 body {
-  font-family: "Golos Text", sans-serif;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
 }
 
 .container {
   width: 100%;
   margin: 0 auto;
-  padding: 0 15px;
 }
 
 .messages {
@@ -212,8 +210,12 @@ thead {
   display: flex;
 }
 
+.input-width-2 {
+  width: 90px;
+}
+
 .raport__body {
-  padding: 34px;
+  padding: 11px;
   width: 100%;
   background-color: #ffffff;
   display: flex;
@@ -261,7 +263,7 @@ thead {
 }
 .raport__body table .td-description {
   font-weight: 600;
-  font-size: 15px;
+  font-size: 11px;
 }
 .raport__body table .w-1 {
   width: 185px;
@@ -299,7 +301,7 @@ thead {
 }
 .raport__body .raport__title .left__marg {
   margin-left: auto;
-  font-size: 13px;
+  font-size: 11px;
 }
 .raport__body .raport__title-row {
   display: flex;
@@ -311,6 +313,7 @@ thead {
 }
 .raport__body .raport__information {
   display: flex;
+  font-size: 11px;
   flex-direction: column;
 }
 .raport__body .raport__information span {
@@ -378,7 +381,7 @@ thead {
 }
 
 thead th {
-  padding: 10px;
+  padding: 5px;
   border: 1px solid #000000;
 }
 
@@ -393,7 +396,7 @@ tbody tr .td_gray {
 
 tr td {
   padding: 10px;
-  font-size: 14px;
+  font-size: 11px;
   text-align: center;
   border: 1px solid #000000;
 }

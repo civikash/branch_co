@@ -79,3 +79,29 @@ function getCookie(name) {
     const cookieValue = document.cookie.match('(^|;)\\s*' + name + '=([^;]+)');
     return cookieValue ? cookieValue.pop() : '';
 }
+
+// Цикл для обработки каждого поля
+for (let i = 1; i <= 7; i++) {
+    const inputDate = document.getElementById(`data_${i}`);
+    
+    if (inputDate) {
+      inputDate.addEventListener('keydown', event => {
+        const key = event.key;
+        if (!/\d/.test(key) && key !== 'Backspace' && key !== 'Delete' && key !== 'ArrowLeft' && key !== 'ArrowRight') {
+          event.preventDefault();
+        }
+      });
+    
+      inputDate.addEventListener('input', () => {
+        let dateValue = inputDate.value.replace(/[^\d]/g, ''); // Удаляем все символы, кроме цифр
+        if (dateValue.length === 8) { // Проверяем, что введено 8 цифр (ддммгггг)
+          const day = dateValue.slice(0, 2);
+          const month = dateValue.slice(2, 4);
+          const year = dateValue.slice(4, 8);
+    
+          const formattedDate = `${day}.${month}.${year}`;
+          inputDate.value = formattedDate;
+        }
+      });
+    }
+  }

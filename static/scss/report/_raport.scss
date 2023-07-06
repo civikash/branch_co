@@ -6,8 +6,12 @@ thead {
     display: flex;
 }
 
+.input-width-2 {
+  width: 90px;
+}
+
 .raport__body {
-    padding: 34px;
+    padding: 11px;
     width: 100%;
     background-color: $white;
     display: flex;
@@ -57,7 +61,7 @@ thead {
 
         .td-description {
             font-weight: 600;
-            font-size: 15px;
+            font-size: 11px;
         }
         
         .w-1 {
@@ -105,7 +109,7 @@ thead {
 
       .left__marg {
         margin-left: auto;
-        font-size: 13px;
+        font-size: 11px;
       }
 
       &-row {
@@ -121,6 +125,7 @@ thead {
 
     .raport__information {
       display: flex;
+      font-size: 11px;
       flex-direction: column;
 
       span {
@@ -202,7 +207,7 @@ thead {
   }
 }
   thead th {
-    padding: 10px;
+    padding: 5px;
     border: 1px solid $dark;
   }
   
@@ -223,7 +228,7 @@ thead {
 tr {
     td {
       padding: 10px;
-      font-size: 14px;
+      font-size: 11px;
       text-align: center;
       border: 1px solid $dark;
 
