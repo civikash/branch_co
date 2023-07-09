@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from account.models import User
 from django.contrib import messages
 from django.shortcuts import get_object_or_404
+from django.core.exceptions import PermissionDenied
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.hashers import make_password
 import re
@@ -13,6 +14,12 @@ class UserDetailView(LoginRequiredMixin, UserPassesTestMixin, View):
 
     def test_func(self):
         return self.request.user.is_superuser
+    
+    def dispatch(self, request, *args, **kwargs):
+        response = super().dispatch(request, *args, **kwargs)
+        if not request.user.is_superuser:
+            raise PermissionDenied
+        return response
 
     def get(self, request, id, *args, **kwargs):
         user = get_object_or_404(User, id=id)
@@ -34,6 +41,12 @@ class UserDetailView(LoginRequiredMixin, UserPassesTestMixin, View):
 class UsersView(View):
     template_name = 'account/users.html'
 
+    def dispatch(self, request, *args, **kwargs):
+        response = super().dispatch(request, *args, **kwargs)
+        if not request.user.is_superuser:
+            raise PermissionDenied
+        return response
+
     def get(self, request):
         users = User.objects.all()
         context = {
@@ -44,6 +57,12 @@ class UsersView(View):
 
 class AddUserView(View):
     template_name = 'account/users_add.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        response = super().dispatch(request, *args, **kwargs)
+        if not request.user.is_superuser:
+            raise PermissionDenied
+        return response
 
     def get(self, request):
         return render(request, self.template_name)
