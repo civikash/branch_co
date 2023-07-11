@@ -361,50 +361,53 @@ class ReportsAdds(View):
             try:
                 sec_inf_econ_op = SecondInfEconOp.objects.filter(company__users__username=request.user, code=marfa.code).first()
                 if sec_inf_econ_op is not None:
-                    sec_inf_econ_op.n_month = float(n_month_econ) if n_month_econ else None
-                    sec_inf_econ_op.n_year = float(n_year_econ) if n_year_econ else None
-                    sec_inf_econ_op.name = str(sec_name[i]) if sec_name[i] else None
-                    sec_inf_econ_op.n_beforeTotal = float(sec_before_totals[i]) if sec_before_totals[i] else None
-                    sec_inf_econ_op.n_beforeLunar = float(sec_before_lunar[i]) if sec_before_lunar[i] else None
-                    sec_inf_econ_op.n_total = float(sec_n_total[i]) if sec_n_total[i] else None
-                    sec_inf_econ_op.n_lunar = float(sec_n_lunar[i]) if sec_n_lunar[i] else None
-                    sec_inf_econ_op.n_beforeMarfa = float(sec_n_beforeMarfa[i]) if sec_n_beforeMarfa[i] else None
-                    sec_inf_econ_op.n_Marfa = float(sec_n_Marfa[i]) if sec_n_Marfa[i] else None
-                    sec_inf_econ_op.counter = counter_uid
-                    sec_inf_econ_op.save()
+                    if n_month_econ or n_year_econ or sec_name[i] or sec_before_totals[i] or sec_before_lunar[i] or sec_n_total[i] or sec_n_lunar[i] or sec_n_beforeMarfa[i] or sec_n_Marfa[i]:
+                        sec_inf_econ_op.n_month = float(n_month_econ) if n_month_econ else None
+                        sec_inf_econ_op.n_year = float(n_year_econ) if n_year_econ else None
+                        sec_inf_econ_op.name = str(sec_name[i]) if sec_name[i] else None
+                        sec_inf_econ_op.n_beforeTotal = float(sec_before_totals[i]) if sec_before_totals[i] else None
+                        sec_inf_econ_op.n_beforeLunar = float(sec_before_lunar[i]) if sec_before_lunar[i] else None
+                        sec_inf_econ_op.n_total = float(sec_n_total[i]) if sec_n_total[i] else None
+                        sec_inf_econ_op.n_lunar = float(sec_n_lunar[i]) if sec_n_lunar[i] else None
+                        sec_inf_econ_op.n_beforeMarfa = float(sec_n_beforeMarfa[i]) if sec_n_beforeMarfa[i] else None
+                        sec_inf_econ_op.n_Marfa = float(sec_n_Marfa[i]) if sec_n_Marfa[i] else None
+                        sec_inf_econ_op.counter = counter_uid
+                        sec_inf_econ_op.save()
                      # увеличиваем счетчик на 1 при успешном сохранении объекта
             except SecondInfEconOp.MultipleObjectsReturned as e:
                 # если объектов несколько, нужно выбрать один для изменения
                 sec_inf_econ_op = SecondInfEconOp.objects.filter(company__users__username=request.user, code=marfa.code).first()
                 if sec_inf_econ_op is not None:
-                    sec_inf_econ_op.n_month = float(n_month_econ) if n_month_econ else None
-                    sec_inf_econ_op.name = str(sec_name[i]) if sec_name[i] else None
-                    sec_inf_econ_op.n_beforeTotal = float(sec_before_totals[i]) if sec_before_totals[i] else None
-                    sec_inf_econ_op.n_beforeLunar = float(sec_before_lunar[i]) if sec_before_lunar[i] else None
-                    sec_inf_econ_op.n_total = float(sec_n_total[i]) if sec_n_total[i] else None
-                    sec_inf_econ_op.n_lunar = float(sec_n_lunar[i]) if sec_n_lunar[i] else None
-                    sec_inf_econ_op.n_beforeMarfa = float(sec_n_beforeMarfa[i]) if sec_n_beforeMarfa[i] else None
-                    sec_inf_econ_op.n_Marfa = float(sec_n_Marfa[i]) if sec_n_Marfa[i] else None
-                    sec_inf_econ_op.save()
-                    sec_inf_econ_op.counter = counter_uid
-                    sec_inf_econ_op.save() 
+                    if n_month_econ or n_year_econ or sec_name[i] or sec_before_totals[i] or sec_before_lunar[i] or sec_n_total[i] or sec_n_lunar[i] or sec_n_beforeMarfa[i] or sec_n_Marfa[i]:
+                        sec_inf_econ_op.n_month = float(n_month_econ) if n_month_econ else None
+                        sec_inf_econ_op.n_year = float(n_year_econ) if n_year_econ else None
+                        sec_inf_econ_op.name = str(sec_name[i]) if sec_name[i] else None
+                        sec_inf_econ_op.n_beforeTotal = float(sec_before_totals[i]) if sec_before_totals[i] else None
+                        sec_inf_econ_op.n_beforeLunar = float(sec_before_lunar[i]) if sec_before_lunar[i] else None
+                        sec_inf_econ_op.n_total = float(sec_n_total[i]) if sec_n_total[i] else None
+                        sec_inf_econ_op.n_lunar = float(sec_n_lunar[i]) if sec_n_lunar[i] else None
+                        sec_inf_econ_op.n_beforeMarfa = float(sec_n_beforeMarfa[i]) if sec_n_beforeMarfa[i] else None
+                        sec_inf_econ_op.n_Marfa = float(sec_n_Marfa[i]) if sec_n_Marfa[i] else None
+                        sec_inf_econ_op.counter = counter_uid
+                        sec_inf_econ_op.save()
             except Exception as e:
                 print(f"Error while saving InfEconOp object with id {i+1}: {e}")
         try:
             for i in range(len(new_sec_names)):
                     new_sec_inf_econ_op = SecondInfEconOp.objects.create(company=request.user.company)
-                    new_sec_inf_econ_op.n_year = float(n_year_econ) if n_year_econ else None
-                    new_sec_inf_econ_op.name = str(new_sec_names[i]) if new_sec_names[i] else None
-                    new_sec_inf_econ_op.n_beforeTotal = float(new_sec_before_totals[i]) if new_sec_before_totals[i] else None
-                    new_sec_inf_econ_op.n_beforeLunar = float(new_sec_before_lunars[i]) if new_sec_before_lunars[i] else None
-                    new_sec_inf_econ_op.n_total = float(new_sec_n_totals[i]) if new_sec_n_totals[i] else None
-                    new_sec_inf_econ_op.n_lunar = float(new_sec_n_lunars[i]) if new_sec_n_lunars[i] else None
-                    new_sec_inf_econ_op.n_beforeMarfa = float(new_sec_n_beforeMarfas[i]) if new_sec_n_beforeMarfas[i] else None
-                    new_sec_inf_econ_op.n_Marfa = float(new_sec_n_Marfas[i]) if new_sec_n_Marfas[i] else None
-                    new_sec_inf_econ_op.save()
-                    new_sec_inf_econ_op.counter = counter_uid
-                    new_sec_inf_econ_op.save()
-                    print(new_sec_inf_econ_op)
+                    if new_sec_inf_econ_op is not None:
+                        if n_year_econ or new_sec_names[i] or new_sec_before_totals[i] or new_sec_before_lunars[i] or new_sec_n_totals[i] or new_sec_n_lunars[i] or new_sec_n_beforeMarfas[i] or new_sec_n_Marfas[i]:
+                            new_sec_inf_econ_op.n_year = float(n_year_econ) if n_year_econ else None
+                            new_sec_inf_econ_op.name = str(new_sec_names[i]) if new_sec_names[i] else None
+                            new_sec_inf_econ_op.n_beforeTotal = float(new_sec_before_totals[i]) if new_sec_before_totals[i] else None
+                            new_sec_inf_econ_op.n_beforeLunar = float(new_sec_before_lunars[i]) if new_sec_before_lunars[i] else None
+                            new_sec_inf_econ_op.n_total = float(new_sec_n_totals[i]) if new_sec_n_totals[i] else None
+                            new_sec_inf_econ_op.n_lunar = float(new_sec_n_lunars[i]) if new_sec_n_lunars[i] else None
+                            new_sec_inf_econ_op.n_beforeMarfa = float(new_sec_n_beforeMarfas[i]) if new_sec_n_beforeMarfas[i] else None
+                            new_sec_inf_econ_op.n_Marfa = float(new_sec_n_Marfas[i]) if new_sec_n_Marfas[i] else None
+                            new_sec_inf_econ_op.counter = counter_uid
+                            new_sec_inf_econ_op.save()
+                            print(new_sec_inf_econ_op)
         except Exception as e:
             print(f"Error while creating new SecondInfEconOp object: {e}")
             raise

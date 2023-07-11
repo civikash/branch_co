@@ -154,14 +154,16 @@
                 {% if request.user.is_superuser %}
                 {{ row.code_rind|floatformat:"1"|stringreplace }}
                 {% else %}
-                <input class="w-full tb-input" type="text" step="any" name="code_rind_1_{{ row.code }}" value="{{ row.code_rind|floatformat:"1"|stringreplace }}" id="code_rind_{{ row.code }}">
+                {{ row.code_rind|floatformat:"1"|stringreplace }}
+                <input class="w-full tb-input" type="hidden" step="any" name="code_rind_1_{{ row.code }}" value=" {{ row.code_rind|floatformat:"1"|stringreplace }}" id="code_rind_1_{{ row.code }}">
                 {% endif %}
             </td>
                 <td class="txt-l">
                     {% if request.user.is_superuser %}
                     {{ row.indicatori|default:"" }}
                     {% else %}
-                <input class="w-full tb-input" type="text" step="any" name="indicatorii_2_{{ row.code }}" value="{{ row.indicatori|default:"" }}" id="indicatorii_2_{{ row.code }}">
+                    {{ row.indicatori|default:"" }}
+                    <input class="w-full tb-input" type="hidden" step="any" name="indicatorii_2_{{ row.code }}" value="{{ row.indicatori|default:"" }}" id="indicatorii_2_{{ row.code }}">
                     {% endif %}
             </td>
             <td class="txt-c">
