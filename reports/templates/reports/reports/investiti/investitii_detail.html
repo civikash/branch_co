@@ -115,16 +115,14 @@
                 {% if request.user.is_superuser %}
                 {{ row.intrari|floatformat:"1"|stringreplace }}
                 {% else %}
-                {{ row.intrari|floatformat:"1"|stringreplace }}
-                <input class="w-full tb-input" type="hidden" step="any" name="intrari_{{ row.code }}" value="{{ row.intrari|floatformat:"1"|stringreplace }}" id="intrari_{{ row.code }}">
+                <input class="w-full tb-input" type="text" step="any" name="intrari_{{ row.code }}" value="{{ row.intrari|floatformat:"1"|stringreplace }}" id="intrari_{{ row.code }}">
                 {% endif %}
             </td>
             <td class="txt-c">
                 {% if request.user.is_superuser %}
                 {{ row.investitii|floatformat:"1"|stringreplace }}
                 {% else %}
-                {{ row.investitii|floatformat:"1"|stringreplace }}
-                <input class="w-full tb-input" type="hidden" step="any" name="investitii_{{ row.code }}" value="{{ row.investitii|floatformat:"1"|stringreplace }}" id="investitii_{{ row.code }}">
+                <input class="w-full tb-input" type="text" step="any" name="investitii_{{ row.code }}" value="{{ row.investitii|floatformat:"1"|stringreplace }}" id="investitii_{{ row.code }}">
                 {% endif %}
             </td>
         </tr>
