@@ -10,7 +10,7 @@ from django.utils.decorators import method_decorator
 
 
 class ReportsAdds(View):
-    template_name = 'reports/reports/informatie_client.html'
+    template_name = 'reports/reports/economica/informatie_client.html'
     user = None
 
 

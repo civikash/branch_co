@@ -7,7 +7,7 @@ from reports.models import InfEconOp, ManagerInfEconOp
 
 
 class InfEconOpCreateView(View):
-    template_name = 'reports/reports/economica.html'
+    template_name = 'reports/reports/economica/economica.html'
 
     def dispatch(self, request, *args, **kwargs):
         rows = InfEconOp.objects.filter(
