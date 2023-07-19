@@ -1992,12 +1992,8 @@ class BalantaDetail(View):
         #ITEMS - 1 -- POST
         data_1 = request.POST.get('data_1')
 
-        try:
-            if data_1:
-                date_obj = datetime.strptime(data_1, "%d.%m.%Y")
-                formatted_date = date_obj.strftime("%Y-%m-%d")
-        except:
-            messages.error(self.request, f'Неправильный формат даты! {data_1}')
+        date_obj = data_1
+        formatted_date = date_obj
 
         indicatori_1 = [request.POST.get(f'indicatori_1_{row.code}', None) for row in rows]
         code_rind_1 = [request.POST.get(f'code_rind_1_{row.code}', None) for row in rows]
@@ -2008,19 +2004,11 @@ class BalantaDetail(View):
         data_2 = request.POST.get('data_2')
         data_2_1 = request.POST.get('data_3')
 
-        try:
-            if data_2:
-                date_obj_2 = datetime.strptime(data_2, "%d.%m.%Y")
-                formatted_date_2 = date_obj_2.strftime("%Y-%m-%d")
-        except:
-            messages.error(self.request, f'Неправильный формат даты! {data_2}')
+        date_obj_2 = data_2
+        formatted_date_2 = date_obj_2
            
-        try:
-            if data_2_1:
-                date_obj_2_1 = datetime.strptime(data_2_1, "%d.%m.%Y")
-                formatted_date_2_1 = date_obj_2_1.strftime("%Y-%m-%d")
-        except:
-            messages.error(self.request, f'Неправильный формат даты! {data_2_1}')
+        date_obj_2_1 = data_2_1
+        formatted_date_2_1 = date_obj_2_1
 
         indicatori_2 = [request.POST.get(f'indicatori_2_{row.code}', None) for row in items_1]
         code_rind_2 = [request.POST.get(f'code_rind_2_{row.code}', None) for row in items_1]
@@ -2031,19 +2019,11 @@ class BalantaDetail(View):
         data_3 = request.POST.get('data_4')
         data_3_1 = request.POST.get('data_5')
 
-        try:
-            if data_3:
-                date_obj_3 = datetime.strptime(data_3, "%d.%m.%Y")
-                formatted_date_3 = date_obj_3.strftime("%Y-%m-%d")
-        except:
-            messages.error(self.request, f'Неправильный формат даты! {data_3}')
+        date_obj_3 = data_3
+        formatted_date_3 = date_obj_3
 
-        try:
-            if data_3_1:
-                date_obj_3_1 = datetime.strptime(data_3_1, "%d.%m.%Y")
-                formatted_date_3_1 = date_obj_3_1.strftime("%Y-%m-%d")
-        except:
-            messages.error(self.request, f'Неправильный формат даты! {data_3_1}')
+        date_obj_3_1 = data_3_1
+        formatted_date_3_1 = date_obj_3_1
 
         indicatori_3 = [request.POST.get(f'indicatori_3_{row.code}', None) for row in items_2]
         code_rind_3 = [request.POST.get(f'code_rind_3_{row.code}', None) for row in items_2]
@@ -2056,19 +2036,12 @@ class BalantaDetail(View):
         data_4 = request.POST.get('data_6')
         data_4_1 = request.POST.get('data_7')
 
-        try:
-            if data_4:
-                date_obj_4 = datetime.strptime(data_4, "%d.%m.%Y")
-                formatted_date_4 = date_obj_4.strftime("%Y-%m-%d")
-        except:
-            messages.error(self.request, f'Неправильный формат даты! {data_4}')
+        date_obj_4 = data_4
+        formatted_date_4 = date_obj_4
+        # messages.error(self.request, f'Неправильный формат даты! {data_4}')
 
-        try:
-            if data_4_1:
-                date_obj_4_1 = datetime.strptime(data_4_1, "%d.%m.%Y")
-                formatted_date_4_1 = date_obj_4_1.strftime("%Y-%m-%d")
-        except:
-            messages.error(self.request, f'Неправильный формат даты! {data_4_1}')
+        date_obj_4_1 = data_4_1
+        formatted_date_4_1 = date_obj_4_1
 
         indicatori_4 = [request.POST.get(f'indicatori_4_{row.code}', None) for row in items_3]
         code_rind_4 = [request.POST.get(f'code_rind_4_{row.code}', None) for row in items_3]
