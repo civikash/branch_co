@@ -83,6 +83,17 @@ thead {
         .gray-td {
           background-color: #DDDDDD;
         }
+
+        .raport-tr {
+          th {
+            padding: 21px;
+            font-weight: 400;
+          }
+        }
+
+        td {
+          padding: 9px;
+        }
     }
 
     h1 {
@@ -151,6 +162,50 @@ thead {
         border: 1px solid $dark;
       }
 
+    }
+
+    .title_raport {
+      &-right {
+        margin-left: auto;
+        margin-right: 185px;
+        width: 290px;
+        font-size: 14px;
+        font-weight: 600;
+
+        .text-center {
+          text-align: center;
+        }
+
+        &-margin-xs {
+          width: 250px;
+          margin-right: 130px;
+          font-weight: 600;
+          margin-left: auto;
+        }
+
+        .font-s {
+          font-weight: 400;
+        }
+
+      }
+      &-center {
+        width: 100%;
+        display: flex;
+        text-align: center;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+
+        .font-b {
+          font-weight: 600;
+        }
+      }
+    }
+
+    .raport_header {
+      width: 60%;
+      display: flex;
+      flex-direction: column;
     }
 }
 
@@ -242,4 +297,17 @@ tr {
 .left_vert {
     text-align: center;
 }
-  
+
+
+.raport-asize {
+  width: 55%;
+}
+
+.raport_footer {
+  margin-top: 35px;
+  width: 150px;
+  display: flex;
+  margin-left: 410px;
+  flex-direction: column;
+  margin-right: auto;
+}

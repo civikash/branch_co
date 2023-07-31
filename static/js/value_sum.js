@@ -1,4 +1,7 @@
+var next_auto_increment_value = 0;
 window.addEventListener('load', function () {
+
+
   var column1Sum = 0;
   var column2Sum = 0;
   var column3Sum = 0;
@@ -8,6 +11,8 @@ window.addEventListener('load', function () {
   var column3Inputs = document.querySelectorAll('input[name^="sup_total_"]');
 
   updateSums();
+  var lastAutoIncrementedValue = 1;
+  var next_auto_increment_value = 1;
 
   function updateSums() {
     column1Sum = 0;
@@ -63,9 +68,63 @@ window.addEventListener('load', function () {
     document.getElementById('total_1').textContent = column1Sum;
     document.getElementById('total_2').textContent = column2Sum;
     document.getElementById('total_3').textContent = column3Sum;
+    var autoIncrementCell = document.querySelector('.auto-increment-cell');
+    
+    if (autoIncrementCell) {
+      lastAutoIncrementedValue++;
+      autoIncrementCell.textContent = lastAutoIncrementedValue;
+    }
+
+    return lastAutoIncrementedValue;
   }
 
-  // Обработчики событий для изменения значений в существующих input-элементах
+  function addNewRow() {
+    // Get the template row
+    var templateRow = document.getElementById('newRtemplate');
+  
+    // Clone the template row
+    var newRow = templateRow.cloneNode(true);
+  
+    // Remove the 'id' attribute from the cloned row to prevent duplicate IDs in the DOM
+    newRow.removeAttribute('id');
+  
+    // Update the auto-incremented value
+    var autoIncrementCell = newRow.querySelector('.auto-increment-cell');
+    if (autoIncrementCell) {
+      next_auto_increment_value++; // Increment before adding the new row
+      var newCodulRindInput = document.createElement('input');
+      newCodulRindInput.type = 'text';
+      newCodulRindInput.className = 'tb-input w-full';
+      newCodulRindInput.step = 'any';
+      newCodulRindInput.name = 'new_codul_rind_';
+      newCodulRindInput.value = next_auto_increment_value;
+  
+      // Remove the existing content from the auto-increment-cell
+      autoIncrementCell.innerHTML = '';
+  
+      // Append the new input element to the auto-increment-cell
+      autoIncrementCell.appendChild(newCodulRindInput);
+    }
+  
+    // Set the display property of the cloned row to an empty string to make it visible
+    newRow.style.display = '';
+  
+    // Append the new row to the table
+    var tableBody = document.getElementById('tableBody'); // Replace 'tableBody' with the actual ID of the table body
+    if (tableBody) {
+      tableBody.appendChild(newRow);
+    }
+  
+    updateSums();
+  }
+  
+  
+  
+  
+  
+
+  lastAutoIncrementedValue = updateSums();
+
   for (var i = 0; i < column1Inputs.length; i++) {
     column1Inputs[i].addEventListener('input', updateSums);
   }
@@ -78,7 +137,6 @@ window.addEventListener('load', function () {
     column3Inputs[i].addEventListener('input', updateSums);
   }
 
-  // Обработчики событий для новых input-элементов
   document.addEventListener('input', function (event) {
     var target = event.target;
     if (
@@ -90,13 +148,19 @@ window.addEventListener('load', function () {
     }
   });
 
-  // Обработчик события для элементов с классом "txt-c delete-icon-invest"
   var deleteIcons = document.querySelectorAll('.txt-c.delete-icon-invest');
   for (var i = 0; i < deleteIcons.length; i++) {
     deleteIcons[i].addEventListener('click', function (event) {
       var code = this.getAttribute('data-code');
-      console.log("Clicked on element with code:", code);
-      updateSums(); // Обновляем суммы
+      console.log(":", code);
+      updateSums();
+    });
+  }
+
+  var addButton = document.getElementById('add-row-button'); // Replace 'add-row-button' with the actual ID of your button
+  if (addButton) {
+    addButton.addEventListener('click', function (event) {
+      addNewRow();
     });
   }
 });

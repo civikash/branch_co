@@ -100,7 +100,7 @@
                 {{ row.codul_rind|floatformat:"1"|stringreplace }}
                 {% else %}
                 {{ row.codul_rind|floatformat:"1"|stringreplace }}
-                <input class="w-full tb-input" type="hidden" step="any" name="s_codul_rind_{{ row.code }}" value="{{ row.codul_rind|floatformat:"1"|stringreplace }}" id="s_codul_rind_{{ row.code }}">
+                {% comment %} <input class="w-full tb-input" type="hidden" step="any" name="s_codul_rind_{{ row.code }}" value="{{ row.codul_rind|floatformat:"1"|stringreplace }}" id="s_codul_rind_{{ row.code }}"> {% endcomment %}
                 {% endif %}
             </td>
             <td class="txt-c" rowspan="{{ row.rowspan }}">
@@ -139,10 +139,10 @@
 <div class="raport__title-row save">
     {% if request.user.is_superuser %}
     {% else %}
-<button class="button blue__outline" type="button" onclick="addRow()">Добавить строку</button>
+<button class="button blue__outline" id="add-row-button" type="button" onclick="addNewRow()">Добавить строку</button>
 {% endif %}
 </div>
-<table cellspacing="0" cellpadding="5" border="1" id="tableReports">
+<table cellspacing="0" cellpadding="5" border="1" id="tableReportsDetail">
     <thead>
         <tr>
             <th rowspan="2">№d</th>
@@ -167,7 +167,7 @@
             <th></th>
         </tr>
     </thead>
-    <tbody>
+    <tbody id="tableBody">
         <tr>
             <td class="txt-c">1</td>
             <td class="txt-c">X</td>
@@ -184,11 +184,11 @@
         </tr>
         {% for row in invest_s_2_rows %}
         <tr>
-            <td class="txt-c row">
+            <td class="txt-c row auto-increment-cell">
                 {% if request.user.is_superuser %}
                 {{ row.codul_rind|floatformat:"1"|stringreplace }}
                 {% else %}
-                <input class="w-full tb-input" type="text" step="any" name="codul_rind_{{ row.code }}" value="{{ row.codul_rind|floatformat:"1"|stringreplace }}" id="codul_rind_{{ row.code }}">
+                {% comment %} <input class="tb-input w-full" type="text" step="any" name="new_codul_rind_"> {% endcomment %}
             {% endif %}
             </td>
             <td class="txt-c row">
@@ -234,11 +234,11 @@
             {% endif %}
         </tr>
     {% endfor %}
-    <tr id="new-row-template" style="display: none;">
-        <td class="txt-c">
+    <tr id="newRtemplate" style="display: none;">
+        <td class="txt-c auto-increment-cell">
             {% if request.user.is_superuser %}
             {% else %}
-            <input class="tb-input w-full" type="text" value="" step="any" name="new_codul_rind_">
+            <input class="tb-input w-full " type="text" step="any" value="{{ next_auto_increment_value }}" name="new_codul_rind_">
             {% endif %}
         </td>
         <td class="txt-c">

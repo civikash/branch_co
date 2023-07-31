@@ -2,29 +2,39 @@
 {% load custom_filters %}
 {% block privind_detail %}
 <section class="raport__body">
-    <div class="header-table">
-        <span>Pentru uz intern
-        </span>
+    <div class="header-table raport_header">
         <form method="POST" class="flex column gap-1">
             {% csrf_token %}
-            </div>
-    <span>		Anexă nr. 3
-
-        APROBAT:
-prin hotărîrea Biroului Executiv Moldcoop
-    din 26.12.1994, pr.-v. nr. 11
+	
+        <span class="title_raport-right-margin-xs">
+        Anexă nr. 3
+        </span>
+        <span class="title_raport-right text-center">
+        APROBAT:<br>
+<span class="font-s">prin hotărîrea Biroului Executiv Moldcoop
+    din 26.12.1994, pr.-v. nr. 11</span><br>
     Formularul 6-coop
-
+        </span>
+<div class="title_raport-center">
+    <span class="font-b">
 RAPORT
-privind mișcarea numărului de membri cooperatori și a părților sociale la situațiea de la 31.12.2023
+    </span>
+    <span>
+privind mișcarea numărului de membri cooperatori și a părților sociale la situațiea de la 31.12.2023 <br>
 a ________________________________
+    </span>
+</div>
+<div class="title_raport-center">
+    <span class="font-b">
 ОТЧЕТ
-о движение численности пайщиков и паевого фонда по состоянию на 31.12.2023
+    </span>
+о движение численности пайщиков и паевого фонда по состоянию на 31.12.2023<br>
 по Потревительскому кооперативу__________________________________________________
-</span>
-    <table cellspacing="0" cellpadding="5" border="1">
+</div>
+</div>
+    <table cellspacing="0" cellpadding="5" border="1" class="raport-asize">
         <thead>
-            <tr>
+            <tr class="raport-tr">
                 <th rowspan="0">Nr. d/o № п/п</th>
                 <th rowspan="0">Descrierea<br>Наименование показателей</th>
                 <th rowspan="2">Asociați
@@ -63,14 +73,26 @@ a ________________________________
         <button class="button blue" type="submit">Сохранить</button>
                 {% endif %}
         </tbody>
+        
     </table>
-    <h1>				Anexă nr. 4
+    <div class="raport_footer">
+        <span>Președinte</span>
+        <span>Contabil-șef</span>
+    </div>
+    <div class="header-table raport_header">				
+        <span class="title_raport-right-margin-xs">
+        Anexă nr. 4<br>
         Formularul nr. 11-integritate
-
+        </span>
+        <span class="title_raport-center text-center">
+            <span class="font-b">
 RAPORT
-despre integritatea patrimoniului cooperatist
-</h1>
-<table cellspacing="0" cellpadding="5" border="1">
+            </span>
+despre integritatea patrimoniului cooperatist <br>
+________________________________________________________________
+        </span>
+</div>
+<table cellspacing="0" cellpadding="5" border="1" class="raport-asize">
     <thead>
         <tr>
             <th>Nr. d/o № п/п</th>
@@ -113,13 +135,19 @@ despre integritatea patrimoniului cooperatist
     {% else %}
         {% endif %}
     </tbody>
-</table>    Anexă nr. 2
-
+</table>   
+<div class="header-table raport_header">	
+    <span class="title_raport-right-margin-xs">
+ Anexă nr. 2
+    </span>
+    <span class="title_raport-center text-center">
+        <span class="font-b">
 Nota informativa
+        </span>
  privind decontările cu bugetul public national
-
-</h1>
-<table cellspacing="0" cellpadding="5" border="1">
+    </span>
+</div>
+<table cellspacing="0" cellpadding="5" border="1" class="raport-asize">
 <thead>
     <tr>
         <th rowspan="0">Taxele și impozitele</th>
@@ -191,10 +219,20 @@ Nota informativa
 {% endif %}
 </tbody>
 </table>
-<span>ANALIZA
+<div class="raport_footer">
+    <span>Președinte</span>
+    <span>Contabil-șef</span>
+</div>
+<div class="header-table raport_header">	
+    <span class="title_raport-right-margin-xs">
+        Anexă nr. 1
+        </span>	
+        <span class="title_raport-center text-center">
+            <span class="font-b">ANALIZA
 </span>
 <span>situatiei economico-financiare a ____________________  pentru  anul 2023</span>
-<table cellspacing="0" cellpadding="5" border="1">
+</div>
+<table cellspacing="0" cellpadding="5" border="1" class="raport-asize">
     <thead>
         <tr>
             <th rowspan="0">Nr. crt.</th>
@@ -242,6 +280,10 @@ Nota informativa
         {% endif %}
     </tbody>
 </table>
+<div class="raport_footer">
+    <span>Președinte</span>
+    <span>Contabil-șef</span>
+</div>
 </form>
 </section>
 {% endblock privind_detail %}
